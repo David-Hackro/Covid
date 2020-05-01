@@ -1,3 +1,4 @@
 rootProject.name='Covid'
 include ':app'
 include ':stats'
+include ':network'
