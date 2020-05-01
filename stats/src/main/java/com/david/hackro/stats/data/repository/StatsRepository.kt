@@ -22,5 +22,4 @@ interface StatsRepository {
     ) : Either<Failure, ReportList>
 
     suspend fun getProvinces(iso: String): Either<Failure, Provinces>
-
 }

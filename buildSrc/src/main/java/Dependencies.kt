@@ -3,6 +3,7 @@ object Versions {
 
     const val appcompat = "1.1.0"
     const val core = "1.2.0"
+    const val lifecycle = "2.2.0"
 
     const val retrofit = "2.6.0"
     const val loggingInterceptor = "3.12.0"
@@ -18,6 +19,10 @@ object Kotlin {
 object AndroidX {
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val core = "androidx.core:core-ktx:${Versions.core}"
+    const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+    const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
+    const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
+    const val lifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
 }
 
 object Square {
