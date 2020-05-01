@@ -14,9 +14,14 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
+
+        buildConfigField "String", "END_POINT_REGIONS", '"region"'
     }
 
     buildTypes {
+        debug {
+
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -26,6 +31,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(Modules.androidExt)
+    implementation project(Modules.domain)
 
     implementation Kotlin.kotlinStandard
 
