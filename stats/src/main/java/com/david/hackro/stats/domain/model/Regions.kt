@@ -1,4 +1,4 @@
-package com.david.hackro.stats.domain
+package com.david.hackro.stats.domain.model
 
 import com.david.hackro.stats.data.datasource.remote.model.DataItem
 

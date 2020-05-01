@@ -1,6 +1,6 @@
 package com.david.hackro.stats.data.datasource.remote.model
 
-import com.david.hackro.stats.domain.TotalReport
+import com.david.hackro.stats.domain.model.TotalReport
 import com.squareup.moshi.Json
 
 data class TotalReportResponse(@field:Json(name = "data") val data: Data)
@@ -43,7 +43,7 @@ data class Data(
 
 fun TotalReportResponse.toDomain() = TotalReport(data = data.toDomain())
 
-private fun Data.toDomain() = com.david.hackro.stats.domain.Data(
+private fun Data.toDomain() = com.david.hackro.stats.domain.model.Data(
     date,
     confirmedDiff,
     activeDiff,

@@ -2,10 +2,10 @@ package com.david.hackro.stats.data.repository
 
 import com.david.hackro.domain.Either
 import com.david.hackro.domain.Failure
-import com.david.hackro.stats.domain.Provinces
-import com.david.hackro.stats.domain.Regions
-import com.david.hackro.stats.domain.ReportList
-import com.david.hackro.stats.domain.TotalReport
+import com.david.hackro.stats.domain.model.Provinces
+import com.david.hackro.stats.domain.model.Regions
+import com.david.hackro.stats.domain.model.ReportList
+import com.david.hackro.stats.domain.model.TotalReport
 
 interface StatsRepository {
     suspend fun getRegions(): Either<Failure, Regions>

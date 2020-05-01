@@ -1,7 +1,7 @@
 package com.david.hackro.stats.data.datasource.remote.model
 
-import com.david.hackro.stats.domain.DataItem
-import com.david.hackro.stats.domain.Regions
+import com.david.hackro.stats.domain.model.DataItem
+import com.david.hackro.stats.domain.model.Regions
 import com.squareup.moshi.Json
 
 data class RegionResponse(@field:Json(name = "data") val data: List<DataItem>)

@@ -1,6 +1,6 @@
 package com.david.hackro.stats.data.datasource.remote.model
 
-import com.david.hackro.stats.domain.Provinces
+import com.david.hackro.stats.domain.model.Provinces
 import com.squareup.moshi.Json
 
 data class ProvincesResponse(
@@ -31,4 +31,10 @@ data class DataItemProvinces(
 fun ProvincesResponse.toDomain() = Provinces(data = data.map { it.toDomain() })
 
 private fun DataItemProvinces.toDomain() =
-    com.david.hackro.stats.domain.DataItemProvinces(iso = iso, province = province, name = name, lat = lat, jsonMemberLong = jsonMemberLong)
+    com.david.hackro.stats.domain.model.DataItemProvinces(
+        iso = iso,
+        province = province,
+        name = name,
+        lat = lat,
+        jsonMemberLong = jsonMemberLong
+    )

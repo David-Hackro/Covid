@@ -1,4 +1,4 @@
-package com.david.hackro.stats.domain
+package com.david.hackro.stats.domain.model
 
 data class ReportList(
 

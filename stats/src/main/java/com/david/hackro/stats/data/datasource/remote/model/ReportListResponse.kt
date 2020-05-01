@@ -1,6 +1,6 @@
 package com.david.hackro.stats.data.datasource.remote.model
 
-import com.david.hackro.stats.domain.ReportList
+import com.david.hackro.stats.domain.model.ReportList
 import com.squareup.moshi.Json
 
 data class ReportListResponse(
@@ -105,7 +105,7 @@ data class CitiesItem(
 
 fun ReportListResponse.toDomain() = ReportList(data = data.map { it.toDomain() })
 
-private fun DataItemReportList.toDomain() = com.david.hackro.stats.domain.DataItemReportList(
+private fun DataItemReportList.toDomain() = com.david.hackro.stats.domain.model.DataItemReportList(
     date = date,
     confirmedDiff = confirmedDiff,
     activeDiff = activeDiff,
@@ -120,7 +120,7 @@ private fun DataItemReportList.toDomain() = com.david.hackro.stats.domain.DataIt
     deaths = deaths
 )
 
-private fun Region.toDomain() = com.david.hackro.stats.domain.Region(
+private fun Region.toDomain() = com.david.hackro.stats.domain.model.Region(
     iso = iso,
     province = province,
     cities = cities.map { it.toDomain() },
@@ -129,7 +129,7 @@ private fun Region.toDomain() = com.david.hackro.stats.domain.Region(
     jsonMemberLong = jsonMemberLong
 )
 
-private fun CitiesItem.toDomain() = com.david.hackro.stats.domain.CitiesItem(
+private fun CitiesItem.toDomain() = com.david.hackro.stats.domain.model.CitiesItem(
     date = date,
     confirmedDiff = confirmedDiff,
     deathsDiff = deathsDiff,
