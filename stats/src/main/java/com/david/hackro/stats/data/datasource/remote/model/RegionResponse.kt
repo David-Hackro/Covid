@@ -1,4 +1,4 @@
-package com.david.hackro.stats.data.datasource.remote
+package com.david.hackro.stats.data.datasource.remote.model
 
 import com.david.hackro.stats.domain.DataItem
 import com.david.hackro.stats.domain.Regions
@@ -13,4 +13,4 @@ data class DataItem(
 
 fun RegionResponse.toDomain() = Regions(data.map { it.toDomain() })
 
-fun DataItem.toDomain() = com.david.hackro.stats.data.datasource.remote.DataItem(iso = iso, name = name)
+fun DataItem.toDomain() = com.david.hackro.stats.data.datasource.remote.model.DataItem(iso = iso, name = name)

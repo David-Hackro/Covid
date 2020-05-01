@@ -4,7 +4,7 @@ import com.david.hackro.androidext.NetworkHandler
 import com.david.hackro.domain.Either
 import com.david.hackro.domain.Failure
 import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
-import com.david.hackro.stats.data.datasource.remote.toDomain
+import com.david.hackro.stats.data.datasource.remote.model.toDomain
 
 class StatsRepositoryImpl(
     private val networkHandler: NetworkHandler,
@@ -20,4 +20,13 @@ class StatsRepositoryImpl(
         } catch (ex: Exception) {
             Either.Left(Failure.GenericError(ex))
         }
+
+    override suspend fun getTotalReportByDate(date: String) = try {
+        when(networkHandler.isConnected) {
+            true -> { Either.Right(remoteDataSource.getTotalReportByDate(date = date).toDomain()) }
+            else -> Either.Left(Failure.NetworkConnection)
+        }
+    } catch (ex: Exception) {
+        Either.Left(Failure.GenericError(ex))
+    }
 }

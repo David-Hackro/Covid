@@ -16,6 +16,7 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
 
         buildConfigField "String", "END_POINT_REGIONS", '"region"'
+        buildConfigField "String", "END_POINT_REPORTS", '"reports"'
     }
 
     buildTypes {

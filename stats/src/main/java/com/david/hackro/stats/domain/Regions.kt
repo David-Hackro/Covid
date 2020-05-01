@@ -1,6 +1,6 @@
 package com.david.hackro.stats.domain
 
-import com.david.hackro.stats.data.datasource.remote.DataItem
+import com.david.hackro.stats.data.datasource.remote.model.DataItem
 
 data class Regions(val data: List<DataItem>)
 
