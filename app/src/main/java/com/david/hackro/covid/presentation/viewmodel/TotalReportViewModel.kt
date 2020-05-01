@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.hackro.covid.State
 import com.david.hackro.domain.Failure
-import com.david.hackro.kotlinext.getCurrentDateTime
-import com.david.hackro.kotlinext.toString
-import com.david.hackro.stats.domain.model.TotalReport
-import com.david.hackro.stats.domain.usecase.GetTotalReportByDateUseCase
+import com.david.hackro.domain.UseCase
+import com.david.hackro.stats.domain.model.Totals
+import com.david.hackro.stats.domain.usecase.GetLatestTotalsUseCase
 
-class TotalReportViewModel(private val getTotalReportByDateUseCase: GetTotalReportByDateUseCase) : ViewModel() {
+class TotalReportViewModel(private val getLatestTotalsUseCase: GetLatestTotalsUseCase) : ViewModel() {
 
     private val _stateTotalReport = MutableLiveData<State>()
     val stateTotalReport: LiveData<State>
@@ -20,11 +19,7 @@ class TotalReportViewModel(private val getTotalReportByDateUseCase: GetTotalRepo
     private fun getTotalReport() {
         _stateTotalReport.value = State.Loading
 
-        val date = getCurrentDateTime()
-
-        val params = GetTotalReportByDateUseCase.Params(date = date.toString(DATE_FORMAT))
-
-        getTotalReportByDateUseCase.invoke(viewModelScope, params) {
+        getLatestTotalsUseCase.invoke(viewModelScope, UseCase.None()) {
             it.either(::handleTotalReportFailure, ::handleTotalReportSuccess)
         }
     }
@@ -33,11 +28,7 @@ class TotalReportViewModel(private val getTotalReportByDateUseCase: GetTotalRepo
         _stateTotalReport.value = State.Failed(failure)
     }
 
-    private fun handleTotalReportSuccess(totalReport: TotalReport) {
-        _stateTotalReport.value = State.Success(totalReport)
-    }
-
-    private companion object {
-        const val DATE_FORMAT = "yyyy-MM-dd"
+    private fun handleTotalReportSuccess(totals: Totals) {
+        _stateTotalReport.value = State.Success(totals)
     }
 }

@@ -15,7 +15,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "BASE_URL", '"https://covid-api.com/api/"'
+        buildConfigField "String", "BASE_URL", '"https://covid19-api.com/"'
     }
 
     buildTypes {

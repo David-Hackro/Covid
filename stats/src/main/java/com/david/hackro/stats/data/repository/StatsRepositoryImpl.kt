@@ -11,58 +11,92 @@ class StatsRepositoryImpl(
     private val remoteDataSource: StatsRemoteDataSource
 ) : StatsRepository {
 
-    override suspend fun getRegions() = try {
+    override suspend fun getLatestCountryDataByName(name: String) = try {
         when (networkHandler.isConnected) {
-            true -> Either.Right(remoteDataSource.getRegions().toDomain())
+            true -> Either.Right(remoteDataSource.getLatestCountryDataByName(name = name).map { it.toDomain() })
             else -> Either.Left(Failure.NetworkConnection)
         }
     } catch (ex: Exception) {
         Either.Left(Failure.GenericError(ex))
     }
 
-    override suspend fun getTotalReportByDate(date: String) = try {
+    override suspend fun getLatestAllCountries() = try {
         when (networkHandler.isConnected) {
-            true -> {
-                Either.Right(remoteDataSource.getTotalReportByDate(date = date).toDomain())
-            }
+            true -> Either.Right(remoteDataSource.getLatestAllCountries().map { it.toDomain() })
             else -> Either.Left(Failure.NetworkConnection)
         }
     } catch (ex: Exception) {
         Either.Left(Failure.GenericError(ex))
     }
 
-    override suspend fun getReportsList(
-        date: String,
-        query: String,
-        iso: String,
-        regionName: String,
-        regionProvidence: String,
-        cityName: String
-    ) = try {
+    override suspend fun getLatestCountryDataByCode(code: String) = try {
         when (networkHandler.isConnected) {
-            true -> {
-                Either.Right(
-                    remoteDataSource.getReportsList(
-                        date = date,
-                        query = query,
-                        iso = iso,
-                        regionName = regionName,
-                        regionProvidence = regionProvidence,
-                        cityName = cityName
-                    ).toDomain()
-                )
-            }
+            true -> Either.Right(remoteDataSource.getLatestCountryDataByCode(code = code).map { it.toDomain() })
             else -> Either.Left(Failure.NetworkConnection)
         }
     } catch (ex: Exception) {
         Either.Left(Failure.GenericError(ex))
     }
 
-    override suspend fun getProvinces(iso: String) = try {
+    override suspend fun getDailyReportAllCountries(date: String) = try {
         when (networkHandler.isConnected) {
-            true -> {
-                Either.Right(remoteDataSource.getProvinces(iso = iso).toDomain())
-            }
+            true -> Either.Right(remoteDataSource.getDailyReportAllCountries(date = date).map { it.toDomain() })
+            else -> Either.Left(Failure.NetworkConnection)
+        }
+    } catch (ex: Exception) {
+        Either.Left(Failure.GenericError(ex))
+    }
+
+    override suspend fun getDailyReportByCountryCode(
+        code: String,
+        date: String) = try {
+        when (networkHandler.isConnected) {
+            true -> Either.Right(
+                remoteDataSource.getDailyReportByCountryCode(
+                    code = code,
+                    date = date
+                ).map { it.toDomain() })
+            else -> Either.Left(Failure.NetworkConnection)
+        }
+    } catch (ex: Exception) {
+        Either.Left(Failure.GenericError(ex))
+    }
+
+    override suspend fun getDailyReportByCountryName(
+        name: String,
+        date: String) = try {
+        when (networkHandler.isConnected) {
+            true -> Either.Right(
+                remoteDataSource.getDailyReportByCountryName(
+                    name = name,
+                    date = date).map { it.toDomain() })
+            else -> Either.Left(Failure.NetworkConnection)
+        }
+    } catch (ex: Exception) {
+        Either.Left(Failure.GenericError(ex))
+    }
+
+    override suspend fun getDailyReportTotals(date: String) = try {
+        when (networkHandler.isConnected) {
+            true -> Either.Right(remoteDataSource.getDailyReportTotals(date = date).map { it.toDomain() })
+            else -> Either.Left(Failure.NetworkConnection)
+        }
+    } catch (ex: Exception) {
+        Either.Left(Failure.GenericError(ex))
+    }
+
+    override suspend fun getListOfCountries() = try {
+        when (networkHandler.isConnected) {
+            true -> Either.Right(remoteDataSource.getListOfCountries().map { it.toDomain() })
+            else -> Either.Left(Failure.NetworkConnection)
+        }
+    } catch (ex: Exception) {
+        Either.Left(Failure.GenericError(ex))
+    }
+
+    override suspend fun getLatestTotals() = try {
+        when (networkHandler.isConnected) {
+            true -> Either.Right(remoteDataSource.getLatestTotals().toDomain())
             else -> Either.Left(Failure.NetworkConnection)
         }
     } catch (ex: Exception) {
