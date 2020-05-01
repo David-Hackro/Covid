@@ -3,16 +3,22 @@ package com.david.hackro.stats.data.datasource.remote
 class StatsApiConstants {
 
     object EndPointParams {
-        const val DATE = "date"
-        const val QUERY = "q"
-        const val ISO = "iso"
-        const val REGION_NAME = "region_name"
-        const val REGION_PROVIDENCE = "region_province"
-        const val CITY_NAME = "city_name"
+        const val QUERY_JSON_FORMAT = "json"
+        const val QUERY_JSON_FORMAT_VALUE = "json"
+        const val QUERY_NAME = "name"
+        const val QUERY_CODE = "code"
+        const val QUERY_DATE = "date"
+        const val QUERY_DATE_FORMAT = "date-format"
+        const val DATE_FORMAT = "yyyy-MM-dd"
     }
 
     object EndPointPaths {
-        const val TOTAL = "total"
-        const val ISO = "iso"
+        const val TOTALS = "totals"
+        const val ALL = "all"
+        const val COUNTRY = "country"
+        const val COUNTRIES = "countries"
+        const val CODE = "code"
+        const val NAME = "name"
+        const val HELP = "help"
     }
 }

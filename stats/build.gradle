@@ -15,9 +15,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
 
-        buildConfigField "String", "END_POINT_REGIONS", '"region"'
-        buildConfigField "String", "END_POINT_REPORTS", '"reports"'
-        buildConfigField "String", "END_POINT_PROVINCES", '"provinces"'
+        buildConfigField "String", "END_POINT_COUNTRY", '"country"'
+        buildConfigField "String", "END_POINT_REPORT", '"report"'
+        buildConfigField "String", "END_POINT_HELP", '"help"'
+        buildConfigField "String", "END_POINT_TOTALS", '"totals"'
     }
 
     buildTypes {

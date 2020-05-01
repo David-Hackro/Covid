@@ -2,24 +2,30 @@ package com.david.hackro.stats.data.repository
 
 import com.david.hackro.domain.Either
 import com.david.hackro.domain.Failure
-import com.david.hackro.stats.domain.model.Provinces
-import com.david.hackro.stats.domain.model.Regions
-import com.david.hackro.stats.domain.model.ReportList
-import com.david.hackro.stats.domain.model.TotalReport
+import com.david.hackro.stats.domain.model.Country
+import com.david.hackro.stats.domain.model.Help
+import com.david.hackro.stats.domain.model.Report
+import com.david.hackro.stats.domain.model.ReportByCountry
+import com.david.hackro.stats.domain.model.Totals
+import com.david.hackro.stats.domain.model.TotalsReport
 
 interface StatsRepository {
-    suspend fun getRegions(): Either<Failure, Regions>
 
-    suspend fun getTotalReportByDate(date: String): Either<Failure, TotalReport>
+    suspend fun getLatestCountryDataByName(name: String): Either<Failure, List<Country>>
 
-    suspend fun getReportsList(
-        date: String,
-        query: String,
-        iso: String,
-        regionName: String,
-        regionProvidence: String,
-        cityName: String
-    ) : Either<Failure, ReportList>
+    suspend fun getLatestAllCountries(): Either<Failure, List<Country>>
 
-    suspend fun getProvinces(iso: String): Either<Failure, Provinces>
+    suspend fun getLatestCountryDataByCode(code: String): Either<Failure, List<Country>>
+
+    suspend fun getDailyReportAllCountries(date: String): Either<Failure, List<Report>>
+
+    suspend fun getDailyReportByCountryCode(code: String, date: String): Either<Failure, List<ReportByCountry>>
+
+    suspend fun getDailyReportByCountryName(name: String, date: String): Either<Failure, List<ReportByCountry>>
+
+    suspend fun getDailyReportTotals(date: String): Either<Failure, List<TotalsReport>>
+
+    suspend fun getListOfCountries(): Either<Failure, List<Help>>
+
+    suspend fun getLatestTotals(): Either<Failure, Totals>
 }
