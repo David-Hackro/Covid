@@ -1,4 +1,4 @@
-package com.david.hackro.covid.presentation
+package com.david.hackro.covid.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
