@@ -17,6 +17,7 @@ android {
 
         buildConfigField "String", "END_POINT_REGIONS", '"region"'
         buildConfigField "String", "END_POINT_REPORTS", '"reports"'
+        buildConfigField "String", "END_POINT_PROVINCES", '"provinces"'
     }
 
     buildTypes {

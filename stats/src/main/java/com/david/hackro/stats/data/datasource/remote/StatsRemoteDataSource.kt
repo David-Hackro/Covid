@@ -20,4 +20,6 @@ class StatsRemoteDataSource(private val statsApi: StatsApi) {
         regionProvidence = regionProvidence,
         cityName = cityName
     )
+
+    suspend fun getProvinces(iso: String) = statsApi.getProvinces(iso = iso)
 }

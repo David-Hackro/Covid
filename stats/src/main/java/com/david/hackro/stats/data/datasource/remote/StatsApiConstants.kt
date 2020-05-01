@@ -13,5 +13,6 @@ class StatsApiConstants {
 
     object EndPointPaths {
         const val TOTAL = "total"
+        const val ISO = "iso"
     }
 }

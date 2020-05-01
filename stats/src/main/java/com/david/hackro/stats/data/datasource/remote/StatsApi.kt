@@ -1,5 +1,6 @@
 package com.david.hackro.stats.data.datasource.remote
 
+import com.david.hackro.stats.BuildConfig.END_POINT_PROVINCES
 import com.david.hackro.stats.BuildConfig.END_POINT_REGIONS
 import com.david.hackro.stats.BuildConfig.END_POINT_REPORTS
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointParams.CITY_NAME
@@ -9,6 +10,7 @@ import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointP
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointParams.REGION_NAME
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointParams.REGION_PROVIDENCE
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointPaths.TOTAL
+import com.david.hackro.stats.data.datasource.remote.model.ProvincesResponse
 import com.david.hackro.stats.data.datasource.remote.model.RegionResponse
 import com.david.hackro.stats.data.datasource.remote.model.ReportListResponse
 import com.david.hackro.stats.data.datasource.remote.model.TotalReportResponse
@@ -30,6 +32,9 @@ interface StatsApi {
         @Query(ISO) iso: String = "",
         @Query(REGION_NAME) regionName: String = "",
         @Query(REGION_PROVIDENCE) regionProvidence: String = "",
-        @Query(CITY_NAME) cityName: String  = ""
+        @Query(CITY_NAME) cityName: String = ""
     ): ReportListResponse
+
+    @GET(END_POINT_PROVINCES)
+    suspend fun getProvinces(@Path(ISO) iso: String): ProvincesResponse
 }
