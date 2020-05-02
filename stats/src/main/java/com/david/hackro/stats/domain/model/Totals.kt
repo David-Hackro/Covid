@@ -15,3 +15,5 @@ data class Totals(
 
 	val deaths: Int
 )
+
+fun Totals.toItemList() = listOf<Int>(confirmed, recovered, critical, deaths)

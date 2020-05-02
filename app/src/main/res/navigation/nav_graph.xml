@@ -10,6 +10,7 @@
         android:name="com.david.hackro.covid.presentation.fragment.TotalsFragment"
         android:label="fragment_totals"
         tools:layout="@layout/fragment_totals" />
+
     <fragment
         android:id="@+id/countriesFragment"
         android:name="com.david.hackro.covid.presentation.fragment.CountriesFragment"

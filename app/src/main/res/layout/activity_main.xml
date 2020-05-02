@@ -10,6 +10,7 @@
         android:id="@+id/bottomNav"
         android:layout_width="@dimen/empty_size"
         android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
         android:elevation="@dimen/dimen_10"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
