@@ -15,6 +15,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
 
+        //https://covid19-api.com/
+        buildConfigField "String", "BASE_URL", '"https://covid-19-data.p.rapidapi.com/"'
+
         buildConfigField "String", "END_POINT_COUNTRY", '"country"'
         buildConfigField "String", "END_POINT_REPORT", '"report"'
         buildConfigField "String", "END_POINT_HELP", '"help"'
@@ -37,6 +40,7 @@ dependencies {
 
     implementation project(Modules.androidExt)
     implementation project(Modules.domain)
+    implementation project(Modules.network)
 
     implementation Kotlin.kotlinStandard
 
@@ -47,6 +51,8 @@ dependencies {
     implementation Square.moshiConverter
     implementation Square.loggingInterceptor
     implementation Square.okhttp
+
+    implementation Koin.koinAndroid
 
     debugImplementation Chuck.chuck
     releaseImplementation Chuck.chuckLibraryNoOp

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">wordbox</string>
+
+    <string name="failure_network_connection">Cargando</string>
+    <string name="failure_unavailable">Cuál video tiene la palabra:</string>
+    <string name="failure_unavailable_unknown">Correcto</string>
+    <string name="button_video_incorrect">Incorrecto</string>
+
+</resources>

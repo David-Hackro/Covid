@@ -3,15 +3,21 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
     compileSdkVersion DefaultConfig.compileSdkVersion
     buildToolsVersion DefaultConfig.buildToolsVersion
+
+    def RAPI_API_KEY = project.hasProperty('rapi_api_key') ? "${rapi_api_key}" :
+            "$System.env.rapi_api_key"
 
     defaultConfig {
         minSdkVersion DefaultConfig.minSdkVersion
         targetSdkVersion DefaultConfig.targetSdkVersion
         versionCode Network.versionCode
         versionName Network.versionName
-        
+
+        buildConfigField "String", "RAPI_API_KEY", "\"${RAPI_API_KEY}\""
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }

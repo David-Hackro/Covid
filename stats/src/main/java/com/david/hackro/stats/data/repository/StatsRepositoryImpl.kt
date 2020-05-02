@@ -5,6 +5,7 @@ import com.david.hackro.domain.Either
 import com.david.hackro.domain.Failure
 import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
 import com.david.hackro.stats.data.datasource.remote.model.toDomain
+import com.david.hackro.stats.domain.model.Totals
 
 class StatsRepositoryImpl(
     private val networkHandler: NetworkHandler,
@@ -49,7 +50,8 @@ class StatsRepositoryImpl(
 
     override suspend fun getDailyReportByCountryCode(
         code: String,
-        date: String) = try {
+        date: String
+    ) = try {
         when (networkHandler.isConnected) {
             true -> Either.Right(
                 remoteDataSource.getDailyReportByCountryCode(
@@ -64,12 +66,14 @@ class StatsRepositoryImpl(
 
     override suspend fun getDailyReportByCountryName(
         name: String,
-        date: String) = try {
+        date: String
+    ) = try {
         when (networkHandler.isConnected) {
             true -> Either.Right(
                 remoteDataSource.getDailyReportByCountryName(
                     name = name,
-                    date = date).map { it.toDomain() })
+                    date = date
+                ).map { it.toDomain() })
             else -> Either.Left(Failure.NetworkConnection)
         }
     } catch (ex: Exception) {
@@ -94,9 +98,9 @@ class StatsRepositoryImpl(
         Either.Left(Failure.GenericError(ex))
     }
 
-    override suspend fun getLatestTotals() = try {
+    override suspend fun getLatestTotals(): Either<Failure, List<Totals>> = try {
         when (networkHandler.isConnected) {
-            true -> Either.Right(remoteDataSource.getLatestTotals().toDomain())
+            true -> Either.Right(remoteDataSource.getLatestTotals().map { it.toDomain() })
             else -> Either.Left(Failure.NetworkConnection)
         }
     } catch (ex: Exception) {

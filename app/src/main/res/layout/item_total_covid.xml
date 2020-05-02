@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/small_size"
+    android:background="@color/cardview_dark_background"
+    app:cardCornerRadius="@dimen/small_size">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cardview_dark_background">
+
+        <TextView
+            android:id="@+id/totalCases"
+            android:layout_width="@dimen/empty_size"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_size"
+            android:layout_marginTop="@dimen/small_size"
+            android:layout_marginEnd="@dimen/small_size"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_24"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.045"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="@dimen/empty_size"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_size"
+            android:layout_marginTop="@dimen/small_size"
+            android:layout_marginEnd="@dimen/small_size"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.048"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalCases"
+            tools:text="@string/app_name" />
+
+        <ProgressBar
+            android:id="@+id/colorBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="@dimen/empty_size"
+            android:layout_height="@dimen/micro_size"
+            android:layout_marginStart="@dimen/small_size"
+            android:layout_marginTop="@dimen/small_size"
+            android:layout_marginEnd="@dimen/small_size"
+            android:layout_marginBottom="@dimen/small_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
