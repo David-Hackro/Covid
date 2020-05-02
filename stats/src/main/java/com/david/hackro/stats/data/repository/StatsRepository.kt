@@ -27,5 +27,5 @@ interface StatsRepository {
 
     suspend fun getListOfCountries(): Either<Failure, List<Help>>
 
-    suspend fun getLatestTotals(): Either<Failure, Totals>
+    suspend fun getLatestTotals(): Either<Failure, List<Totals>>
 }

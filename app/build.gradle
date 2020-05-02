@@ -14,8 +14,6 @@ android {
         versionName App.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField "String", "BASE_URL", '"https://covid19-api.com/"'
     }
 
     buildTypes {
@@ -37,8 +35,19 @@ dependencies {
 
     implementation Kotlin.kotlinStandard
 
+    implementation AndroidX.navFragment
+    implementation AndroidX.navUI
     implementation AndroidX.lifecycle
     implementation AndroidX.lifecycleExtensions
+
+    implementation Google.material
+
+    implementation Koin.koinAndroid
+    implementation Koin.koinViewModel
+
+    implementation ThirdPartyLibrary.timber
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt AndroidX.lifecycleCompiler
 
     implementation 'androidx.appcompat:appcompat:1.1.0'

@@ -25,6 +25,8 @@ import com.david.hackro.stats.data.datasource.remote.model.ReportResponse
 import com.david.hackro.stats.data.datasource.remote.model.TotalsReportResponse
 import com.david.hackro.stats.data.datasource.remote.model.TotalsResponse
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -98,5 +100,5 @@ interface StatsApi {
     @GET(END_POINT_TOTALS)
     suspend fun getLatestTotals(
         @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
-    ): TotalsResponse
+    ): List<TotalsResponse>
 }

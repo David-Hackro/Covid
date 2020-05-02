@@ -1,6 +1,4 @@
-package com.david.hackro.covid
-
-import com.david.hackro.domain.Failure
+package com.david.hackro.domain
 
 sealed class State {
     object Loading : State()

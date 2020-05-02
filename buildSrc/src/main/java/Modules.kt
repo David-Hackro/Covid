@@ -4,4 +4,5 @@ object Modules {
     const val stats = ":stats"
     const val domain = ":domain"
     const val kotlinExt = ":kotlinext"
+    const val network = ":network"
 }
