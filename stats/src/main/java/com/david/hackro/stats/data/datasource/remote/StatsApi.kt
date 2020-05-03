@@ -52,7 +52,7 @@ interface StatsApi {
         @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
     ): List<CountryResponse>
 
-    @GET(END_POINT_REPORT)
+    @GET(END_POINT_REPORT+"{${COUNTRY}}/{${ALL}}")
     suspend fun getDailyReportAllCountries(
         @Path(COUNTRY) country: String = COUNTRY,
         @Path(ALL) all: String = ALL,

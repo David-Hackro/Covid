@@ -57,7 +57,12 @@ dependencies {
     implementation ThirdPartyLibrary.timber
     implementation ThirdPartyLibrary.androidChart
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt AndroidX.lifecycleCompiler
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    implementation 'com.google.maps.android:android-maps-utils:1.2.1'
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'

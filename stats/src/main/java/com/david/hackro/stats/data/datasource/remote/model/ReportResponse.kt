@@ -1,6 +1,7 @@
 package com.david.hackro.stats.data.datasource.remote.model
 
 import com.david.hackro.stats.domain.model.Report
+import com.david.hackro.stats.domain.model.Total
 import com.squareup.moshi.Json
 
 data class ReportResponse(
@@ -15,10 +16,10 @@ data class ReportResponse(
     val provinces: List<ProvincesItem>,
 
     @field:Json(name = "latitude")
-    val latitude: Double,
+    val latitude: Double?,
 
     @field:Json(name = "longitude")
-    val longitude: Double
+    val longitude: Double?
 )
 
 data class ProvincesItem(
@@ -40,7 +41,27 @@ data class ProvincesItem(
 )
 
 fun ReportResponse.toDomain() =
-    Report(date = date, country = country, provinces = provinces.map { it.toDomain() }, latitude = latitude, longitude = longitude)
+    Report(date = date, country = country, provinces = provinces.map { it.toDomain() }, latitude = latitude, longitude = longitude, total = loadTotalForCountry(provinces))
+
+
+fun loadTotalForCountry(provinces: List<ProvincesItem?>): Total {
+    var recoveredTotal = 0
+    var activeTotal = 0
+    var confirmedTotal = 0
+    var deathsTotal = 0
+
+    provinces.map {
+        it?.run {
+            recoveredTotal += this.recovered
+            activeTotal += this.active
+            confirmedTotal += this.confirmed
+            deathsTotal += this.deaths
+        }
+    }
+
+    return Total(recovered = recoveredTotal, active = activeTotal, confirmed = confirmedTotal, deaths = deathsTotal)
+}
+
 
 private fun ProvincesItem.toDomain() =
     com.david.hackro.stats.domain.model.ProvincesItem(

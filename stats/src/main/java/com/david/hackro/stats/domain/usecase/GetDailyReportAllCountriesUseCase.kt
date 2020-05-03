@@ -9,5 +9,5 @@ class GetDailyReportAllCountriesUseCase(private val repository: StatsRepository)
 
     override suspend fun run(params: Params) = repository.getDailyReportAllCountries(date = params.date)
 
-    data class Params(val date: String, val dateFormat: String)
+    data class Params(val date: String)
 }
