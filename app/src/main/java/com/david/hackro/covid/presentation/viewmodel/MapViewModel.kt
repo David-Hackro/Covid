@@ -11,7 +11,7 @@ import com.david.hackro.kotlinext.toString
 import com.david.hackro.stats.domain.model.Report
 import com.david.hackro.stats.domain.usecase.GetDailyReportAllCountriesUseCase
 
-class DailyReportAllCountriesViewModel(private val getDailyReportAllCountriesUseCase: GetDailyReportAllCountriesUseCase) : ViewModel() {
+class MapViewModel(private val getDailyReportAllCountriesUseCase: GetDailyReportAllCountriesUseCase) : ViewModel() {
 
     private val _stateDailyReport = MutableLiveData<State>()
     val stateDailyReport: LiveData<State>
