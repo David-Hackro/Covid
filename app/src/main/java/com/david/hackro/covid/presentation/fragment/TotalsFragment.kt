@@ -32,8 +32,11 @@ class TotalsFragment : BaseFragment() {
         initObservers()
         initAdapter()
         initRecycler()
+        initValues()
+    }
 
-        totalReportViewModel.init()
+    private fun initObservers() {
+        liveDataObserve(totalReportViewModel.stateTotalReport, ::onTotalReportStateChange)
     }
 
     private fun initAdapter() {
@@ -47,8 +50,8 @@ class TotalsFragment : BaseFragment() {
         }
     }
 
-    private fun initObservers() {
-        liveDataObserve(totalReportViewModel.stateTotalReport, ::onTotalReportStateChange)
+    private fun initValues() {
+        totalReportViewModel.init()
     }
 
     private fun onTotalReportStateChange(state: State?) {

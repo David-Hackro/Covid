@@ -20,5 +20,8 @@ class StatsApiConstants {
         const val CODE = "code"
         const val NAME = "name"
         const val HELP = "help"
+
+        const val DATA_LATEST = "data"
+        const val DATA_LATEST_VALUE = "data_latest.json"
     }
 }

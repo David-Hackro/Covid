@@ -18,15 +18,13 @@ import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointP
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointPaths.HELP
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointPaths.NAME
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointPaths.TOTALS
-import com.david.hackro.stats.data.datasource.remote.model.CountryResponse
-import com.david.hackro.stats.data.datasource.remote.model.HelpResponse
-import com.david.hackro.stats.data.datasource.remote.model.ReportByCountryResponse
-import com.david.hackro.stats.data.datasource.remote.model.ReportResponse
-import com.david.hackro.stats.data.datasource.remote.model.TotalsReportResponse
-import com.david.hackro.stats.data.datasource.remote.model.TotalsResponse
+import com.david.hackro.stats.data.datasource.remote.model.rapidapi.CountryResponse
+import com.david.hackro.stats.data.datasource.remote.model.rapidapi.HelpResponse
+import com.david.hackro.stats.data.datasource.remote.model.rapidapi.ReportByCountryResponse
+import com.david.hackro.stats.data.datasource.remote.model.rapidapi.ReportResponse
+import com.david.hackro.stats.data.datasource.remote.model.rapidapi.TotalsReportResponse
+import com.david.hackro.stats.data.datasource.remote.model.rapidapi.TotalsResponse
 import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -52,7 +50,7 @@ interface StatsApi {
         @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
     ): List<CountryResponse>
 
-    @GET(END_POINT_REPORT)
+    @GET(END_POINT_REPORT+"{${COUNTRY}}/{${ALL}}")
     suspend fun getDailyReportAllCountries(
         @Path(COUNTRY) country: String = COUNTRY,
         @Path(ALL) all: String = ALL,

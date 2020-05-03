@@ -10,7 +10,7 @@ import com.david.hackro.domain.UseCase
 import com.david.hackro.stats.domain.model.Totals
 import com.david.hackro.stats.domain.usecase.GetLatestTotalsUseCase
 
-class TotalReportViewModel(private val getLatestTotalsUseCase: GetLatestTotalsUseCase) : ViewModel() {
+class TotalReportViewModel(private val getLatestTotalsUseCase: GetLatestTotalsUseCase): ViewModel() {
 
     private val _stateTotalReport = MutableLiveData<State>()
     val stateTotalReport: LiveData<State>
