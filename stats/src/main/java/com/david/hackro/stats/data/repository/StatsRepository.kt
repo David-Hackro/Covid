@@ -3,6 +3,7 @@ package com.david.hackro.stats.data.repository
 import com.david.hackro.domain.Either
 import com.david.hackro.domain.Failure
 import com.david.hackro.stats.domain.model.Country
+import com.david.hackro.stats.domain.model.GetDataLatest
 import com.david.hackro.stats.domain.model.Help
 import com.david.hackro.stats.domain.model.Report
 import com.david.hackro.stats.domain.model.ReportByCountry
@@ -28,4 +29,6 @@ interface StatsRepository {
     suspend fun getListOfCountries(): Either<Failure, List<Help>>
 
     suspend fun getLatestTotals(): Either<Failure, List<Totals>>
+
+    suspend fun getDataLatest(): Either<Failure, List<GetDataLatest>>
 }

@@ -38,6 +38,9 @@ val viewModelModule: Module = module {
     }
 
     viewModel {
-        MapViewModel(getDailyReportAllCountriesUseCase = get())
+        MapViewModel(
+            getDailyReportAllCountriesUseCase = get(),
+            getDataLatestUseCase = get()
+        )
     }
 }

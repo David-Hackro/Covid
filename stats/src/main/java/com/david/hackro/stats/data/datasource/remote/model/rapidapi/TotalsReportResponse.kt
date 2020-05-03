@@ -1,4 +1,4 @@
-package com.david.hackro.stats.data.datasource.remote.model
+package com.david.hackro.stats.data.datasource.remote.model.rapidapi
 
 import com.david.hackro.stats.domain.model.TotalsReport
 import com.squareup.moshi.Json

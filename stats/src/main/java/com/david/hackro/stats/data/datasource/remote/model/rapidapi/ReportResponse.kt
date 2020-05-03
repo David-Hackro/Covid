@@ -1,4 +1,4 @@
-package com.david.hackro.stats.data.datasource.remote.model
+package com.david.hackro.stats.data.datasource.remote.model.rapidapi
 
 import com.david.hackro.stats.domain.model.Report
 import com.david.hackro.stats.domain.model.Total
@@ -41,7 +41,10 @@ data class ProvincesItem(
 )
 
 fun ReportResponse.toDomain() =
-    Report(date = date, country = country, provinces = provinces.map { it.toDomain() }, latitude = latitude, longitude = longitude, total = loadTotalForCountry(provinces))
+    Report(date = date, country = country, provinces = provinces.map { it.toDomain() }, latitude = latitude, longitude = longitude, total = loadTotalForCountry(
+        provinces
+    )
+    )
 
 
 fun loadTotalForCountry(provinces: List<ProvincesItem?>): Total {

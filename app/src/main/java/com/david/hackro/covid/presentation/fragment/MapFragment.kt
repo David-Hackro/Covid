@@ -8,12 +8,10 @@ import com.david.hackro.covid.R
 import com.david.hackro.covid.presentation.model.MyItem
 import com.david.hackro.covid.presentation.viewmodel.MapViewModel
 import com.david.hackro.domain.State
+import com.david.hackro.stats.domain.model.GetDataLatest
 import com.david.hackro.stats.domain.model.Report
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.ClusterManager
 import kotlinx.android.synthetic.main.fragment_map.mapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,12 +42,28 @@ class MapFragment : BaseFragment() {
     }
 
     private fun initObservers() {
+        liveDataObserve(mapViewHolder.stateDataLatest, ::onDataLatestStateChange)
         liveDataObserve(mapViewHolder.stateDailyReport, ::onDailyReportStateChange)
     }
 
     private fun initValues() {
         mapViewHolder.init()
     }
+
+    private fun onDataLatestStateChange(state: State?) {
+        state?.let { noNullState ->
+            when (noNullState) {
+                is State.Success -> {
+
+                    val result = noNullState.responseTo<List<GetDataLatest>>()
+
+                    showDataLatest(resultList = result)
+                }
+                else -> Timber.d("any state in onTotalReportStateChange")
+            }
+        }
+    }
+
 
     private fun onDailyReportStateChange(state: State?) {
         state?.let { noNullState ->
@@ -74,6 +88,18 @@ class MapFragment : BaseFragment() {
 
         }
     }
+
+    private fun showDataLatest(resultList: List<GetDataLatest>) {
+        resultList.map {
+
+            if (it.latitude != null && it.longitude != null) {
+
+                addItems(it.latitude!!.toDouble(), it.longitude!!.toDouble())
+            }
+
+        }
+    }
+
 
     private fun setMapLocation(map: GoogleMap) {
         with(map) {

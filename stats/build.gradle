@@ -15,13 +15,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
 
-        //https://covid19-api.com/
+
         buildConfigField "String", "BASE_URL", '"https://covid-19-data.p.rapidapi.com/"'
+        buildConfigField "String", "BASE_URL_OPEN_COVID", '"https://open-covid-19.github.io/"'
 
         buildConfigField "String", "END_POINT_COUNTRY", '"country"'
         buildConfigField "String", "END_POINT_REPORT", '"report/"'
         buildConfigField "String", "END_POINT_HELP", '"help"'
         buildConfigField "String", "END_POINT_TOTALS", '"totals"'
+
+        buildConfigField "String", "END_POINT_DATA_LATEST", '"data/"'
     }
 
     buildTypes {
