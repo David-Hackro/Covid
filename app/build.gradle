@@ -7,6 +7,12 @@ android {
     compileSdkVersion DefaultConfig.compileSdkVersion
     buildToolsVersion DefaultConfig.buildToolsVersion
 
+    def GOOGLE_API_KEY_DEBUG = project.hasProperty('google_api_key_debug') ? "${google_api_key_debug}" :
+            "$System.env.google_api_key_debug"
+
+    def GOOGLE_API_KEY_RELEASE = project.hasProperty('google_api_key_relase') ? "${google_api_key_relase}" :
+            "$System.env.google_api_key_relase"
+
     defaultConfig {
         minSdkVersion DefaultConfig.minSdkVersion
         targetSdkVersion DefaultConfig.targetSdkVersion
@@ -17,7 +23,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            resValue "string", "GOOGLE_API_KEY", "\"${GOOGLE_API_KEY_DEBUG}\""
+        }
+
         release {
+            resValue "String", "GOOGLE_API_KEY", "\"${GOOGLE_API_KEY_RELEASE}\""
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -57,7 +69,6 @@ dependencies {
     implementation ThirdPartyLibrary.timber
     implementation ThirdPartyLibrary.androidChart
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt AndroidX.lifecycleCompiler
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
