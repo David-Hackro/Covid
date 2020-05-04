@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.hackro.domain.Failure
 import com.david.hackro.domain.State
-import com.david.hackro.kotlinext.getCurrentDateTime
-import com.david.hackro.kotlinext.toString
+import com.david.hackro.kotlinext.yesterday
 import com.david.hackro.stats.domain.model.Report
 import com.david.hackro.stats.domain.usecase.GetDailyReportAllCountriesUseCase
 
@@ -24,10 +23,7 @@ class DailyReportAllCountriesViewModel(private val getDailyReportAllCountriesUse
     private fun getDailyReportAllCountries() {
         _stateDailyReport.value = State.Loading
 
-        val date = getCurrentDateTime()
-
-        //date.toString(DATE_FORMAT)
-        val params = GetDailyReportAllCountriesUseCase.Params(date = "2020-05-01")
+        val params = GetDailyReportAllCountriesUseCase.Params(date = yesterday(DATE_FORMAT))
 
         getDailyReportAllCountriesUseCase.invoke(viewModelScope, params) {
             it.either(::handleDailyReportAllCountriesFailure, ::handleDailyReportAllCountriesSuccess)

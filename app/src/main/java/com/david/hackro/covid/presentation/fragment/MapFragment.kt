@@ -2,13 +2,11 @@ package com.david.hackro.covid.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
 import com.david.hackro.covid.presentation.model.MyItem
 import com.david.hackro.covid.presentation.viewmodel.MapViewModel
 import com.david.hackro.domain.State
-import com.david.hackro.stats.domain.model.GetDataLatest
 import com.david.hackro.stats.domain.model.Report
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
@@ -16,6 +14,7 @@ import com.google.maps.android.clustering.ClusterManager
 import kotlinx.android.synthetic.main.fragment_map.mapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+
 
 class MapFragment : BaseFragment() {
 
@@ -42,28 +41,12 @@ class MapFragment : BaseFragment() {
     }
 
     private fun initObservers() {
-        liveDataObserve(mapViewHolder.stateDataLatest, ::onDataLatestStateChange)
         liveDataObserve(mapViewHolder.stateDailyReport, ::onDailyReportStateChange)
     }
 
     private fun initValues() {
         mapViewHolder.init()
     }
-
-    private fun onDataLatestStateChange(state: State?) {
-        state?.let { noNullState ->
-            when (noNullState) {
-                is State.Success -> {
-
-                    val result = noNullState.responseTo<List<GetDataLatest>>()
-
-                    showDataLatest(resultList = result)
-                }
-                else -> Timber.d("any state in onTotalReportStateChange")
-            }
-        }
-    }
-
 
     private fun onDailyReportStateChange(state: State?) {
         state?.let { noNullState ->
@@ -81,32 +64,28 @@ class MapFragment : BaseFragment() {
 
     private fun showDailyReports(resultList: List<Report>) {
         resultList.map {
-
             if (it.latitude != null && it.longitude != null) {
-                addItems(it.latitude!!, it.longitude!!)
+                addItems(it)
             }
-
         }
     }
-
-    private fun showDataLatest(resultList: List<GetDataLatest>) {
-        resultList.map {
-
-            if (it.latitude != null && it.longitude != null) {
-
-                addItems(it.latitude!!.toDouble(), it.longitude!!.toDouble())
-            }
-
-        }
-    }
-
 
     private fun setMapLocation(map: GoogleMap) {
         with(map) {
             setUpClusterer(this)
-            setOnMapClickListener {
-                Toast.makeText(context, "Clicked on map", Toast.LENGTH_SHORT).show()
+            setMarketListener(this)
+        }
+    }
+
+    private fun setMarketListener(googleMap: GoogleMap) {
+        googleMap.setInfoWindowAdapter(mClusterManager.markerManager)
+
+        mClusterManager.setOnClusterItemClickListener {
+            it?.run {
+                mClusterManager.markerCollection.setInfoWindowAdapter(CustomMarkerInfoWindowView(context = context, myItem = this))
             }
+
+            false
         }
     }
 
@@ -116,8 +95,8 @@ class MapFragment : BaseFragment() {
         googleMap.setOnMarkerClickListener(mClusterManager)
     }
 
-    private fun addItems(lat: Double, lng: Double) {
-        mClusterManager.addItem(MyItem(lat, lng, "", " "))
+    private fun addItems(report: Report) {
+        mClusterManager.addItem(MyItem(report))
     }
 
     override fun onResume() {

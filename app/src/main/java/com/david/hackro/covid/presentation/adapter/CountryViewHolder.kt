@@ -7,14 +7,15 @@ import com.david.hackro.covid.R
 import com.david.hackro.stats.domain.model.Report
 import kotlinx.android.synthetic.main.item_country_covid.view.countryColorBar
 import kotlinx.android.synthetic.main.item_country_covid.view.countryName
-import kotlinx.android.synthetic.main.item_country_covid.view.countryTotal
+import kotlinx.android.synthetic.main.item_country_covid.view.countryTotalNumber
 
 class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun renderView(report: Report) {
         itemView.run {
+
             countryName.text = report.country
-            countryTotal.text = report.total.confirmed.toString()
+            countryTotalNumber.text = report.total.confirmed.toString()
 
             countryColorBar.run {
                 max = report.total.confirmed
