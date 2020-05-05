@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.hackro.domain.Failure
 import com.david.hackro.domain.State
-import com.david.hackro.kotlinext.getCurrentDateTime
 import com.david.hackro.kotlinext.yesterday
 import com.david.hackro.stats.domain.model.Report
 import com.david.hackro.stats.domain.usecase.GetDailyReportAllCountriesUseCase

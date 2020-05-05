@@ -1,5 +1,6 @@
 package com.david.hackro.covid.di
 
+import com.david.hackro.covid.presentation.viewmodel.CountryDetailViewModel
 import com.david.hackro.covid.presentation.viewmodel.DailyReportAllCountriesViewModel
 import com.david.hackro.covid.presentation.viewmodel.MapViewModel
 import com.david.hackro.covid.presentation.viewmodel.TotalReportViewModel
@@ -8,6 +9,7 @@ import com.david.hackro.stats.di.networkHandlerModule
 import com.david.hackro.stats.di.networkModule
 import com.david.hackro.stats.di.repositoryModule
 import com.david.hackro.stats.di.useCaseModule
+import com.david.hackro.stats.domain.usecase.GetLatestCountryDataByNameUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
@@ -39,5 +41,9 @@ val viewModelModule: Module = module {
 
     viewModel {
         MapViewModel(getDailyReportAllCountriesUseCase = get())
+    }
+
+    viewModel {
+        CountryDetailViewModel(getLatestCountryDataByCodeUseCase = get())
     }
 }

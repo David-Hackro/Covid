@@ -2,6 +2,7 @@ package com.david.hackro.covid.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
@@ -12,6 +13,7 @@ import com.david.hackro.stats.domain.model.Report
 import kotlinx.android.synthetic.main.fragment_countries.countryRv
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+
 
 class CountriesFragment : BaseFragment() {
 
@@ -26,7 +28,21 @@ class CountriesFragment : BaseFragment() {
         initObservers()
         initAdapter()
         initRecycler()
+        initListener()
         initValues()
+    }
+
+    private fun initListener() {
+        countryAdapter.onCountryItemListener = {
+            goToCountryDetail(report = it)
+        }
+    }
+
+    private fun goToCountryDetail(report: Report) {
+        val action = CountriesFragmentDirections
+            .actionCountriesFragmentToCountryDetailsFragment(code = report.country)
+
+        view?.findNavController()?.navigate(action)
     }
 
     private fun initObservers() {

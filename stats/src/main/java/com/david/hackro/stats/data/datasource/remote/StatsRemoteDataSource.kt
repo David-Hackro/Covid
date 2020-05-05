@@ -2,7 +2,7 @@ package com.david.hackro.stats.data.datasource.remote
 
 class StatsRemoteDataSource(private val statsApi: StatsApi, private val statsOpenApi: StatsOpenApi) {
 
-    suspend fun getLatestCountryDataByName(name: String) = statsApi.getLatestCountryDataByName(name = name)
+    suspend fun getLatestCountryDataByName(name: String, date: String) = statsApi.getLatestCountryDataByName(name = name, date = date)
 
     suspend fun getLatestAllCountries() = statsApi.getLatestAllCountries()
 

@@ -7,7 +7,7 @@ import com.david.hackro.stats.domain.model.Country
 class GetLatestCountryDataByCodeUseCase(private val repository: StatsRepository) :
     UseCase<List<Country>, GetLatestCountryDataByCodeUseCase.Params>() {
 
-    override suspend fun run(params: GetLatestCountryDataByCodeUseCase.Params) = repository.getLatestCountryDataByCode(code = params.code)
+    override suspend fun run(params: Params) = repository.getLatestCountryDataByCode(code = params.code)
 
     data class Params(val code: String)
 

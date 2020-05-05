@@ -33,6 +33,6 @@ class TotalReportViewModel(private val getLatestTotalsUseCase: GetLatestTotalsUs
     }
 
     private fun handleTotalReportSuccess(totals: List<Totals>) {
-        _stateTotalReport.value = State.Success(totals)
+        _stateTotalReport.value = State.Success(totals.first())
     }
 }

@@ -2,6 +2,7 @@ package com.david.hackro.stats.data.repository
 
 import com.david.hackro.domain.Either
 import com.david.hackro.domain.Failure
+import com.david.hackro.stats.data.datasource.remote.model.rapidapi.ReportResponse
 import com.david.hackro.stats.domain.model.Country
 import com.david.hackro.stats.domain.model.GetDataLatest
 import com.david.hackro.stats.domain.model.Help
@@ -12,7 +13,7 @@ import com.david.hackro.stats.domain.model.TotalsReport
 
 interface StatsRepository {
 
-    suspend fun getLatestCountryDataByName(name: String): Either<Failure, List<Country>>
+    suspend fun getLatestCountryDataByName(name: String, date: String): Either<Failure, List<Report>>
 
     suspend fun getLatestAllCountries(): Either<Failure, List<Country>>
 
