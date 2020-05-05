@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_totals.totalRv
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
+
 class TotalsFragment : BaseFragment() {
 
     private val totalReportViewModel: TotalReportViewModel by viewModel()
@@ -84,10 +85,10 @@ class TotalsFragment : BaseFragment() {
 
         val totalsCovid = arrayListOf<PieEntry>().apply {
             result.run {
-                add(PieEntry(confirmed.toFloat(), resources.getString(R.string.confirmed)))
-                add(PieEntry(recovered.toFloat(), resources.getString(R.string.recovered)))
-                add(PieEntry(critical.toFloat(), resources.getString(R.string.critical)))
-                add(PieEntry(deaths.toFloat(), resources.getString(R.string.deaths)))
+                add(PieEntry(confirmed.toFloat()))
+                add(PieEntry(recovered.toFloat()))
+                add(PieEntry(critical.toFloat()))
+                add(PieEntry(deaths.toFloat()))
             }
         }
 

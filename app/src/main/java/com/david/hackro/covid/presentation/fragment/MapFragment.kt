@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.fragment_map.mapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
 class MapFragment : BaseFragment() {
 
     override fun layoutId() = R.layout.fragment_map
@@ -89,7 +88,7 @@ class MapFragment : BaseFragment() {
         }
     }
 
-    private fun setUpClusterer(googleMap: GoogleMap) { // Position the map.
+    private fun setUpClusterer(googleMap: GoogleMap) {
         mClusterManager = ClusterManager(context, googleMap)
         googleMap.setOnCameraIdleListener(mClusterManager)
         googleMap.setOnMarkerClickListener(mClusterManager)

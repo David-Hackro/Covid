@@ -5,6 +5,7 @@
     <dimen name="small_size">8dp</dimen>
     <dimen name="default_size">16dp</dimen>
 
+    <dimen name="dimen_4">4dp</dimen>
     <dimen name="dimen_10">10dp</dimen>
 
     <dimen name="text_size_12">12sp</dimen>

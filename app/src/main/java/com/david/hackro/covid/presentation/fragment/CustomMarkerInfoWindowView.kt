@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.market_info_window_map.view.countryName
 import kotlinx.android.synthetic.main.market_info_window_map.view.countryRecoveredNumber
 import kotlinx.android.synthetic.main.market_info_window_map.view.countryTotalNumber
 
-
 class CustomMarkerInfoWindowView(private val context: Context?, private val myItem: MyItem) : GoogleMap.InfoWindowAdapter {
 
     override fun getInfoContents(market: Marker?): View {

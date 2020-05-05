@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Covid-19</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_totals">Total</string>
+    <string name="tab_countries">Paises</string>
+    <string name="tab_maps">Mapa</string>
+
+    <string name="confirmed">Confirmados</string>
+    <string name="actived">Activos</string>
+    <string name="recovered">Recuperados</string>
+    <string name="critical">Criticos</string>
+    <string name="deaths">Defunciones</string>
+    <string name="data_latets">Ultima actualización:</string>
+</resources>

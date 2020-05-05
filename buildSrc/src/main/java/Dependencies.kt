@@ -6,7 +6,11 @@ object Versions {
     const val lifecycle = "2.2.0"
     const val navigation = "2.3.0-alpha06"
     const val legacy = "1.0.0"
+    const val constraint = "1.1.3"
+
     const val material = "1.1.0"
+    const val playService = "17.0.0"
+    const val maps = "1.2.1"
 
     const val retrofit = "2.6.0"
     const val loggingInterceptor = "3.12.0"
@@ -32,10 +36,13 @@ object AndroidX {
     const val lifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     const val navFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navUI = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+    const val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
 }
 
 object Google {
     const val material = "com.google.android.material:material:${Versions.material}"
+    const val playServices = "com.google.android.gms:play-services-maps:${Versions.playService}"
+    const val maps = "com.google.maps.android:android-maps-utils:${Versions.maps}"
 }
 
 object Square {

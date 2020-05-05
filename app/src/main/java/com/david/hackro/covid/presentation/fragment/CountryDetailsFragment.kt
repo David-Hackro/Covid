@@ -55,26 +55,22 @@ class CountryDetailsFragment : BaseFragment() {
     private fun initChart() {
         pieChart.run {
             centerText = resources.getString(R.string.app_name)
-            isRotationEnabled = false
-            isHighlightPerTapEnabled = true
+            isRotationEnabled = IS_ROTATION_ENABLED
+            isHighlightPerTapEnabled = IS_HIGH_LIGHT_PER_TAP_ENABLED
             animateXY(ANIMATE_DEFAULT, ANIMATE_DEFAULT)
         }
     }
 
-
     private fun initValues() {
-
         val args: CountryDetailsFragmentArgs by navArgs()
 
         countryDetailViewModel.init(name = args.code)
     }
 
-
     private fun onLatestCountryDataStateChange(state: State?) {
         state?.let { noNullState ->
             when (noNullState) {
                 is State.Success -> {
-
                     val result = noNullState.responseTo<Report>()
 
                     showTotalReports(result = result)
@@ -118,6 +114,7 @@ class CountryDetailsFragment : BaseFragment() {
     private companion object {
         const val SPAN_COUNT = 2
         const val ANIMATE_DEFAULT = 0
+        const val IS_ROTATION_ENABLED = false
+        const val IS_HIGH_LIGHT_PER_TAP_ENABLED = false
     }
-
 }

@@ -25,11 +25,11 @@ android {
 
     buildTypes {
         debug {
-            //resValue "string", "GOOGLE_API_KEY", "\"${GOOGLE_API_KEY_DEBUG}\""
+            resValue "string", "GOOGLE_API_KEY", "\"${GOOGLE_API_KEY_DEBUG}\""
         }
 
         release {
-            //resValue "String", "GOOGLE_API_KEY", "\"${GOOGLE_API_KEY_RELEASE}\""
+            resValue "String", "GOOGLE_API_KEY", "\"${GOOGLE_API_KEY_RELEASE}\""
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -61,8 +61,13 @@ dependencies {
     implementation AndroidX.lifecycle
     implementation AndroidX.lifecycleExtensions
     implementation AndroidX.legacy
+    implementation AndroidX.appCompat
+    implementation AndroidX.core
+    implementation AndroidX.constraintlayout
 
     implementation Google.material
+    implementation Google.playServices
+    implementation Google.maps
 
     implementation Koin.koinAndroid
     implementation Koin.koinViewModel
@@ -71,15 +76,4 @@ dependencies {
     implementation ThirdPartyLibrary.androidChart
 
     kapt AndroidX.lifecycleCompiler
-
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-
-    implementation 'com.google.maps.android:android-maps-utils:1.2.1'
-
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

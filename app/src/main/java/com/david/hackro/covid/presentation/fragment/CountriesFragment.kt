@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_countries.countryRv
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
 class CountriesFragment : BaseFragment() {
 
     private val dailyReportAllCountriesViewModel: DailyReportAllCountriesViewModel by viewModel()

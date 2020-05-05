@@ -9,7 +9,6 @@ import com.david.hackro.stats.di.networkHandlerModule
 import com.david.hackro.stats.di.networkModule
 import com.david.hackro.stats.di.repositoryModule
 import com.david.hackro.stats.di.useCaseModule
-import com.david.hackro.stats.domain.usecase.GetLatestCountryDataByNameUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
