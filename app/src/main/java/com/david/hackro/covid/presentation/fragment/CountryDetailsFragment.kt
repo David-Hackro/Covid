@@ -2,30 +2,30 @@ package com.david.hackro.covid.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
 import com.david.hackro.covid.presentation.adapter.TotalAdapter
 import com.david.hackro.covid.presentation.model.TotalItem
 import com.david.hackro.covid.presentation.model.toItemList
-import com.david.hackro.covid.presentation.viewmodel.TotalReportViewModel
+import com.david.hackro.covid.presentation.viewmodel.CountryDetailViewModel
 import com.david.hackro.domain.State
-import com.david.hackro.stats.domain.model.Totals
+import com.david.hackro.stats.domain.model.Report
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import kotlinx.android.synthetic.main.fragment_country_details.totalRv
 import kotlinx.android.synthetic.main.fragment_totals.pieChart
-import kotlinx.android.synthetic.main.fragment_totals.totalRv
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class TotalsFragment : BaseFragment() {
+class CountryDetailsFragment : BaseFragment() {
 
-    private val totalReportViewModel: TotalReportViewModel by viewModel()
-
+    private val countryDetailViewModel: CountryDetailViewModel by viewModel()
     private lateinit var totalAdapter: TotalAdapter
 
-    override fun layoutId() = R.layout.fragment_totals
+    override fun layoutId() = R.layout.fragment_country_details
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,7 +38,7 @@ class TotalsFragment : BaseFragment() {
     }
 
     private fun initObservers() {
-        liveDataObserve(totalReportViewModel.stateTotalReport, ::onTotalReportStateChange)
+        liveDataObserve(countryDetailViewModel.stateLatestCountryData, ::onLatestCountryDataStateChange)
     }
 
     private fun initAdapter() {
@@ -61,33 +61,38 @@ class TotalsFragment : BaseFragment() {
         }
     }
 
+
     private fun initValues() {
-        totalReportViewModel.init()
+
+        val args: CountryDetailsFragmentArgs by navArgs()
+
+        countryDetailViewModel.init(name = args.code)
     }
 
-    private fun onTotalReportStateChange(state: State?) {
+
+    private fun onLatestCountryDataStateChange(state: State?) {
         state?.let { noNullState ->
             when (noNullState) {
                 is State.Success -> {
 
-                    val result = noNullState.responseTo<Totals>()
+                    val result = noNullState.responseTo<Report>()
 
                     showTotalReports(result = result)
                 }
-                else -> Timber.d("any state in onTotalReportStateChange")
+                else -> Timber.d("any state in onLatestCountryDataStateChange")
             }
         }
     }
 
-    private fun showTotalReports(result: Totals) {
+    private fun showTotalReports(result: Report) {
         setValuesAdapter(result.toItemList())
 
         val totalsCovid = arrayListOf<PieEntry>().apply {
             result.run {
-                add(PieEntry(confirmed.toFloat(), resources.getString(R.string.confirmed)))
-                add(PieEntry(recovered.toFloat(), resources.getString(R.string.recovered)))
-                add(PieEntry(critical.toFloat(), resources.getString(R.string.critical)))
-                add(PieEntry(deaths.toFloat(), resources.getString(R.string.deaths)))
+                add(PieEntry(total.confirmed.toFloat(), resources.getString(R.string.confirmed)))
+                add(PieEntry(total.recovered.toFloat(), resources.getString(R.string.recovered)))
+                add(PieEntry(total.active.toFloat(), resources.getString(R.string.actived)))
+                add(PieEntry(total.deaths.toFloat(), resources.getString(R.string.deaths)))
             }
         }
 
@@ -99,7 +104,7 @@ class TotalsFragment : BaseFragment() {
             dataSet.setColors(
                 getColor(R.color.confirmed),
                 getColor(R.color.recovered),
-                getColor(R.color.critical),
+                getColor(R.color.active),
                 getColor(R.color.deaths)
             )
         }
@@ -114,4 +119,5 @@ class TotalsFragment : BaseFragment() {
         const val SPAN_COUNT = 2
         const val ANIMATE_DEFAULT = 0
     }
+
 }

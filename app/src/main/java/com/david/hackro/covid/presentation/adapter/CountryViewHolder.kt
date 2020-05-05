@@ -11,7 +11,12 @@ import kotlinx.android.synthetic.main.item_country_covid.view.countryTotalNumber
 
 class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun renderView(report: Report) {
+    fun renderView(report: Report, onCountryItemListener: (report: Report) -> Unit) {
+        renderCard(report = report)
+        setListener(report = report, onCountryItemListener = onCountryItemListener)
+    }
+
+    private fun renderCard(report: Report) {
         itemView.run {
 
             countryName.text = report.country
@@ -25,4 +30,7 @@ class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
+    private fun setListener(report: Report, onCountryItemListener: (report: Report) -> Unit) {
+        itemView.setOnClickListener { onCountryItemListener.invoke(report) }
+    }
 }

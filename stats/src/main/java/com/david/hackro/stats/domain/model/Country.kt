@@ -10,13 +10,22 @@ data class Country(
 
     val latitude: Double,
 
-    val lastUpdate: String,
+    val lastUpdate: String?,
 
-    val lastChange: String,
+    val lastChange: String?,
 
     val confirmed: Int,
 
     val deaths: Int,
 
     val longitude: Double
+)
+
+fun Country.toTotal() = Totals(
+    critical = critical,
+    recovered = recovered,
+    confirmed = confirmed,
+    deaths = deaths,
+    lastChange = lastChange,
+    lastUpdate = lastUpdate
 )

@@ -7,13 +7,11 @@ data class Totals(
 
 	val critical: Int,
 
-	val lastUpdate: String,
+	val lastUpdate: String?,
 
-	val lastChange: String,
+	val lastChange: String?,
 
 	val confirmed: Int,
 
 	val deaths: Int
 )
-
-fun Totals.toItemList() = listOf<Int>(confirmed, recovered, critical, deaths)

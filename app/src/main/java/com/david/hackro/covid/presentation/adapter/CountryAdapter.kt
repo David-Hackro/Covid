@@ -9,6 +9,7 @@ import com.david.hackro.stats.domain.model.Report
 class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countryList = listOf<Report>()
+    lateinit var onCountryItemListener: ((report: Report) -> Unit)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_covid, parent, false)
@@ -19,7 +20,7 @@ class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val countryViewHolder = holder as CountryViewHolder
 
-        countryViewHolder.renderView(countryList[position])
+        countryViewHolder.renderView(countryList[position], onCountryItemListener = onCountryItemListener)
     }
 
     override fun getItemCount() = countryList.size

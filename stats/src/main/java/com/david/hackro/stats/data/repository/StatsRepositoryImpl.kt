@@ -12,9 +12,9 @@ class StatsRepositoryImpl(
     private val remoteDataSource: StatsRemoteDataSource
 ) : StatsRepository {
 
-    override suspend fun getLatestCountryDataByName(name: String) = try {
+    override suspend fun getLatestCountryDataByName(name: String, date: String) = try {
         when (networkHandler.isConnected) {
-            true -> Either.Right(remoteDataSource.getLatestCountryDataByName(name = name).map { it.toDomain() })
+            true -> Either.Right(remoteDataSource.getLatestCountryDataByName(name = name, date = date).map { it.toDomain() })
             else -> Either.Left(Failure.NetworkConnection)
         }
     } catch (ex: Exception) {

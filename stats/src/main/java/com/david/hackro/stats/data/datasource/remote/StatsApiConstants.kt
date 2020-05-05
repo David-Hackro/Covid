@@ -9,7 +9,7 @@ class StatsApiConstants {
         const val QUERY_CODE = "code"
         const val QUERY_DATE = "date"
         const val QUERY_DATE_FORMAT = "date-format"
-        const val DATE_FORMAT = "yyyy-MM-dd"
+        const val DATE_FORMAT = "YYYY-MM-DD"
     }
 
     object EndPointPaths {

@@ -30,12 +30,15 @@ import retrofit2.http.Query
 
 interface StatsApi {
 
-    @GET(END_POINT_COUNTRY)
+    @GET(END_POINT_REPORT+"{${COUNTRY}}/{${NAME}}")
     suspend fun getLatestCountryDataByName(
-        @Path(COUNTRY) path: String = COUNTRY,
+        @Path(COUNTRY) country: String = COUNTRY,
+        @Path(NAME) path: String = NAME,
         @Query(QUERY_NAME) name: String,
-        @Query(QUERY_JSON_FORMAT) format: String = QUERY_JSON_FORMAT_VALUE
-    ): List<CountryResponse>
+        @Query(QUERY_DATE) date: String,
+        @Query(QUERY_DATE_FORMAT) dateFormat: String  = DATE_FORMAT,
+        @Query("format") format: String = QUERY_JSON_FORMAT_VALUE
+    ): List<ReportResponse>
 
     @GET(END_POINT_COUNTRY)
     suspend fun getLatestAllCountries(
@@ -43,7 +46,7 @@ interface StatsApi {
         @Query(QUERY_JSON_FORMAT) format: String = QUERY_JSON_FORMAT_VALUE
     ): List<CountryResponse>
 
-    @GET(END_POINT_COUNTRY)
+    @GET(END_POINT_COUNTRY+"{${CODE}}")
     suspend fun getLatestCountryDataByCode(
         @Path(CODE) path: String = CODE,
         @Query(QUERY_CODE) code: String,
