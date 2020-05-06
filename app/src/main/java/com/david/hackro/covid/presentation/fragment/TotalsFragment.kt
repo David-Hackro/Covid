@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
+import com.david.hackro.covid.presentation.activity.MainActivity
 import com.david.hackro.covid.presentation.adapter.TotalAdapter
 import com.david.hackro.covid.presentation.model.TotalItem
 import com.david.hackro.covid.presentation.model.toItemList
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_totals.pieChart
 import kotlinx.android.synthetic.main.fragment_totals.totalRv
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+
 
 class TotalsFragment : BaseFragment() {
 
@@ -74,6 +76,7 @@ class TotalsFragment : BaseFragment() {
 
                     showTotalReports(result = result)
                 }
+                is State.Failed -> (activity as MainActivity).handleFailure(failure = noNullState.failure)
                 else -> Timber.d("any state in onTotalReportStateChange")
             }
         }
@@ -84,10 +87,10 @@ class TotalsFragment : BaseFragment() {
 
         val totalsCovid = arrayListOf<PieEntry>().apply {
             result.run {
-                add(PieEntry(confirmed.toFloat(), resources.getString(R.string.confirmed)))
-                add(PieEntry(recovered.toFloat(), resources.getString(R.string.recovered)))
-                add(PieEntry(critical.toFloat(), resources.getString(R.string.critical)))
-                add(PieEntry(deaths.toFloat(), resources.getString(R.string.deaths)))
+                add(PieEntry(confirmed.toFloat()))
+                add(PieEntry(recovered.toFloat()))
+                add(PieEntry(critical.toFloat()))
+                add(PieEntry(deaths.toFloat()))
             }
         }
 

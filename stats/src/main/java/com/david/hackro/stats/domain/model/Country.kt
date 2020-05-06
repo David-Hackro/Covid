@@ -20,12 +20,3 @@ data class Country(
 
     val longitude: Double
 )
-
-fun Country.toTotal() = Totals(
-    critical = critical,
-    recovered = recovered,
-    confirmed = confirmed,
-    deaths = deaths,
-    lastChange = lastChange,
-    lastUpdate = lastUpdate
-)

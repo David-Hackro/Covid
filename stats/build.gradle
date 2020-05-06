@@ -17,7 +17,6 @@ android {
 
 
         buildConfigField "String", "BASE_URL", '"https://covid-19-data.p.rapidapi.com/"'
-        buildConfigField "String", "BASE_URL_OPEN_COVID", '"https://open-covid-19.github.io/"'
 
         buildConfigField "String", "END_POINT_COUNTRY", '"country/"'
         buildConfigField "String", "END_POINT_REPORT", '"report/"'
@@ -28,9 +27,6 @@ android {
     }
 
     buildTypes {
-        debug {
-
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

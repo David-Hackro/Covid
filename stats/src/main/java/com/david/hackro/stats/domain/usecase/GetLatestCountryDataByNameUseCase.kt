@@ -5,7 +5,6 @@ import com.david.hackro.stats.data.repository.StatsRepository
 import com.david.hackro.stats.domain.model.Country
 import com.david.hackro.stats.domain.model.Report
 
-
 class GetLatestCountryDataByNameUseCase(private val repository: StatsRepository) :
     UseCase<List<Report>, GetLatestCountryDataByNameUseCase.Params>() {
 

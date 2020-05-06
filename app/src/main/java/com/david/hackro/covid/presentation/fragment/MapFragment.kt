@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
+import com.david.hackro.covid.presentation.activity.MainActivity
 import com.david.hackro.covid.presentation.model.MyItem
 import com.david.hackro.covid.presentation.viewmodel.MapViewModel
 import com.david.hackro.domain.State
@@ -14,7 +15,6 @@ import com.google.maps.android.clustering.ClusterManager
 import kotlinx.android.synthetic.main.fragment_map.mapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-
 
 class MapFragment : BaseFragment() {
 
@@ -57,6 +57,7 @@ class MapFragment : BaseFragment() {
 
                     showDailyReports(resultList = result)
                 }
+                is State.Failed -> (activity as MainActivity).handleFailure(failure = noNullState.failure)
                 else -> Timber.d("any state in onTotalReportStateChange")
             }
         }
@@ -89,7 +90,7 @@ class MapFragment : BaseFragment() {
         }
     }
 
-    private fun setUpClusterer(googleMap: GoogleMap) { // Position the map.
+    private fun setUpClusterer(googleMap: GoogleMap) {
         mClusterManager = ClusterManager(context, googleMap)
         googleMap.setOnCameraIdleListener(mClusterManager)
         googleMap.setOnMarkerClickListener(mClusterManager)
