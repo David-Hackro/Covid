@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
+import com.david.hackro.covid.presentation.activity.MainActivity
 import com.david.hackro.covid.presentation.adapter.TotalAdapter
 import com.david.hackro.covid.presentation.model.TotalItem
 import com.david.hackro.covid.presentation.model.toItemList
@@ -75,6 +76,7 @@ class TotalsFragment : BaseFragment() {
 
                     showTotalReports(result = result)
                 }
+                is State.Failed -> (activity as MainActivity).handleFailure(failure = noNullState.failure)
                 else -> Timber.d("any state in onTotalReportStateChange")
             }
         }

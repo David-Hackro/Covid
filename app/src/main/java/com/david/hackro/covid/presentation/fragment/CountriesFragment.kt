@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
+import com.david.hackro.covid.presentation.activity.MainActivity
 import com.david.hackro.covid.presentation.adapter.CountryAdapter
 import com.david.hackro.covid.presentation.viewmodel.DailyReportAllCountriesViewModel
 import com.david.hackro.domain.State
@@ -72,6 +73,7 @@ class CountriesFragment : BaseFragment() {
 
                     showDailyReports(resultList = result)
                 }
+                is State.Failed -> (activity as MainActivity).handleFailure(failure = noNullState.failure)
                 else -> Timber.d("any state in onTotalReportStateChange")
             }
         }
