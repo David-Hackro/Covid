@@ -76,7 +76,7 @@ class CountryDetailsFragment : BaseFragment() {
 
                     showTotalReports(result = result)
                 }
-                //is State.Failed -> (activity as MainActivity).handleFailure(failure = noNullState.failure)
+                is State.Failed -> (activity as MainActivity).handleFailure(failure = noNullState.failure)
                 else -> Timber.d("any state in onLatestCountryDataStateChange")
             }
         }

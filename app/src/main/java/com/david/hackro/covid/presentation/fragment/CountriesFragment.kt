@@ -34,7 +34,7 @@ class CountriesFragment : BaseFragment() {
 
     private fun initListener() {
         countryAdapter.onCountryItemListener = {
-            goToCountryDetail(report = it)
+            //goToCountryDetail(report = it)
         }
     }
 
@@ -73,7 +73,7 @@ class CountriesFragment : BaseFragment() {
 
                     showDailyReports(resultList = result)
                 }
-                //is State.Failed -> (activity as MainActivity).handleFailure(failure = noNullState.failure)
+                is State.Failed -> (activity as MainActivity).handleFailure(failure = noNullState.failure)
                 else -> Timber.d("any state in onTotalReportStateChange")
             }
         }

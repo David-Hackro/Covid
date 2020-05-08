@@ -16,6 +16,7 @@
         android:name="com.david.hackro.covid.presentation.fragment.CountriesFragment"
         android:label="fragment_countries"
         tools:layout="@layout/fragment_countries">
+
         <action
             android:id="@+id/action_countriesFragment_to_countryDetailsFragment"
             app:destination="@id/countryDetailsFragment" />
@@ -28,7 +29,7 @@
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
 
-    <keep_state_fragment
+    <fragment
         android:id="@+id/countryDetailsFragment"
         android:name="com.david.hackro.covid.presentation.fragment.CountryDetailsFragment"
         android:label="fragment_country_details"
@@ -39,6 +40,6 @@
             android:defaultValue="MX"
             app:argType="string" />
 
-    </keep_state_fragment>
+    </fragment>
 
 </navigation>
