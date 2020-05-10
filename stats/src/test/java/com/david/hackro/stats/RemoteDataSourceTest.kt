@@ -1,5 +1,7 @@
 package com.david.hackro.stats
 
+import com.david.hackro.stats.RemoteDataSourceTest.RELAXED_TRUE
+import com.david.hackro.stats.RemoteDataSourceTest.VERIFY_ONE_INTERACTION
 import com.david.hackro.stats.data.datasource.remote.StatsApi
 import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
 import com.david.hackro.stats.data.datasource.remote.model.rapidapi.ReportResponse
@@ -11,7 +13,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.spekframework.spek2.Spek
 
-const val VERIFY_ONE_INTERACTION = 1
 val statsApi: StatsApi = mockk()
 val remoteDataSource = StatsRemoteDataSource(statsApi)
 
@@ -21,7 +22,7 @@ object RemoteDataSourceTest : Spek({
         //getLatestCountryDataByName
         test("get latest country data by name") {
             //Given
-            val response: List<ReportResponse> = mockk()
+            val response: List<ReportResponse> = mockk(relaxed = true)
             val name = "Mexico"
             val date = "2020-05-01"
 
@@ -41,7 +42,7 @@ object RemoteDataSourceTest : Spek({
 
         test("get daily report all countries") {
             //Given
-            val response: List<ReportResponse> = mockk()
+            val response: List<ReportResponse> = mockk(relaxed = true)
             val date = "2020-05-01"
 
             coEvery {
@@ -63,7 +64,7 @@ object RemoteDataSourceTest : Spek({
     group("total") {
         test("get latest totals") {
             //Given
-            val response: List<TotalsResponse> = mockk()
+            val response: List<TotalsResponse> = mockk(relaxed = RELAXED_TRUE)
 
             coEvery {
                 statsApi.getLatestTotals()
@@ -80,4 +81,7 @@ object RemoteDataSourceTest : Spek({
             coVerify(exactly = VERIFY_ONE_INTERACTION) { statsApi.getLatestTotals() }
         }
     }
-})
+}) {
+    private const val RELAXED_TRUE = true
+    private const val VERIFY_ONE_INTERACTION = 1
+}
