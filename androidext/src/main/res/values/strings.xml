@@ -1,9 +1,7 @@
 <resources>
-    <string name="app_name">wordbox</string>
+    <string name="app_name">Covid-19</string>
 
-    <string name="failure_network_connection">Cargando</string>
-    <string name="failure_unavailable">Cuál video tiene la palabra:</string>
-    <string name="failure_unavailable_unknown">Correcto</string>
-    <string name="button_video_incorrect">Incorrecto</string>
+    <string name="failure_network_connection">Network Error</string>
+    <string name="failure_unavailable">Unknown Error</string>
 
 </resources>

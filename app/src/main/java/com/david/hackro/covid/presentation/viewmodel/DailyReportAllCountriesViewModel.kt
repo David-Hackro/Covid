@@ -39,6 +39,6 @@ class DailyReportAllCountriesViewModel(private val getDailyReportAllCountriesUse
     }
 
     private companion object {
-        const val DATE_FORMAT = "yyyy-MM-dd"
+        const val DATE_FORMAT = "YYYY-MM-DD"
     }
 }

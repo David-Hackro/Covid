@@ -25,11 +25,11 @@ android {
 
     buildTypes {
         debug {
-            //resValue "string", "GOOGLE_API_KEY", "\"${GOOGLE_API_KEY_DEBUG}\""
+            resValue "string", "google_api_key", "\"${GOOGLE_API_KEY_DEBUG}\""
         }
 
         release {
-            //resValue "String", "GOOGLE_API_KEY", "\"${GOOGLE_API_KEY_RELEASE}\""
+            resValue "string", "google_api_key", "\"${GOOGLE_API_KEY_RELEASE}\""
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
