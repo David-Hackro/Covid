@@ -15,7 +15,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
 
-
         buildConfigField "String", "BASE_URL", '"https://covid-19-data.p.rapidapi.com/"'
 
         buildConfigField "String", "END_POINT_COUNTRY", '"country/"'
