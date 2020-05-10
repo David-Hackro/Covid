@@ -20,6 +20,17 @@ object Versions {
     const val androidChart = "v3.1.0"
 
     const val koin = "2.1.5"
+
+    const val junit = "4.12"
+    const val runner = "1.2.0"
+    const val expresso = "3.2.0"
+    const val mockitoCore = "3.0.0"
+    const val mockitoInline = "3.0.0"
+    const val coroutinesTest = "1.3.3"
+    const val mockk = "1.9.3"
+    const val spekDsl = "2.0.9"
+    const val spekRunner = "2.0.9"
+
 }
 
 object Kotlin {
@@ -67,3 +78,14 @@ object ThirdPartyLibrary {
     const val androidChart = "com.github.PhilJay:MPAndroidChart:${Versions.androidChart}"
 }
 
+object Testing {
+    const val junit = "junit:junit:${Versions.junit}"
+    const val runner = "androidx.test:runner:${Versions.runner}"
+    const val expresso = "androidx.test.espresso:espresso-core:${Versions.expresso}"
+    const val mockitoCore = "org.mockito:mockito-core:${Versions.mockitoCore}"
+    const val mockitoInline = "org.mockito:mockito-inline:${Versions.mockitoInline}"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesTest}"
+    const val mockk = "io.mockk:mockk:${Versions.mockk}"
+    const val spekDsl = "org.spekframework.spek2:spek-dsl-jvm:${Versions.spekDsl}"
+    const val spekRunner = "org.spekframework.spek2:spek-runner-junit5:${Versions.spekRunner}"
+}

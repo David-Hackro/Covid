@@ -55,4 +55,12 @@ dependencies {
     debugImplementation Chuck.chuck
     releaseImplementation Chuck.chuckLibraryNoOp
 
+    testImplementation Testing.mockk
+
+    testImplementation Testing.junit
+    androidTestImplementation Testing.runner
+    androidTestImplementation Testing.expresso
+    testImplementation Testing.coroutinesTest
+    testImplementation Testing.spekDsl
+    testImplementation Testing.spekRunner
 }

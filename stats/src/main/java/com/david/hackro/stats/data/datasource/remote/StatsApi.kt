@@ -30,35 +30,22 @@ import retrofit2.http.Query
 
 interface StatsApi {
 
-    @GET(END_POINT_REPORT+"{${COUNTRY}}/{${NAME}}")
+    @GET(END_POINT_REPORT + "{${COUNTRY}}/{${NAME}}")
     suspend fun getLatestCountryDataByName(
         @Path(COUNTRY) country: String = COUNTRY,
         @Path(NAME) path: String = NAME,
         @Query(QUERY_NAME) name: String,
         @Query(QUERY_DATE) date: String,
-        @Query(QUERY_DATE_FORMAT) dateFormat: String  = DATE_FORMAT,
+        @Query(QUERY_DATE_FORMAT) dateFormat: String = DATE_FORMAT,
         @Query("format") format: String = QUERY_JSON_FORMAT_VALUE
     ): List<ReportResponse>
 
-    @GET(END_POINT_COUNTRY)
-    suspend fun getLatestAllCountries(
-        @Path(ALL) path: String = ALL,
-        @Query(QUERY_JSON_FORMAT) format: String = QUERY_JSON_FORMAT_VALUE
-    ): List<CountryResponse>
-
-    @GET(END_POINT_COUNTRY+"{${CODE}}")
-    suspend fun getLatestCountryDataByCode(
-        @Path(CODE) path: String = CODE,
-        @Query(QUERY_CODE) code: String,
-        @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
-    ): List<CountryResponse>
-
-    @GET(END_POINT_REPORT+"{${COUNTRY}}/{${ALL}}")
+    @GET(END_POINT_REPORT + "{${COUNTRY}}/{${ALL}}")
     suspend fun getDailyReportAllCountries(
         @Path(COUNTRY) country: String = COUNTRY,
         @Path(ALL) all: String = ALL,
         @Query(QUERY_DATE) date: String,
-        @Query(QUERY_DATE_FORMAT) dateFormat: String  = DATE_FORMAT,
+        @Query(QUERY_DATE_FORMAT) dateFormat: String = DATE_FORMAT,
         @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
     ): List<ReportResponse>
 
@@ -69,7 +56,7 @@ interface StatsApi {
         @Path(CODE) codePath: String = CODE,
         @Query(QUERY_CODE) code: String, //ISO 3166-1 standard
         @Query(QUERY_DATE) date: String,
-        @Query(QUERY_DATE_FORMAT) dateFormat: String  = DATE_FORMAT,
+        @Query(QUERY_DATE_FORMAT) dateFormat: String = DATE_FORMAT,
         @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
     ): List<ReportByCountryResponse>
 
@@ -79,7 +66,7 @@ interface StatsApi {
         @Path(NAME) codePath: String = NAME,
         @Query(QUERY_NAME) name: String,
         @Query(QUERY_DATE) date: String,
-        @Query(QUERY_DATE_FORMAT) dateFormat: String  = DATE_FORMAT,
+        @Query(QUERY_DATE_FORMAT) dateFormat: String = DATE_FORMAT,
         @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
     ): List<ReportByCountryResponse>
 
@@ -87,7 +74,7 @@ interface StatsApi {
     suspend fun getDailyReportTotals(
         @Path(TOTALS) country: String = TOTALS,
         @Query(QUERY_DATE) date: String,
-        @Query(QUERY_DATE_FORMAT) dateFormat: String  = DATE_FORMAT,
+        @Query(QUERY_DATE_FORMAT) dateFormat: String = DATE_FORMAT,
         @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
     ): List<TotalsReportResponse>
 
@@ -102,4 +89,18 @@ interface StatsApi {
     suspend fun getLatestTotals(
         @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
     ): List<TotalsResponse>
+
+    @GET(END_POINT_COUNTRY)
+    suspend fun getLatestAllCountries(
+        @Path(ALL) path: String = ALL,
+        @Query(QUERY_JSON_FORMAT) format: String = QUERY_JSON_FORMAT_VALUE
+    ): List<CountryResponse>
+
+    @GET(END_POINT_COUNTRY + "{${CODE}}")
+    suspend fun getLatestCountryDataByCode(
+        @Path(CODE) path: String = CODE,
+        @Query(QUERY_CODE) code: String,
+        @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
+    ): List<CountryResponse>
+
 }
