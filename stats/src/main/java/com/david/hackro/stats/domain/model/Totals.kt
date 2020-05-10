@@ -1,6 +1,5 @@
 package com.david.hackro.stats.domain.model
 
-
 data class Totals(
 
 	val recovered: Int,
