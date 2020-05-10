@@ -3,6 +3,7 @@ package com.david.hackro.stats
 import com.david.hackro.stats.data.datasource.remote.StatsApi
 import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
 import com.david.hackro.stats.data.datasource.remote.model.rapidapi.ReportResponse
+import com.david.hackro.stats.data.datasource.remote.model.rapidapi.TotalsResponse
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -18,11 +19,11 @@ object RemoteDataSourceTest : Spek({
 
     group("report") {
         //getLatestCountryDataByName
-        test("get Latest Country Data By Name") {
+        test("get latest country data by name") {
             //Given
             val response: List<ReportResponse> = mockk()
-            val name = ""
-            val date = ""
+            val name = "Mexico"
+            val date = "2020-05-01"
 
             coEvery {
                 statsApi.getLatestCountryDataByName(name = name, date = date)
@@ -38,10 +39,10 @@ object RemoteDataSourceTest : Spek({
             coVerify(exactly = VERIFY_ONE_INTERACTION) { statsApi.getLatestCountryDataByName(name = name, date = date) }
         }
 
-        test("get Daily Report All Countries") {
+        test("get daily report all countries") {
             //Given
             val response: List<ReportResponse> = mockk()
-            val date = ""
+            val date = "2020-05-01"
 
             coEvery {
                 statsApi.getDailyReportAllCountries(date = date)
@@ -59,4 +60,24 @@ object RemoteDataSourceTest : Spek({
         }
     }
 
+    group("total") {
+        test("get latest totals") {
+            //Given
+            val response: List<TotalsResponse> = mockk()
+
+            coEvery {
+                statsApi.getLatestTotals()
+            } returns response
+
+            //When
+            runBlocking {
+                val result = remoteDataSource.getLatestTotals()
+                Assert.assertEquals(result, response)
+            }
+
+            //Then
+            coVerify { statsApi.getLatestTotals() }
+            coVerify(exactly = VERIFY_ONE_INTERACTION) { statsApi.getLatestTotals() }
+        }
+    }
 })
