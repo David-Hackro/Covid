@@ -6,7 +6,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
-import com.david.hackro.covid.presentation.activity.MainActivity
 import com.david.hackro.covid.presentation.adapter.TotalAdapter
 import com.david.hackro.covid.presentation.model.TotalItem
 import com.david.hackro.covid.presentation.model.toItemList
@@ -71,12 +70,20 @@ class CountryDetailsFragment : BaseFragment() {
     private fun onLatestCountryDataStateChange(state: State?) {
         state?.let { noNullState ->
             when (noNullState) {
+                is State.Loading -> getActivityContext().showProgress()
                 is State.Success -> {
                     val result = noNullState.responseTo<Report>()
 
+                    getActivityContext().hideProgress()
+
                     showTotalReports(result = result)
                 }
-                is State.Failed -> (activity as MainActivity).handleFailure(failure = noNullState.failure)
+                is State.Failed -> {
+                    getActivityContext().run {
+                        hideProgress()
+                        handleFailure(failure = noNullState.failure)
+                    }
+                }
                 else -> Timber.d("any state in onLatestCountryDataStateChange")
             }
         }

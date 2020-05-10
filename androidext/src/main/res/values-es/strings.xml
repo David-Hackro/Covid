@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Covid-19</string>
+
+    <string name="failure_network_connection">Error en la red</string>
+    <string name="failure_unavailable">Error Desconocido</string>
+</resources>

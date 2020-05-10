@@ -5,7 +5,6 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
-import com.david.hackro.covid.presentation.activity.MainActivity
 import com.david.hackro.covid.presentation.adapter.TotalAdapter
 import com.david.hackro.covid.presentation.model.TotalItem
 import com.david.hackro.covid.presentation.model.toItemList
@@ -57,8 +56,8 @@ class TotalsFragment : BaseFragment() {
     private fun initChart() {
         pieChart.run {
             centerText = resources.getString(R.string.app_name)
-            isRotationEnabled = false
-            isHighlightPerTapEnabled = true
+            isRotationEnabled = IS_ROTATION_ENABLED
+            isHighlightPerTapEnabled = IS_HIGH_LIGHT_PER_TAP_ENABLED
             animateXY(ANIMATE_DEFAULT, ANIMATE_DEFAULT)
         }
     }
@@ -70,13 +69,20 @@ class TotalsFragment : BaseFragment() {
     private fun onTotalReportStateChange(state: State?) {
         state?.let { noNullState ->
             when (noNullState) {
+                is State.Loading -> getActivityContext().showProgress()
                 is State.Success -> {
-
                     val result = noNullState.responseTo<Totals>()
+
+                    getActivityContext().hideProgress()
 
                     showTotalReports(result = result)
                 }
-                is State.Failed -> (activity as MainActivity).handleFailure(failure = noNullState.failure)
+                is State.Failed -> {
+                    getActivityContext().run {
+                        hideProgress()
+                        handleFailure(failure = noNullState.failure)
+                    }
+                }
                 else -> Timber.d("any state in onTotalReportStateChange")
             }
         }
@@ -116,5 +122,7 @@ class TotalsFragment : BaseFragment() {
     private companion object {
         const val SPAN_COUNT = 2
         const val ANIMATE_DEFAULT = 0
+        const val IS_ROTATION_ENABLED = false
+        const val IS_HIGH_LIGHT_PER_TAP_ENABLED = true
     }
 }

@@ -23,19 +23,20 @@ abstract class BaseActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    @LayoutRes
-    protected abstract fun layoutResId(): Int
+    @LayoutRes protected abstract fun layoutResId(): Int
+
+    abstract fun showProgress()
+
+    abstract fun hideProgress()
 
     fun handleFailure(failure: Failure) {
         when (failure) {
             is Failure.NetworkConnection -> snackbar(window.decorView.rootView, R.string.failure_network_connection).showError()
             is Failure.CustomError -> snackbar(window.decorView.rootView, R.string.failure_unavailable).showWarning()
             is Failure.GenericError -> snackbar(window.decorView.rootView, R.string.failure_unavailable).showError()
-
-            else -> snackbar(window.decorView.rootView, R.string.failure_unavailable_unknown).showNeutral()
+            else -> snackbar(window.decorView.rootView, R.string.failure_unavailable).showNeutral()
         }
 
         Timber.d("HandleFailure: ${window.decorView.rootView} == Failure: $failure")
     }
-
 }

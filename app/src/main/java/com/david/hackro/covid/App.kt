@@ -25,7 +25,6 @@ class App : Application() {
     }
 
     private fun initTimber() {
-        if (DEBUG)
-            Timber.plant(Timber.DebugTree())
+        if (DEBUG) Timber.plant(Timber.DebugTree())
     }
 }
