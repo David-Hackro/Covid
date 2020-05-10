@@ -25,11 +25,7 @@ class MainActivity : BaseActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
 
-        val navigator = KeepStateNavigator(
-            this,
-            navHostFragment.childFragmentManager,
-            R.id.nav_host_fragment
-        )
+        val navigator = KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host_fragment)
         navController.navigatorProvider += navigator
 
         navController.setGraph(R.navigation.nav_graph)

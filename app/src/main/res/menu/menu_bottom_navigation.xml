@@ -5,7 +5,7 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/tab_totals" />
     <item
-        android:id="@+id/countriesFragment"
+        android:id="@+id/countriesContainerFragment"
         android:icon="@drawable/ic_view_list_black_24dp"
         android:title="@string/tab_countries" />
     <item
