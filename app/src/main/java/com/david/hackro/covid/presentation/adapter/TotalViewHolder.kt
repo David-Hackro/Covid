@@ -22,7 +22,6 @@ class TotalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 progressBackgroundTintList = ContextCompat.getColorStateList(itemView.context, getColorBar(status = total.status))
                 progressTintList = ContextCompat.getColorStateList(itemView.context, getColorBar(status = total.status))
             }
-
         }
     }
 

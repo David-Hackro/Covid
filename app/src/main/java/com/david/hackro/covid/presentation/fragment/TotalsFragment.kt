@@ -10,6 +10,7 @@ import com.david.hackro.covid.presentation.model.TotalItem
 import com.david.hackro.covid.presentation.model.toItemList
 import com.david.hackro.covid.presentation.viewmodel.TotalReportViewModel
 import com.david.hackro.domain.State
+import com.david.hackro.kotlinext.empty
 import com.david.hackro.stats.domain.model.Totals
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -100,7 +101,7 @@ class TotalsFragment : BaseFragment() {
             }
         }
 
-        val dataSet = PieDataSet(totalsCovid, "")
+        val dataSet = PieDataSet(totalsCovid, String.empty())
 
         pieChart.data = PieData(dataSet)
 
