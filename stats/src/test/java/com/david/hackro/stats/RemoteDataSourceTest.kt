@@ -5,7 +5,6 @@ import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
 import com.david.hackro.stats.data.datasource.remote.model.rapidapi.ReportResponse
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.confirmVerified
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -37,8 +36,26 @@ object RemoteDataSourceTest : Spek({
             //Then
             coVerify { statsApi.getLatestCountryDataByName(name = name, date = date) }
             coVerify(exactly = VERIFY_ONE_INTERACTION) { statsApi.getLatestCountryDataByName(name = name, date = date) }
+        }
 
-            confirmVerified(statsApi)
+        test("get Daily Report All Countries") {
+            //Given
+            val response: List<ReportResponse> = mockk()
+            val date = ""
+
+            coEvery {
+                statsApi.getDailyReportAllCountries(date = date)
+            } returns response
+
+            //When
+            runBlocking {
+                val result = remoteDataSource.getDailyReportAllCountries(date = date)
+                Assert.assertEquals(result, response)
+            }
+
+            //Then
+            coVerify { statsApi.getDailyReportAllCountries(date = date) }
+            coVerify(exactly = VERIFY_ONE_INTERACTION) { statsApi.getDailyReportAllCountries(date = date) }
         }
     }
 
