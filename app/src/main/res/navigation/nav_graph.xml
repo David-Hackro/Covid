@@ -5,38 +5,22 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/totalsFragment">
 
-    <fragment
+    <keep_state_fragment
         android:id="@+id/totalsFragment"
         android:name="com.david.hackro.covid.presentation.fragment.TotalsFragment"
         android:label="fragment_totals"
         tools:layout="@layout/fragment_totals" />
 
-    <fragment
-        android:id="@+id/countriesFragment"
-        android:name="com.david.hackro.covid.presentation.fragment.CountriesFragment"
-        android:label="fragment_countries"
-        tools:layout="@layout/fragment_countries">
-        <action
-            android:id="@+id/action_countriesFragment_to_countryDetailsFragment"
-            app:destination="@id/countryDetailsFragment" />
-    </fragment>
+    <keep_state_fragment
+        android:id="@+id/countriesContainerFragment"
+        android:name="com.david.hackro.covid.presentation.fragment.CountryContainerFragment"
+        android:label="fragment_country_container"
+        tools:layout="@layout/fragment_country_container" />
 
-    <fragment
+    <keep_state_fragment
         android:id="@+id/mapFragment"
         android:name="com.david.hackro.covid.presentation.fragment.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
-    <fragment
-        android:id="@+id/countryDetailsFragment"
-        android:name="com.david.hackro.covid.presentation.fragment.CountryDetailsFragment"
-        android:label="fragment_country_details"
-        tools:layout="@layout/fragment_country_details">
-
-        <argument
-            android:name="code"
-            android:defaultValue="MX"
-            app:argType="string" />
-
-    </fragment>
 
 </navigation>

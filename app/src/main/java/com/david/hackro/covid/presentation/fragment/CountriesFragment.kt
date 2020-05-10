@@ -40,7 +40,7 @@ class CountriesFragment : BaseFragment() {
 
     private fun goToCountryDetail(report: Report) {
         val action = CountriesFragmentDirections
-            .actionCountriesFragmentToCountryDetailsFragment(code = report.country)
+            .actionCountriesToCountryDetailsFragment(code = report.country)
 
         view?.findNavController()?.navigate(action)
     }

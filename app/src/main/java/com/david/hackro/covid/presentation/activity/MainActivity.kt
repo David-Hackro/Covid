@@ -2,10 +2,12 @@ package com.david.hackro.covid.presentation.activity
 
 import android.os.Bundle
 import androidx.navigation.findNavController
+import androidx.navigation.plusAssign
 import androidx.navigation.ui.setupWithNavController
 import com.david.hackro.covid.R
 import com.david.hackro.covid.di.injectFeatures
-import kotlinx.android.synthetic.main.activity_main.bottomNav
+import com.david.hackro.covid.presentation.navigation.KeepStateNavigator
+import kotlinx.android.synthetic.main.activity_main.bottomNavView
 
 class MainActivity : BaseActivity() {
 
@@ -15,12 +17,19 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         injectFeatures()
-        initNavController()
+        setupNavigationKeepState()
     }
 
-    private fun initNavController() {
-        val navController = findNavController(R.id.navHost)
-        bottomNav.setupWithNavController(navController)
-    }
+    private fun setupNavigationKeepState() {
+        val navController = findNavController(R.id.nav_host_fragment)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
+
+        val navigator = KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host_fragment)
+        navController.navigatorProvider += navigator
+
+        navController.setGraph(R.navigation.nav_graph)
+
+        bottomNavView.setupWithNavController(navController)
+    }
 }
