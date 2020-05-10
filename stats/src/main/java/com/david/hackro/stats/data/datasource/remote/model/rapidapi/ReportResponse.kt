@@ -4,7 +4,7 @@ import com.david.hackro.stats.domain.model.Report
 import com.david.hackro.stats.domain.model.Total
 import com.squareup.moshi.Json
 
-data class ReportResponse(
+open class ReportResponse(
 
     @field:Json(name = "date")
     val date: String,
@@ -41,9 +41,13 @@ data class ProvincesItem(
 )
 
 fun ReportResponse.toDomain() =
-    Report(date = date, country = country, provinces = provinces.map { it.toDomain() }, latitude = latitude, longitude = longitude, total = loadTotalForCountry(
-        provinces
-    )
+    Report(
+        date = date,
+        country = country,
+        provinces = provinces.map { it.toDomain() },
+        latitude = latitude,
+        longitude = longitude,
+        total = loadTotalForCountry(provinces)
     )
 
 

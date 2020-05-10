@@ -22,7 +22,7 @@ object RemoteDataSourceTest : Spek({
         //getLatestCountryDataByName
         test("get latest country data by name") {
             //Given
-            val response: List<ReportResponse> = mockk(relaxed = true)
+            val response: List<ReportResponse> = mockk(relaxed = RELAXED_TRUE)
             val name = "Mexico"
             val date = "2020-05-01"
 
@@ -42,7 +42,7 @@ object RemoteDataSourceTest : Spek({
 
         test("get daily report all countries") {
             //Given
-            val response: List<ReportResponse> = mockk(relaxed = true)
+            val response: List<ReportResponse> = mockk(relaxed = RELAXED_TRUE)
             val date = "2020-05-01"
 
             coEvery {

@@ -10,7 +10,9 @@ import com.david.hackro.stats.StatsRepositoryImplTest.VERIFY_ONE_INTERACTION
 import com.david.hackro.stats.StatsRepositoryImplTest.VERIFY_ZERO_INTERACTIONS
 import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
 import com.david.hackro.stats.data.datasource.remote.model.rapidapi.ReportResponse
+import com.david.hackro.stats.data.datasource.remote.model.rapidapi.toDomain
 import com.david.hackro.stats.data.repository.StatsRepositoryImpl
+import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified
@@ -26,6 +28,10 @@ object StatsRepositoryImplTest : Spek({
     val networkHandler: NetworkHandler = mockk()
     val remoteDataSource: StatsRemoteDataSource = mockk()
     val repositoryImpl = StatsRepositoryImpl(networkHandler, remoteDataSource)
+
+    beforeEachTest {
+        clearAllMocks()
+    }
 
     group("report") {
         val name = "Mexico"
@@ -44,7 +50,7 @@ object StatsRepositoryImplTest : Spek({
             //When
             runBlocking {
                 val result = repositoryImpl.getLatestCountryDataByName(date = date, name = name)
-                Assert.assertEquals((result as Either.Right).b, response)
+                Assert.assertEquals((result as Either.Right).b, response.map { it.toDomain() })
             }
 
             //Then
@@ -67,18 +73,37 @@ object StatsRepositoryImplTest : Spek({
             }
 
             //Then
-            verify { networkHandler.isConnected }
             verify(exactly = VERIFY_ONE_INTERACTION) { networkHandler.isConnected }
             coVerify(exactly = VERIFY_ZERO_INTERACTIONS) { remoteDataSource.getLatestCountryDataByName(date = date, name = name) }
             confirmVerified(networkHandler, remoteDataSource)
         }
-    }
 
-    group("total") {
-        test("getLatestTotals") {
+        test("getDailyReportAllCountries success") {
+            //Given
+            val response: List<ReportResponse> = mockk(relaxed = RELAXED_TRUE)
 
+            every { networkHandler.isConnected } returns NETWORK_CONNECTED
+
+            coEvery {
+                remoteDataSource.getDailyReportAllCountries(date = date)
+            } returns response
+
+            ///When
+            runBlocking {
+                val result = repositoryImpl.getDailyReportAllCountries(date = date)
+                Assert.assertEquals((result as Either.Right).b, response.map { it.toDomain() })
+            }
+
+            //Then
+            verify { networkHandler.isConnected }
+            verify(exactly = VERIFY_ONE_INTERACTION) { networkHandler.isConnected }
+
+            coVerify { remoteDataSource.getDailyReportAllCountries(date = date) }
+
+            confirmVerified(networkHandler, remoteDataSource)
         }
     }
+
 }) {
     private const val VERIFY_ZERO_INTERACTIONS = 0
     private const val VERIFY_ONE_INTERACTION = 1
