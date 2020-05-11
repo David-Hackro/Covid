@@ -11,6 +11,9 @@
 
 ![alt text](https://i.ibb.co/3y0XZXL/Untitled-Diagram-3.png)
 
+## Other Modules
+![alt text](https://i.ibb.co/TPZkxwf/other-modules.png)
+
 ## Libs
 - [Retrofit](https://github.com/square/retrofit)
 - [Koin](https://github.com/InsertKoinIO/koin)
