@@ -19,10 +19,7 @@ android {
 
         buildConfigField "String", "END_POINT_COUNTRY", '"country/"'
         buildConfigField "String", "END_POINT_REPORT", '"report/"'
-        buildConfigField "String", "END_POINT_HELP", '"help"'
         buildConfigField "String", "END_POINT_TOTALS", '"totals"'
-
-        buildConfigField "String", "END_POINT_DATA_LATEST", '"data/"'
     }
 
     buildTypes {

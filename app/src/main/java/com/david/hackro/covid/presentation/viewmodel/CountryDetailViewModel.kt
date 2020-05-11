@@ -39,6 +39,6 @@ class CountryDetailViewModel(private val getLatestCountryDataByCodeUseCase: GetL
     }
 
     private companion object {
-        const val DATE_FORMAT = "YYYY-MM-DD"
+        const val DATE_FORMAT = "yyyy-MM-dd"
     }
 }

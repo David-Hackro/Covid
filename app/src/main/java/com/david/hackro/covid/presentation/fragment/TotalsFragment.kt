@@ -2,6 +2,7 @@ package com.david.hackro.covid.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
@@ -107,11 +108,10 @@ class TotalsFragment : BaseFragment() {
 
         resources.run {
             dataSet.setColors(
-                getColor(R.color.confirmed),
-                getColor(R.color.recovered),
-                getColor(R.color.critical),
-                getColor(R.color.deaths)
-            )
+                ContextCompat.getColor(getActivityContext(), R.color.confirmed),
+                ContextCompat.getColor(getActivityContext(), R.color.recovered),
+                ContextCompat.getColor(getActivityContext(), R.color.critical),
+                ContextCompat.getColor(getActivityContext(), R.color.deaths))
         }
 
     }

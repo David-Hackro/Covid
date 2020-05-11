@@ -3,6 +3,7 @@ package com.david.hackro.stats.data.datasource.remote
 import com.david.hackro.stats.BuildConfig.END_POINT_REPORT
 import com.david.hackro.stats.BuildConfig.END_POINT_TOTALS
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointParams.DATE_FORMAT
+import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointParams.FORMAT
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointParams.QUERY_DATE
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointParams.QUERY_DATE_FORMAT
 import com.david.hackro.stats.data.datasource.remote.StatsApiConstants.EndPointParams.QUERY_JSON_FORMAT_VALUE
@@ -25,7 +26,7 @@ interface StatsApi {
         @Query(QUERY_NAME) name: String,
         @Query(QUERY_DATE) date: String,
         @Query(QUERY_DATE_FORMAT) dateFormat: String = DATE_FORMAT,
-        @Query("format") format: String = QUERY_JSON_FORMAT_VALUE
+        @Query(FORMAT) format: String = QUERY_JSON_FORMAT_VALUE
     ): List<ReportResponse>
 
     @GET(END_POINT_REPORT + "{${COUNTRY}}/{${ALL}}")
@@ -38,8 +39,6 @@ interface StatsApi {
     ): List<ReportResponse>
 
     @GET(END_POINT_TOTALS)
-    suspend fun getLatestTotals(
-        @Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE
-    ): List<TotalsResponse>
+    suspend fun getLatestTotals(@Query(QUERY_JSON_FORMAT_VALUE) format: String = QUERY_JSON_FORMAT_VALUE): List<TotalsResponse>
 
 }
