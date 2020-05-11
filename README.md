@@ -23,6 +23,9 @@
 - [Mockk](https://mockk.io/)
 - [Chuck](https://github.com/jgilfelt/chuck)
 
+## API
+- [https://covid19-api.com/docs](https://covid19-api.com/docs)
+
 License
 ----
 
