@@ -6,39 +6,41 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.hackro.domain.Failure
 import com.david.hackro.domain.State
-import com.david.hackro.kotlinext.yesterday
-import com.david.hackro.stats.domain.model.Report
-import com.david.hackro.stats.domain.usecase.GetDailyReportAllCountriesUseCase
+import com.david.hackro.stats.domain.model.DataByStatus
+import com.david.hackro.stats.domain.usecase.GetDataByStatusUseCase
 
-class MapViewModel(private val getDailyReportAllCountriesUseCase: GetDailyReportAllCountriesUseCase) : ViewModel() {
+class MapViewModel(private val getDataByStatusUseCase: GetDataByStatusUseCase) : ViewModel() {
 
-    private val _stateDailyReport = MutableLiveData<State>()
-    val stateDailyReport: LiveData<State>
-        get() = _stateDailyReport
+    private val _stateDataByStatus = MutableLiveData<State>()
+    val stateDataByStatus: LiveData<State>
+        get() = _stateDataByStatus
 
     fun init() {
-        getDailyReportAllCountries()
+        getDataByStatus(status = CONFIRMED)
+        //getDataByStatus(status = RECOVERED)
+        //getDataByStatus(status = DEATHS)
     }
 
-    private fun getDailyReportAllCountries() {
-        _stateDailyReport.value = State.Loading
+    private fun getDataByStatus(status: String) {
+        val params = GetDataByStatusUseCase.Params(status = status)
 
-        val params = GetDailyReportAllCountriesUseCase.Params(date = yesterday(DATE_FORMAT))
-
-        getDailyReportAllCountriesUseCase.invoke(viewModelScope, params) {
-            it.either(::handleDailyReportAllCountriesFailure, ::handleDailyReportAllCountriesSuccess)
+        getDataByStatusUseCase.invoke(viewModelScope, params) {
+            it.either(::handleDataByStatusFailure, ::handleDataByStatusSuccess)
         }
     }
 
-    private fun handleDailyReportAllCountriesFailure(failure: Failure) {
-        _stateDailyReport.value = State.Failed(failure)
+    private fun handleDataByStatusFailure(failure: Failure) {
+        _stateDataByStatus.value = State.Failed(failure)
     }
 
-    private fun handleDailyReportAllCountriesSuccess(list: List<Report>) {
-        _stateDailyReport.value = State.Success(list)
+
+    private fun handleDataByStatusSuccess(dataByStatus: DataByStatus) {
+        _stateDataByStatus.value = State.Success(dataByStatus)
     }
 
     private companion object {
-        const val DATE_FORMAT = "yyyy-MM-dd"
+        const val CONFIRMED = "confirmed"
+        const val RECOVERED = "recovered"
+        const val DEATHS = "deaths"
     }
 }

@@ -8,17 +8,17 @@ import com.david.hackro.stats.data.datasource.remote.StatsApi
 import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
 import com.david.hackro.stats.data.repository.StatsRepository
 import com.david.hackro.stats.data.repository.StatsRepositoryImpl
-import com.david.hackro.stats.domain.usecase.GetDailyReportAllCountriesUseCase
-import com.david.hackro.stats.domain.usecase.GetLatestCountryDataByNameUseCase
-import com.david.hackro.stats.domain.usecase.GetLatestTotalsUseCase
+import com.david.hackro.stats.domain.usecase.GetCountryListUseCase
+import com.david.hackro.stats.domain.usecase.GetDataByStatusUseCase
+import com.david.hackro.stats.domain.usecase.GetSummaryInfoUseCase
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
 val useCaseModule: Module = module {
-    factory { GetDailyReportAllCountriesUseCase(repository = get()) }
-    factory { GetLatestCountryDataByNameUseCase(repository = get()) }
-    factory { GetLatestTotalsUseCase(repository = get()) }
+    factory { GetSummaryInfoUseCase(repository = get()) }
+    factory { GetDataByStatusUseCase(repository = get()) }
+    factory { GetCountryListUseCase(repository = get()) }
 }
 
 val repositoryModule: Module = module {

@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.david.hackro.covid.R
-import com.david.hackro.stats.domain.model.Report
+import com.david.hackro.stats.domain.model.CountryItem
 
 class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var countryList = listOf<Report>()
-    lateinit var onCountryItemListener: ((report: Report) -> Unit)
+    private var countryList = listOf<CountryItem>()
+    lateinit var onCountryItemListener: ((countryItem: CountryItem) -> Unit)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_covid, parent, false)
@@ -25,8 +25,9 @@ class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount() = countryList.size
 
-    fun setCountryList(totalItemList: List<Report>) {
-        countryList = totalItemList.sortedBy { it.country }
+    fun setCountryList(countryList: List<CountryItem>) {
+        this.countryList = countryList
+
         notifyDataSetChanged()
     }
 }

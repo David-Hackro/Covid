@@ -1,16 +1,11 @@
 package com.david.hackro.network
 
 import android.content.Context
-import com.david.hackro.network.BuildConfig.RAPI_API_KEY
 import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-
-private const val HOST = "x-rapidapi-host"
-private const val HOST_VALUE = "covid-19-data.p.rapidapi.com"
-private const val KEY = "x-rapidapi-key"
 
 fun createNetworkClient(baseUrl: String, debug: Boolean = false, context: Context): Retrofit =
     retrofitClient(baseUrl, httpClient(debug, context))
@@ -26,10 +21,6 @@ private fun httpClient(debug: Boolean, context: Context): OkHttpClient {
         clientBuilder.run {
             addInterceptor { chain ->
                 val request = chain.request().newBuilder()
-
-                request.addHeader(HOST, HOST_VALUE)
-                request.addHeader(KEY, RAPI_API_KEY)
-
                 chain.proceed(request.build())
             }
 

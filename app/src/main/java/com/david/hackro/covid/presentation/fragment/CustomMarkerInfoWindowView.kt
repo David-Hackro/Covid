@@ -25,9 +25,9 @@ class CustomMarkerInfoWindowView(private val context: Context?, private val myIt
 
         view.run {
 
-            countryName.text = myItem.report.country
+            countryName.text = myItem.dataByStatus.provinceState
 
-            myItem.report.total.run {
+            myItem.dataByStatus.run {
                 countryTotalNumber.text = confirmed.toString()
                 countryActiveNumber.text = active.toString()
                 countryRecoveredNumber.text = recovered.toString()

@@ -2,14 +2,13 @@ package com.david.hackro.covid.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
 import com.david.hackro.covid.presentation.adapter.CountryAdapter
 import com.david.hackro.covid.presentation.viewmodel.DailyReportAllCountriesViewModel
 import com.david.hackro.domain.State
-import com.david.hackro.stats.domain.model.Report
+import com.david.hackro.stats.domain.model.CountryItem
 import kotlinx.android.synthetic.main.fragment_countries.countryRv
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -37,11 +36,12 @@ class CountriesFragment : BaseFragment() {
         }
     }
 
-    private fun goToCountryDetail(report: Report) {
-        val action = CountriesFragmentDirections
-            .actionCountriesToCountryDetailsFragment(code = report.country)
+    private fun goToCountryDetail(report: CountryItem) {
 
-        view?.findNavController()?.navigate(action)
+        /*val action = CountriesFragmentDirections
+            .actionCountriesToCountryDetailsFragment(code = report.country)*/
+
+        //view?.findNavController()?.navigate(action)
     }
 
     private fun initObservers() {
@@ -68,11 +68,11 @@ class CountriesFragment : BaseFragment() {
             when (noNullState) {
                 is State.Loading -> getActivityContext().showProgress()
                 is State.Success -> {
-                    val result = noNullState.responseTo<List<Report>>()
+                    val result = noNullState.responseTo<List<CountryItem>>()
 
                     getActivityContext().hideProgress()
 
-                    showDailyReports(resultList = result)
+                    showDailyReports(countryList = result)
                 }
                 is State.Failed -> {
                     getActivityContext().run {
@@ -85,7 +85,7 @@ class CountriesFragment : BaseFragment() {
         }
     }
 
-    private fun showDailyReports(resultList: List<Report>) {
-        countryAdapter.setCountryList(resultList)
+    private fun showDailyReports(countryList: List<CountryItem>) {
+        countryAdapter.setCountryList(countryList)
     }
 }

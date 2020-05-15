@@ -7,32 +7,34 @@ import androidx.lifecycle.viewModelScope
 import com.david.hackro.domain.Failure
 import com.david.hackro.domain.State
 import com.david.hackro.domain.UseCase
-import com.david.hackro.stats.domain.model.Totals
-import com.david.hackro.stats.domain.usecase.GetLatestTotalsUseCase
+import com.david.hackro.stats.domain.model.SummaryInfo
+import com.david.hackro.stats.domain.usecase.GetSummaryInfoUseCase
 
-class TotalReportViewModel(private val getLatestTotalsUseCase: GetLatestTotalsUseCase): ViewModel() {
+class TotalReportViewModel(
+    private val getSummaryInfoUseCase: GetSummaryInfoUseCase
+) : ViewModel() {
 
-    private val _stateTotalReport = MutableLiveData<State>()
-    val stateTotalReport: LiveData<State>
-        get() = _stateTotalReport
+    private val _stateSummaryInfo = MutableLiveData<State>()
+    val stateSummaryInfo: LiveData<State>
+        get() = _stateSummaryInfo
 
     fun init() {
         getTotalReport()
     }
 
     private fun getTotalReport() {
-        _stateTotalReport.value = State.Loading
+        _stateSummaryInfo.value = State.Loading
 
-        getLatestTotalsUseCase.invoke(viewModelScope, UseCase.None()) {
+        getSummaryInfoUseCase.invoke(viewModelScope, UseCase.None()) {
             it.either(::handleTotalReportFailure, ::handleTotalReportSuccess)
         }
     }
 
     private fun handleTotalReportFailure(failure: Failure) {
-        _stateTotalReport.value = State.Failed(failure)
+        _stateSummaryInfo.value = State.Failed(failure)
     }
 
-    private fun handleTotalReportSuccess(totals: List<Totals>) {
-        _stateTotalReport.value = State.Success(totals.first())
+    private fun handleTotalReportSuccess(summaryInfo: SummaryInfo) {
+        _stateSummaryInfo.value = State.Success(summaryInfo)
     }
 }
