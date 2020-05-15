@@ -8,13 +8,8 @@ import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
 import com.david.hackro.covid.presentation.adapter.TotalAdapter
 import com.david.hackro.covid.presentation.model.TotalItem
-import com.david.hackro.covid.presentation.model.toItemList
 import com.david.hackro.covid.presentation.viewmodel.CountryDetailViewModel
 import com.david.hackro.domain.State
-import com.david.hackro.stats.domain.model.Report
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
 import kotlinx.android.synthetic.main.fragment_country_details.totalRv
 import kotlinx.android.synthetic.main.fragment_totals.pieChart
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -72,11 +67,11 @@ class CountryDetailsFragment : BaseFragment() {
             when (noNullState) {
                 is State.Loading -> getActivityContext().showProgress()
                 is State.Success -> {
-                    val result = noNullState.responseTo<Report>()
+                    //val result = noNullState.responseTo<Report>()
 
                     getActivityContext().hideProgress()
 
-                    showTotalReports(result = result)
+                    //showTotalReports(result = result)
                 }
                 is State.Failed -> {
                     getActivityContext().run {
@@ -89,6 +84,7 @@ class CountryDetailsFragment : BaseFragment() {
         }
     }
 
+    /*
     private fun showTotalReports(result: Report) {
         setValuesAdapter(result.toItemList())
 
@@ -115,6 +111,8 @@ class CountryDetailsFragment : BaseFragment() {
         }
 
     }
+
+    */
 
     private fun setValuesAdapter(itemList: List<TotalItem>) {
         totalAdapter.setTotalList(totalItemList = itemList)

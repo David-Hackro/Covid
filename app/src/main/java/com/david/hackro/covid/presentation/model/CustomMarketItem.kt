@@ -1,14 +1,14 @@
 package com.david.hackro.covid.presentation.model
 
 import com.david.hackro.kotlinext.empty
-import com.david.hackro.stats.domain.model.Report
+import com.david.hackro.stats.domain.model.DataByStatusItem
 import com.google.android.gms.maps.model.LatLng
 
 import com.google.maps.android.clustering.ClusterItem
 
-class MyItem(val report: Report) : ClusterItem {
+class MyItem(val dataByStatus: DataByStatusItem) : ClusterItem {
 
-    override fun getPosition() = LatLng(report.latitude!!, report.longitude!!)
+    override fun getPosition() = LatLng(dataByStatus.lat!!.toDouble(), dataByStatus.lng!!.toDouble())
 
     override fun getTitle() = String.empty()
 

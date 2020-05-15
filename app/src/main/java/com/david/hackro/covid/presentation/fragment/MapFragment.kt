@@ -7,13 +7,15 @@ import com.david.hackro.covid.R
 import com.david.hackro.covid.presentation.model.MyItem
 import com.david.hackro.covid.presentation.viewmodel.MapViewModel
 import com.david.hackro.domain.State
-import com.david.hackro.stats.domain.model.Report
+import com.david.hackro.stats.domain.model.DataByStatus
+import com.david.hackro.stats.domain.model.DataByStatusItem
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
 import com.google.maps.android.clustering.ClusterManager
 import kotlinx.android.synthetic.main.fragment_map.mapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+
 
 class MapFragment : BaseFragment() {
 
@@ -31,7 +33,7 @@ class MapFragment : BaseFragment() {
     }
 
     private fun initObservers() {
-        liveDataObserve(mapViewHolder.stateDailyReport, ::onDailyReportStateChange)
+        liveDataObserve(mapViewHolder.stateDataByStatus, ::onDataByStatusStateChange)
     }
 
     private fun initMap() {
@@ -48,12 +50,12 @@ class MapFragment : BaseFragment() {
         mapViewHolder.init()
     }
 
-    private fun onDailyReportStateChange(state: State?) {
+    private fun onDataByStatusStateChange(state: State?) {
         state?.let { noNullState ->
             when (noNullState) {
                 is State.Loading -> getActivityContext().showProgress()
                 is State.Success -> {
-                    val result = noNullState.responseTo<List<Report>>()
+                    val result = noNullState.responseTo<DataByStatus>()
 
                     getActivityContext().hideProgress()
 
@@ -70,10 +72,11 @@ class MapFragment : BaseFragment() {
         }
     }
 
-    private fun showDailyReports(resultList: List<Report>) {
-        resultList.map {
-            it.latitude?.run {
-                addItems(it)
+    private fun showDailyReports(resultList: DataByStatus) {
+
+        resultList.dataByStatusList.map {
+            it.lng?.run {
+                addItems(dataByStatus = it)
             }
         }
     }
@@ -103,8 +106,8 @@ class MapFragment : BaseFragment() {
         googleMap.setOnMarkerClickListener(mClusterManager)
     }
 
-    private fun addItems(report: Report) {
-        mClusterManager.addItem(MyItem(report))
+    private fun addItems(dataByStatus: DataByStatusItem) {
+        mClusterManager.addItem(MyItem(dataByStatus = dataByStatus))
     }
 
     override fun onResume() {

@@ -6,39 +6,38 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.hackro.domain.Failure
 import com.david.hackro.domain.State
-import com.david.hackro.kotlinext.yesterday
-import com.david.hackro.stats.domain.model.Report
-import com.david.hackro.stats.domain.usecase.GetDailyReportAllCountriesUseCase
+import com.david.hackro.stats.domain.model.CountryItem
+import com.david.hackro.stats.domain.model.DataByStatus
+import com.david.hackro.stats.domain.usecase.GetCountryListUseCase
+import com.david.hackro.stats.domain.usecase.GetDataByStatusUseCase
 
-class DailyReportAllCountriesViewModel(private val getDailyReportAllCountriesUseCase: GetDailyReportAllCountriesUseCase) : ViewModel() {
+class DailyReportAllCountriesViewModel(private val getCountryListUseCase: GetCountryListUseCase) : ViewModel() {
 
     private val _stateDailyReport = MutableLiveData<State>()
     val stateDailyReport: LiveData<State>
         get() = _stateDailyReport
 
     fun init() {
-        getDailyReportAllCountries()
+        getDataByStatus(status = DEFAULT_STATUS)
     }
 
-    private fun getDailyReportAllCountries() {
-        _stateDailyReport.value = State.Loading
+    private fun getDataByStatus(status: String) {
+        val params = GetCountryListUseCase.Params(status = status)
 
-        val params = GetDailyReportAllCountriesUseCase.Params(date = yesterday(DATE_FORMAT))
-
-        getDailyReportAllCountriesUseCase.invoke(viewModelScope, params) {
-            it.either(::handleDailyReportAllCountriesFailure, ::handleDailyReportAllCountriesSuccess)
+        getCountryListUseCase.invoke(viewModelScope, params) {
+            it.either(::handleDataByStatusFailure, ::handleDataByStatusSuccess)
         }
     }
 
-    private fun handleDailyReportAllCountriesFailure(failure: Failure) {
+    private fun handleDataByStatusFailure(failure: Failure) {
         _stateDailyReport.value = State.Failed(failure)
     }
 
-    private fun handleDailyReportAllCountriesSuccess(list: List<Report>) {
-        _stateDailyReport.value = State.Success(list)
+    private fun handleDataByStatusSuccess(countryList: List<CountryItem>) {
+        _stateDailyReport.value = State.Success(countryList)
     }
 
     private companion object {
-        const val DATE_FORMAT = "YYYY-MM-DD"
+        const val DEFAULT_STATUS = "confirmed"
     }
 }

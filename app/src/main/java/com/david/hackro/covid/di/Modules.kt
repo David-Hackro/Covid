@@ -31,18 +31,18 @@ private val loadFeature by lazy {
 
 val viewModelModule: Module = module {
     viewModel {
-        TotalReportViewModel(getLatestTotalsUseCase = get())
+        TotalReportViewModel(getSummaryInfoUseCase = get())
     }
 
     viewModel {
-        DailyReportAllCountriesViewModel(getDailyReportAllCountriesUseCase = get())
+        DailyReportAllCountriesViewModel(getCountryListUseCase = get())
     }
 
     viewModel {
-        MapViewModel(getDailyReportAllCountriesUseCase = get())
+        MapViewModel(getDataByStatusUseCase = get())
     }
 
     viewModel {
-        CountryDetailViewModel(getLatestCountryDataByCodeUseCase = get())
+        CountryDetailViewModel()
     }
 }

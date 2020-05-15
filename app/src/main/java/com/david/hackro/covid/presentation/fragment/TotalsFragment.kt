@@ -2,6 +2,7 @@ package com.david.hackro.covid.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
@@ -11,7 +12,7 @@ import com.david.hackro.covid.presentation.model.toItemList
 import com.david.hackro.covid.presentation.viewmodel.TotalReportViewModel
 import com.david.hackro.domain.State
 import com.david.hackro.kotlinext.empty
-import com.david.hackro.stats.domain.model.Totals
+import com.david.hackro.stats.domain.model.SummaryInfo
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -40,7 +41,7 @@ class TotalsFragment : BaseFragment() {
     }
 
     private fun initObservers() {
-        liveDataObserve(totalReportViewModel.stateTotalReport, ::onTotalReportStateChange)
+        liveDataObserve(totalReportViewModel.stateSummaryInfo, ::onSummaryInfoStateChange)
     }
 
     private fun initAdapter() {
@@ -67,16 +68,16 @@ class TotalsFragment : BaseFragment() {
         totalReportViewModel.init()
     }
 
-    private fun onTotalReportStateChange(state: State?) {
+    private fun onSummaryInfoStateChange(state: State?) {
         state?.let { noNullState ->
             when (noNullState) {
                 is State.Loading -> getActivityContext().showProgress()
                 is State.Success -> {
-                    val result = noNullState.responseTo<Totals>()
+                    val result = noNullState.responseTo<SummaryInfo>()
 
                     getActivityContext().hideProgress()
 
-                    showTotalReports(result = result)
+                    showTotalReports(summaryInfo = result)
                 }
                 is State.Failed -> {
                     getActivityContext().run {
@@ -89,15 +90,17 @@ class TotalsFragment : BaseFragment() {
         }
     }
 
-    private fun showTotalReports(result: Totals) {
-        setValuesAdapter(result.toItemList())
+    private fun showTotalReports(summaryInfo: SummaryInfo) {
+        setValuesAdapter(summaryInfo.toItemList())
+        setChartValues(summaryInfo = summaryInfo)
+    }
 
+    private fun setChartValues(summaryInfo: SummaryInfo) {
         val totalsCovid = arrayListOf<PieEntry>().apply {
-            result.run {
-                add(PieEntry(confirmed.toFloat()))
-                add(PieEntry(recovered.toFloat()))
-                add(PieEntry(critical.toFloat()))
-                add(PieEntry(deaths.toFloat()))
+            summaryInfo.run {
+                add(PieEntry(confirmed.value.toFloat()))
+                add(PieEntry(recovered.value.toFloat()))
+                add(PieEntry(deaths.value.toFloat()))
             }
         }
 
@@ -107,13 +110,11 @@ class TotalsFragment : BaseFragment() {
 
         resources.run {
             dataSet.setColors(
-                getColor(R.color.confirmed),
-                getColor(R.color.recovered),
-                getColor(R.color.critical),
-                getColor(R.color.deaths)
+                ContextCompat.getColor(getActivityContext(), R.color.confirmed),
+                ContextCompat.getColor(getActivityContext(), R.color.recovered),
+                ContextCompat.getColor(getActivityContext(), R.color.deaths)
             )
         }
-
     }
 
     private fun setValuesAdapter(itemList: List<TotalItem>) {
