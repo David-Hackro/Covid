@@ -9,11 +9,11 @@
 
     <SearchView
         android:id="@+id/searchView"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/empty_size"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/default_size"
+        android:layout_marginTop="@dimen/dimen_24"
+        android:layout_marginEnd="@dimen/default_size"
         android:background="@drawable/search_country_background"
         android:queryHint="Search country"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/empty_size"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -37,11 +37,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTotal"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/empty_size"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/default_size"
+        android:layout_marginTop="@dimen/default_size"
+        android:layout_marginEnd="@dimen/default_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,11 +49,11 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/empty_size"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/default_size"
+        android:layout_marginTop="@dimen/default_size"
+        android:layout_marginEnd="@dimen/default_size"
         android:text="Most Infected"
         android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_25"
@@ -63,12 +63,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCountry"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="@dimen/empty_size"
+        android:layout_height="@dimen/empty_size"
+        android:layout_marginStart="@dimen/default_size"
+        android:layout_marginTop="@dimen/default_size"
+        android:layout_marginEnd="@dimen/default_size"
+        android:layout_marginBottom="@dimen/default_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

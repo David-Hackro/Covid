@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragment.CountryContainerFragment">
+    tools:context=".presentation.fragment.HomeContainerFragment">
 
     <fragment
         android:id="@+id/nav_host_fragment"
@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_country" />
+        app:navGraph="@navigation/nav_home" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,23 +1,38 @@
 package com.david.hackro.covid.presentation.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.david.hackro.androidext.liveDataObserve
+import com.david.hackro.androidext.setUrlCircle
 import com.david.hackro.covid.R
-import com.david.hackro.covid.presentation.adapter.TotalAdapter
-import com.david.hackro.covid.presentation.model.TotalItem
+import com.david.hackro.covid.presentation.adapter.CountryTotalAdapter
+import com.david.hackro.covid.presentation.model.CountryItem
+import com.david.hackro.covid.presentation.model.CountryTotalItem
+import com.david.hackro.covid.presentation.model.toItemList
 import com.david.hackro.covid.presentation.viewmodel.CountryDetailViewModel
 import com.david.hackro.domain.State
-import kotlinx.android.synthetic.main.fragment_country_details.totalRv
+import com.david.hackro.kotlinext.empty
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import kotlinx.android.synthetic.main.fragment_country_details.bannerTips
+import kotlinx.android.synthetic.main.fragment_country_details.country
+import kotlinx.android.synthetic.main.fragment_country_details.flag
+import kotlinx.android.synthetic.main.fragment_country_details.horizontalBarChart
+import kotlinx.android.synthetic.main.fragment_country_details.rvCountry
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+
 
 class CountryDetailsFragment : BaseFragment() {
 
     private val countryDetailViewModel: CountryDetailViewModel by viewModel()
-    private lateinit var totalAdapter: TotalAdapter
+    private lateinit var countryTotalAdapter: CountryTotalAdapter
 
     override fun layoutId() = R.layout.fragment_country_details
 
@@ -27,38 +42,85 @@ class CountryDetailsFragment : BaseFragment() {
         initObservers()
         initAdapter()
         initRecycler()
-        initChart()
+        initListener()
         initValues()
     }
 
     private fun initObservers() {
-        liveDataObserve(countryDetailViewModel.stateLatestCountryData, ::onLatestCountryDataStateChange)
+        liveDataObserve(countryDetailViewModel.stateCountryDetail, ::onLatestCountryDataStateChange)
     }
 
     private fun initAdapter() {
-        totalAdapter = TotalAdapter()
+        countryTotalAdapter = CountryTotalAdapter()
     }
 
     private fun initRecycler() {
-        totalRv.run {
+        rvCountry.run {
             this.layoutManager = GridLayoutManager(context, SPAN_COUNT, GridLayoutManager.VERTICAL, false)
-            this.adapter = totalAdapter
+            this.adapter = countryTotalAdapter
         }
     }
 
-    private fun initChart() {
-        /*pieChart.run {
-            centerText = resources.getString(R.string.app_name)
-            isRotationEnabled = IS_ROTATION_ENABLED
-            isHighlightPerTapEnabled = IS_HIGH_LIGHT_PER_TAP_ENABLED
-            animateXY(ANIMATE_DEFAULT, ANIMATE_DEFAULT)
-        }*/
+    private fun initListener() {
+        bannerTips.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.who.int/es/emergencies/diseases/novel-coronavirus-2019/advice-for-public/q-a-coronaviruses"))
+            startActivity(browserIntent)
+        }
+    }
+
+    private fun initChart(countryItem: CountryItem) {
+        val barDataSet = BarDataSet(getData(countryItem = countryItem), String.empty())
+        //barDataSet.barBorderWidth = 0.9f
+        val colors = mutableListOf(
+            resources.getColor(R.color.confirmed),
+            resources.getColor(R.color.deaths),
+            resources.getColor(R.color.recovered),
+            resources.getColor(R.color.active)
+        )
+
+        barDataSet.colors = colors
+
+
+        val barData = BarData(barDataSet)
+        val xAxis: XAxis = horizontalBarChart.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.granularity = 1f
+        horizontalBarChart.data = barData
+        horizontalBarChart.setFitBars(true)
+
+        horizontalBarChart.description
+        horizontalBarChart.axisLeft.setDrawLabels(false)
+        horizontalBarChart.xAxis.setDrawLabels(false)
+
+        horizontalBarChart.legend.isEnabled = false
+
+        horizontalBarChart.animateXY(1500, 2500)
+
+        horizontalBarChart.invalidate()
+
+
+    }
+
+
+    private fun getData(countryItem: CountryItem): ArrayList<BarEntry> {
+        val entries = ArrayList<BarEntry>()
+
+        countryItem.run {
+            entries.add(BarEntry(3f, confirmed.toFloat()))
+            entries.add(BarEntry(2f, death.toFloat()))
+            entries.add(BarEntry(1f, recovered.toFloat()))
+            entries.add(BarEntry(0f, active.toFloat()))
+        }
+
+        return entries
     }
 
     private fun initValues() {
         val args: CountryDetailsFragmentArgs by navArgs()
+        countryDetailViewModel.init(countryIso = args.countryIso)
 
-        countryDetailViewModel.init(name = args.code)
+        flag.setUrlCircle("https://flagpedia.net/data/flags/normal/${args.countryIso.toLowerCase()}.png")
+        country.text = args.countryIso
     }
 
     private fun onLatestCountryDataStateChange(state: State?) {
@@ -66,11 +128,12 @@ class CountryDetailsFragment : BaseFragment() {
             when (noNullState) {
                 is State.Loading -> getActivityContext().showProgress()
                 is State.Success -> {
-                    //val result = noNullState.responseTo<Report>()
+
+                    val result = noNullState.responseTo<CountryItem>()
 
                     getActivityContext().hideProgress()
 
-                    //showTotalReports(result = result)
+                    showDataByCountry(countryItem = result)
                 }
                 is State.Failed -> {
                     getActivityContext().run {
@@ -83,38 +146,14 @@ class CountryDetailsFragment : BaseFragment() {
         }
     }
 
-    /*
-    private fun showTotalReports(result: Report) {
-        setValuesAdapter(result.toItemList())
-
-        val totalsCovid = arrayListOf<PieEntry>().apply {
-            result.run {
-                add(PieEntry(total.confirmed.toFloat(), resources.getString(R.string.confirmed)))
-                add(PieEntry(total.recovered.toFloat(), resources.getString(R.string.recovered)))
-                add(PieEntry(total.active.toFloat(), resources.getString(R.string.actived)))
-                add(PieEntry(total.deaths.toFloat(), resources.getString(R.string.deaths)))
-            }
-        }
-
-        val dataSet = PieDataSet(totalsCovid, "")
-
-        pieChart.data = PieData(dataSet)
-
-        resources.run {
-            dataSet.setColors(
-                getColor(R.color.confirmed),
-                getColor(R.color.recovered),
-                getColor(R.color.active),
-                getColor(R.color.deaths)
-            )
-        }
-
+    private fun showDataByCountry(countryItem: CountryItem) {
+        country.text = countryItem.countryName
+        initChart(countryItem = countryItem)
+        showTotalByCountry(countryTotalItemList = countryItem.toItemList())
     }
 
-    */
-
-    private fun setValuesAdapter(itemList: List<TotalItem>) {
-        totalAdapter.setTotalList(totalItemList = itemList)
+    private fun showTotalByCountry(countryTotalItemList: List<CountryTotalItem>) {
+        countryTotalAdapter.setCountryItemList(countryTotalItemList = countryTotalItemList)
     }
 
     private companion object {

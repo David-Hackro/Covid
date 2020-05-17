@@ -9,7 +9,6 @@ import com.david.hackro.covid.presentation.adapter.CountryAdapter
 import com.david.hackro.covid.presentation.viewmodel.DailyReportAllCountriesViewModel
 import com.david.hackro.domain.State
 import com.david.hackro.stats.domain.model.CountryItem
-import kotlinx.android.synthetic.main.fragment_countries.countryRv
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -26,22 +25,7 @@ class CountriesFragment : BaseFragment() {
         initObservers()
         initAdapter()
         initRecycler()
-        initListener()
         initValues()
-    }
-
-    private fun initListener() {
-        countryAdapter.onCountryItemListener = {
-            //goToCountryDetail(report = it)
-        }
-    }
-
-    private fun goToCountryDetail(report: CountryItem) {
-
-        /*val action = CountriesFragmentDirections
-            .actionCountriesToCountryDetailsFragment(code = report.country)*/
-
-        //view?.findNavController()?.navigate(action)
     }
 
     private fun initObservers() {
@@ -53,10 +37,7 @@ class CountriesFragment : BaseFragment() {
     }
 
     private fun initRecycler() {
-        countryRv.run {
-            this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
-            this.adapter = countryAdapter
-        }
+
     }
 
     private fun initValues() {

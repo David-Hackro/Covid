@@ -2,18 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/countries"
-    app:startDestination="@id/countries">
+    android:id="@+id/home"
+    app:startDestination="@id/home">
 
     <fragment
-        android:id="@+id/countries"
-        android:name="com.david.hackro.covid.presentation.fragment.CountriesFragment"
-        android:label="fragment_countries"
-        tools:layout="@layout/fragment_countries">
+        android:id="@+id/home"
+        android:name="com.david.hackro.covid.presentation.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_countries_to_countryDetailsFragment"
+            android:id="@+id/action_home_to_countryDetailsFragment"
             app:destination="@id/countryDetailsFragment" />
+
     </fragment>
 
     <fragment
@@ -23,7 +24,7 @@
         tools:layout="@layout/fragment_country_details">
 
         <argument
-            android:name="code"
+            android:name="countryIso"
             android:defaultValue="MX"
             app:argType="string" />
 

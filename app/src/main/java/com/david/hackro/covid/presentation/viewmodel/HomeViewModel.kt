@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.david.hackro.covid.presentation.model.CountryItem
+import com.david.hackro.covid.presentation.model.toCountryList
 import com.david.hackro.domain.Failure
 import com.david.hackro.domain.State
 import com.david.hackro.domain.UseCase
@@ -13,7 +13,7 @@ import com.david.hackro.stats.domain.model.SummaryInfo
 import com.david.hackro.stats.domain.usecase.GetDataByStatusUseCase
 import com.david.hackro.stats.domain.usecase.GetSummaryInfoUseCase
 
-class TotalReportViewModel(
+class HomeViewModel(
     private val getSummaryInfoUseCase: GetSummaryInfoUseCase,
     private val getDataByStatusUseCase: GetDataByStatusUseCase
 ) : ViewModel() {
@@ -22,9 +22,9 @@ class TotalReportViewModel(
     val stateSummaryInfo: LiveData<State>
         get() = _stateSummaryInfo
 
-    private val _stateCountryData = MutableLiveData<State>()
+    private val _stateDataByStatus = MutableLiveData<State>()
     val stateCountryData: LiveData<State>
-        get() = _stateCountryData
+        get() = _stateDataByStatus
 
     fun init() {
         getTotalReport()
@@ -49,7 +49,7 @@ class TotalReportViewModel(
 
 
     private fun getDataByStatus() {
-        val params = GetDataByStatusUseCase.Params(status = "confirmed")
+        val params = GetDataByStatusUseCase.Params(status = DEFAULT_STATUS)
 
         getDataByStatusUseCase.invoke(viewModelScope, params) {
             it.either(::handleDataByStatusFailure, ::handleDataByStatusSuccess)
@@ -57,42 +57,16 @@ class TotalReportViewModel(
     }
 
     private fun handleDataByStatusFailure(failure: Failure) {
-
+        _stateDataByStatus.value = State.Failed(failure)
     }
 
-    /*
-        val countryName: String,
-        val countryIso: String,
-        val confirmed: Int,
-        val recovered: Int,
-        val death: Int,
-        val active: Int
-     */
     private fun handleDataByStatusSuccess(dataByStatus: DataByStatus) {
-        val listddd = mutableListOf<CountryItem>()
-        val d = dataByStatus.dataByStatusList.groupBy { it.countryRegion }
-
-
-        d.forEach { (key, value) ->
-            var confirmed = 0
-            var recovered = 0
-            var death = 0
-            var active = 0
-
-            value.map {
-                confirmed += it.confirmed
-                recovered += it.recovered
-                death += it.deaths
-                active += it.active
-            }
-
-            listddd.add(CountryItem(key, value.first().iso2.toString(), value.first().iso3.toString(), confirmed, recovered, death, active))
-        }
-
-        listddd.sortByDescending { it.confirmed }
-
-        _stateCountryData.value = State.Success(listddd)
-
+        _stateDataByStatus.value = State.Success(dataByStatus.dataByStatusList.toCountryList())
     }
+
+    private companion object {
+        const val DEFAULT_STATUS = "confirmed"
+    }
+
 }
 

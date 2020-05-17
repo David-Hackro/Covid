@@ -2,32 +2,33 @@ package com.david.hackro.covid.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
 import com.david.hackro.covid.presentation.adapter.CountryAdapter
-import com.david.hackro.covid.presentation.adapter.TotalAdapter
+import com.david.hackro.covid.presentation.adapter.WorldTotalAdapter
 import com.david.hackro.covid.presentation.model.CountryItem
-import com.david.hackro.covid.presentation.model.TotalItem
+import com.david.hackro.covid.presentation.model.WorldTotalItem
 import com.david.hackro.covid.presentation.model.toItemList
-import com.david.hackro.covid.presentation.viewmodel.TotalReportViewModel
+import com.david.hackro.covid.presentation.viewmodel.HomeViewModel
 import com.david.hackro.domain.State
 import com.david.hackro.stats.domain.model.SummaryInfo
-import kotlinx.android.synthetic.main.fragment_totals.rvCountry
-import kotlinx.android.synthetic.main.fragment_totals.rvTotal
+import kotlinx.android.synthetic.main.fragment_home.rvCountry
+import kotlinx.android.synthetic.main.fragment_home.rvTotal
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 
-class TotalsFragment : BaseFragment() {
+class HomeFragment : BaseFragment() {
 
-    private val totalReportViewModel: TotalReportViewModel by viewModel()
+    private val homeViewModel: HomeViewModel by viewModel()
 
-    private lateinit var totalAdapter: TotalAdapter
+    private lateinit var worldTotalAdapter: WorldTotalAdapter
     private lateinit var countryAdapter: CountryAdapter
 
-    override fun layoutId() = R.layout.fragment_totals
+    override fun layoutId() = R.layout.fragment_home
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,26 +41,32 @@ class TotalsFragment : BaseFragment() {
     }
 
     private fun initObservers() {
-        liveDataObserve(totalReportViewModel.stateSummaryInfo, ::onSummaryInfoStateChange)
-        liveDataObserve(totalReportViewModel.stateCountryData, ::onCountryDataStateChange)
+        liveDataObserve(homeViewModel.stateSummaryInfo, ::onSummaryInfoStateChange)
+        liveDataObserve(homeViewModel.stateCountryData, ::onCountryDataStateChange)
     }
 
     private fun initAdapter() {
-        totalAdapter = TotalAdapter()
+        worldTotalAdapter = WorldTotalAdapter()
         countryAdapter = CountryAdapter()
     }
 
 
     private fun initListener() {
         countryAdapter.onCountryItemListener = {
-
+            goToCountryDetail(report = it)
         }
+    }
+
+    private fun goToCountryDetail(report: CountryItem) {
+        val action = HomeFragmentDirections.actionHomeToCountryDetailsFragment(countryIso = report.countryIso1)
+
+        view?.findNavController()?.navigate(action)
     }
 
     private fun initRecycler() {
         rvTotal.run {
             this.layoutManager = GridLayoutManager(context, SPAN_COUNT, GridLayoutManager.VERTICAL, false)
-            this.adapter = totalAdapter
+            this.adapter = worldTotalAdapter
         }
 
         rvCountry.run {
@@ -69,7 +76,7 @@ class TotalsFragment : BaseFragment() {
     }
 
     private fun initValues() {
-        totalReportViewModel.init()
+        homeViewModel.init()
     }
 
     private fun onSummaryInfoStateChange(state: State?) {
@@ -124,8 +131,8 @@ class TotalsFragment : BaseFragment() {
         setValuesAdapter(summaryInfo.toItemList())
     }
 
-    private fun setValuesAdapter(itemList: List<TotalItem>) {
-        totalAdapter.setTotalList(totalItemList = itemList)
+    private fun setValuesAdapter(worldTotalItemList: List<WorldTotalItem>) {
+        worldTotalAdapter.setTotalList(worldTotalItemList = worldTotalItemList)
     }
 
     private companion object {

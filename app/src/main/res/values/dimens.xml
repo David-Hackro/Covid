@@ -14,11 +14,14 @@
     <dimen name="text_size_10">10sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_20">20sp</dimen>
     <dimen name="text_size_24">24sp</dimen>
     <dimen name="text_size_25">25sp</dimen>
 
     <dimen name="dimen_250">250dp</dimen>
+    <dimen name="dimen_24">24dp</dimen>
+    <dimen name="dimen_40">40dp</dimen>
 
 </resources>
