@@ -1,9 +1,6 @@
 package com.david.hackro.covid.presentation.model
 
-import com.david.hackro.covid.presentation.adapter.STATUS
-
 class CountryTotalItem(val max: Int, val progress: Int, val status: STATUS, val rate: Double)
-
 
 fun CountryItem.toItemList() = listOf(
 

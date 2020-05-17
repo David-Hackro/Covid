@@ -14,4 +14,7 @@
     <string name="critical">Criticos</string>
     <string name="deaths">Defunciones</string>
     <string name="data_latets">Ultima actualización:</string>
+
+    <string name="url_flag" >https://flagpedia.net/data/flags/normal/%1$s.png</string>
+    <string name="url_questions_oms">https://www.who.int/en/emergencies/diseases/novel-coronavirus-2019/advice-for-public/q-a-coronaviruses</string>
 </resources>

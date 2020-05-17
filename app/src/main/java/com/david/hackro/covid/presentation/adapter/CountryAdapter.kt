@@ -12,7 +12,7 @@ class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var onCountryItemListener: ((countryItem: CountryItem) -> Unit)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_covid, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_covid, parent, ATTACH_ROOT)
 
         return CountryViewHolder(view)
     }
@@ -29,5 +29,9 @@ class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         this.countryList = countryList
 
         notifyDataSetChanged()
+    }
+
+    private companion object {
+        const val ATTACH_ROOT = false
     }
 }

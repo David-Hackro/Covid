@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_home_container" />
 
     <keep_state_fragment
-        android:id="@+id/countryDetailFragment"
+        android:id="@+id/countryDetail"
         android:name="com.david.hackro.covid.presentation.fragment.CountryDetailsFragment"
-        android:label="fragment_country_container"
+        android:label="fragment_country_details"
         tools:layout="@layout/fragment_country_details" />
 
     <keep_state_fragment

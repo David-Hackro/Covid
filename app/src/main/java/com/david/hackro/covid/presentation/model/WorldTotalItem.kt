@@ -1,6 +1,5 @@
 package com.david.hackro.covid.presentation.model
 
-import com.david.hackro.covid.presentation.adapter.STATUS
 import com.david.hackro.stats.domain.model.SummaryInfo
 
 class WorldTotalItem(val max: Int, val progress: Int, val status: STATUS, val rate: Double)

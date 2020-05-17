@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.fragment_home.rvTotal
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
 class HomeFragment : BaseFragment() {
 
     private val homeViewModel: HomeViewModel by viewModel()
@@ -50,27 +49,26 @@ class HomeFragment : BaseFragment() {
         countryAdapter = CountryAdapter()
     }
 
-
     private fun initListener() {
         countryAdapter.onCountryItemListener = {
-            goToCountryDetail(report = it)
+            goToCountryDetail(countryItem = it)
         }
     }
 
-    private fun goToCountryDetail(report: CountryItem) {
-        val action = HomeFragmentDirections.actionHomeToCountryDetailsFragment(countryIso = report.countryIso1)
+    private fun goToCountryDetail(countryItem: CountryItem) {
+        val action = HomeFragmentDirections.actionHomeToCountryDetailsFragment(countryIso = countryItem.countryIso1)
 
         view?.findNavController()?.navigate(action)
     }
 
     private fun initRecycler() {
         rvTotal.run {
-            this.layoutManager = GridLayoutManager(context, SPAN_COUNT, GridLayoutManager.VERTICAL, false)
+            this.layoutManager = GridLayoutManager(context, SPAN_COUNT, GridLayoutManager.VERTICAL, REVERSE_LAYOUT)
             this.adapter = worldTotalAdapter
         }
 
         rvCountry.run {
-            this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, REVERSE_LAYOUT)
             this.adapter = countryAdapter
         }
     }
@@ -137,5 +135,6 @@ class HomeFragment : BaseFragment() {
 
     private companion object {
         const val SPAN_COUNT = 2
+        const val REVERSE_LAYOUT = false
     }
 }

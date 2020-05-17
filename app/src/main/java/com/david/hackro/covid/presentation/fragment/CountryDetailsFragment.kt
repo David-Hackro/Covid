@@ -28,7 +28,6 @@ import kotlinx.android.synthetic.main.fragment_country_details.rvCountry
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
 class CountryDetailsFragment : BaseFragment() {
 
     private val countryDetailViewModel: CountryDetailViewModel by viewModel()
@@ -56,49 +55,46 @@ class CountryDetailsFragment : BaseFragment() {
 
     private fun initRecycler() {
         rvCountry.run {
-            this.layoutManager = GridLayoutManager(context, SPAN_COUNT, GridLayoutManager.VERTICAL, false)
+            this.layoutManager = GridLayoutManager(context, SPAN_COUNT, GridLayoutManager.VERTICAL, REVERSE_LAYOUT)
             this.adapter = countryTotalAdapter
         }
     }
 
     private fun initListener() {
         bannerTips.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.who.int/es/emergencies/diseases/novel-coronavirus-2019/advice-for-public/q-a-coronaviruses"))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(resources.getString(R.string.url_questions_oms)))
             startActivity(browserIntent)
         }
     }
 
     private fun initChart(countryItem: CountryItem) {
         val barDataSet = BarDataSet(getData(countryItem = countryItem), String.empty())
-        //barDataSet.barBorderWidth = 0.9f
-        val colors = mutableListOf(
+
+        barDataSet.colors = mutableListOf(
             resources.getColor(R.color.confirmed),
             resources.getColor(R.color.deaths),
             resources.getColor(R.color.recovered),
             resources.getColor(R.color.active)
         )
 
-        barDataSet.colors = colors
-
-
         val barData = BarData(barDataSet)
         val xAxis: XAxis = horizontalBarChart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.granularity = 1f
-        horizontalBarChart.data = barData
-        horizontalBarChart.setFitBars(true)
 
-        horizontalBarChart.description
-        horizontalBarChart.axisLeft.setDrawLabels(false)
-        horizontalBarChart.xAxis.setDrawLabels(false)
+        xAxis.run {
+            position = XAxis.XAxisPosition.BOTTOM
+            granularity = GRANULARITY
+        }
 
-        horizontalBarChart.legend.isEnabled = false
-
-        horizontalBarChart.animateXY(1500, 2500)
-
-        horizontalBarChart.invalidate()
-
-
+        horizontalBarChart.run {
+            data = barData
+            setFitBars(true)
+            description.text = String.empty()
+            axisLeft.setDrawLabels(DRAW_LABELS_DISABLE)
+            xAxis.setDrawLabels(DRAW_LABELS_DISABLE)
+            legend.isEnabled = LEGEND_DISABLE
+            animateXY(ANIMATE_DEFAULT, ANIMATE_DEFAULT)
+            invalidate()
+        }
     }
 
 
@@ -106,10 +102,10 @@ class CountryDetailsFragment : BaseFragment() {
         val entries = ArrayList<BarEntry>()
 
         countryItem.run {
-            entries.add(BarEntry(3f, confirmed.toFloat()))
-            entries.add(BarEntry(2f, death.toFloat()))
-            entries.add(BarEntry(1f, recovered.toFloat()))
-            entries.add(BarEntry(0f, active.toFloat()))
+            entries.add(BarEntry(ENTRY_CONFIRMED, confirmed.toFloat()))
+            entries.add(BarEntry(ENTRY_DEATH, death.toFloat()))
+            entries.add(BarEntry(ENTRY_RECOVERED, recovered.toFloat()))
+            entries.add(BarEntry(ENTRY_ACTIVE, active.toFloat()))
         }
 
         return entries
@@ -118,8 +114,7 @@ class CountryDetailsFragment : BaseFragment() {
     private fun initValues() {
         val args: CountryDetailsFragmentArgs by navArgs()
         countryDetailViewModel.init(countryIso = args.countryIso)
-
-        flag.setUrlCircle("https://flagpedia.net/data/flags/normal/${args.countryIso.toLowerCase()}.png")
+        flag.setUrlCircle(String.format(resources.getString(R.string.url_flag), args.countryIso.toLowerCase()))
         country.text = args.countryIso
     }
 
@@ -158,8 +153,14 @@ class CountryDetailsFragment : BaseFragment() {
 
     private companion object {
         const val SPAN_COUNT = 2
-        const val ANIMATE_DEFAULT = 0
-        const val IS_ROTATION_ENABLED = false
-        const val IS_HIGH_LIGHT_PER_TAP_ENABLED = false
+        const val ANIMATE_DEFAULT = 1500
+        const val LEGEND_DISABLE = false
+        const val DRAW_LABELS_DISABLE = false
+        const val ENTRY_CONFIRMED = 3F
+        const val ENTRY_DEATH = 2F
+        const val ENTRY_RECOVERED = 1F
+        const val ENTRY_ACTIVE = 0F
+        const val REVERSE_LAYOUT = false
+        const val GRANULARITY = 1F
     }
 }

@@ -6,14 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.david.hackro.covid.R
 import com.david.hackro.covid.presentation.model.WorldTotalItem
 
-enum class STATUS { CONFIRMED, RECOVERED, CRITICAL, DEATHS, ACTIVE }
-
 class WorldTotalAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var totalList = listOf<WorldTotalItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_world_total, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_world_total, parent, ATTACH_ROOT)
 
         return WorldTotalViewHolder(view)
     }
@@ -29,5 +27,9 @@ class WorldTotalAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun setTotalList(worldTotalItemList: List<WorldTotalItem>) {
         totalList = worldTotalItemList
         notifyDataSetChanged()
+    }
+
+    private companion object {
+        const val ATTACH_ROOT = false
     }
 }

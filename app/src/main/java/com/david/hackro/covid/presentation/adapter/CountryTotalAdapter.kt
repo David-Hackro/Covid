@@ -11,7 +11,7 @@ class CountryTotalAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var countryTotalItemList = listOf<CountryTotalItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_total, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_total, parent, ATTACH_ROOT)
 
         return CountryTotalViewHolder(view)
     }
@@ -27,5 +27,9 @@ class CountryTotalAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun setCountryItemList(countryTotalItemList: List<CountryTotalItem>) {
         this.countryTotalItemList = countryTotalItemList
         notifyDataSetChanged()
+    }
+
+    private companion object {
+        const val ATTACH_ROOT = false
     }
 }
