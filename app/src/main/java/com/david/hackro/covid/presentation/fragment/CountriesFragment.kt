@@ -32,7 +32,7 @@ class CountriesFragment : BaseFragment() {
 
     private fun initListener() {
         countryAdapter.onCountryItemListener = {
-            goToCountryDetail(report = it)
+            //goToCountryDetail(report = it)
         }
     }
 
@@ -86,6 +86,6 @@ class CountriesFragment : BaseFragment() {
     }
 
     private fun showDailyReports(countryList: List<CountryItem>) {
-        countryAdapter.setCountryList(countryList)
+        //countryAdapter.setCountryList(countryList)
     }
 }

@@ -15,6 +15,7 @@ object Versions {
     const val retrofit = "2.6.0"
     const val loggingInterceptor = "3.12.0"
     const val chuck = "1.1.0"
+    const val glide = "4.10.0"
 
     const val timber = "4.7.1"
     const val androidChart = "v3.1.0"
@@ -76,6 +77,11 @@ object Koin {
 object ThirdPartyLibrary {
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val androidChart = "com.github.PhilJay:MPAndroidChart:${Versions.androidChart}"
+}
+
+object Glide {
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+    const val glideCompile = "com.github.bumptech.glide:compiler:${Versions.glide}"
 }
 
 object Testing {

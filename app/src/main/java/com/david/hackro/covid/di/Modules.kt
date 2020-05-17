@@ -31,7 +31,7 @@ private val loadFeature by lazy {
 
 val viewModelModule: Module = module {
     viewModel {
-        TotalReportViewModel(getSummaryInfoUseCase = get())
+        TotalReportViewModel(getSummaryInfoUseCase = get(), getDataByStatusUseCase = get())
     }
 
     viewModel {

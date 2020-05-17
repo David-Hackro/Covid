@@ -65,6 +65,9 @@ dependencies {
     implementation AndroidX.core
     implementation AndroidX.constraintlayout
 
+    implementation Glide.glide
+    kapt Glide.glideCompile
+
     implementation Google.material
     implementation Google.playServices
     implementation Google.maps

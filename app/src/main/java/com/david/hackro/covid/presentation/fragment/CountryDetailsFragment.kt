@@ -11,7 +11,6 @@ import com.david.hackro.covid.presentation.model.TotalItem
 import com.david.hackro.covid.presentation.viewmodel.CountryDetailViewModel
 import com.david.hackro.domain.State
 import kotlinx.android.synthetic.main.fragment_country_details.totalRv
-import kotlinx.android.synthetic.main.fragment_totals.pieChart
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -48,12 +47,12 @@ class CountryDetailsFragment : BaseFragment() {
     }
 
     private fun initChart() {
-        pieChart.run {
+        /*pieChart.run {
             centerText = resources.getString(R.string.app_name)
             isRotationEnabled = IS_ROTATION_ENABLED
             isHighlightPerTapEnabled = IS_HIGH_LIGHT_PER_TAP_ENABLED
             animateXY(ANIMATE_DEFAULT, ANIMATE_DEFAULT)
-        }
+        }*/
     }
 
     private fun initValues() {

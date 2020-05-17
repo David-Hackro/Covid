@@ -2,22 +2,20 @@ package com.david.hackro.covid.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
+import com.david.hackro.covid.presentation.adapter.CountryAdapter
 import com.david.hackro.covid.presentation.adapter.TotalAdapter
+import com.david.hackro.covid.presentation.model.CountryItem
 import com.david.hackro.covid.presentation.model.TotalItem
 import com.david.hackro.covid.presentation.model.toItemList
 import com.david.hackro.covid.presentation.viewmodel.TotalReportViewModel
 import com.david.hackro.domain.State
-import com.david.hackro.kotlinext.empty
 import com.david.hackro.stats.domain.model.SummaryInfo
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
-import kotlinx.android.synthetic.main.fragment_totals.pieChart
-import kotlinx.android.synthetic.main.fragment_totals.totalRv
+import kotlinx.android.synthetic.main.fragment_totals.rvCountry
+import kotlinx.android.synthetic.main.fragment_totals.rvTotal
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -27,6 +25,7 @@ class TotalsFragment : BaseFragment() {
     private val totalReportViewModel: TotalReportViewModel by viewModel()
 
     private lateinit var totalAdapter: TotalAdapter
+    private lateinit var countryAdapter: CountryAdapter
 
     override fun layoutId() = R.layout.fragment_totals
 
@@ -35,32 +34,37 @@ class TotalsFragment : BaseFragment() {
 
         initObservers()
         initAdapter()
+        initListener()
         initRecycler()
-        initChart()
         initValues()
     }
 
     private fun initObservers() {
         liveDataObserve(totalReportViewModel.stateSummaryInfo, ::onSummaryInfoStateChange)
+        liveDataObserve(totalReportViewModel.stateCountryData, ::onCountryDataStateChange)
     }
 
     private fun initAdapter() {
         totalAdapter = TotalAdapter()
+        countryAdapter = CountryAdapter()
     }
 
-    private fun initRecycler() {
-        totalRv.run {
-            this.layoutManager = GridLayoutManager(context, SPAN_COUNT, GridLayoutManager.VERTICAL, false)
-            this.adapter = totalAdapter
+
+    private fun initListener() {
+        countryAdapter.onCountryItemListener = {
+
         }
     }
 
-    private fun initChart() {
-        pieChart.run {
-            centerText = resources.getString(R.string.app_name)
-            isRotationEnabled = IS_ROTATION_ENABLED
-            isHighlightPerTapEnabled = IS_HIGH_LIGHT_PER_TAP_ENABLED
-            animateXY(ANIMATE_DEFAULT, ANIMATE_DEFAULT)
+    private fun initRecycler() {
+        rvTotal.run {
+            this.layoutManager = GridLayoutManager(context, SPAN_COUNT, GridLayoutManager.VERTICAL, false)
+            this.adapter = totalAdapter
+        }
+
+        rvCountry.run {
+            this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            this.adapter = countryAdapter
         }
     }
 
@@ -90,31 +94,34 @@ class TotalsFragment : BaseFragment() {
         }
     }
 
-    private fun showTotalReports(summaryInfo: SummaryInfo) {
-        setValuesAdapter(summaryInfo.toItemList())
-        setChartValues(summaryInfo = summaryInfo)
-    }
+    private fun onCountryDataStateChange(state: State?) {
+        state?.let { noNullState ->
+            when (noNullState) {
+                is State.Loading -> getActivityContext().showProgress()
+                is State.Success -> {
+                    val result = noNullState.responseTo<List<CountryItem>>()
 
-    private fun setChartValues(summaryInfo: SummaryInfo) {
-        val totalsCovid = arrayListOf<PieEntry>().apply {
-            summaryInfo.run {
-                add(PieEntry(confirmed.value.toFloat()))
-                add(PieEntry(recovered.value.toFloat()))
-                add(PieEntry(deaths.value.toFloat()))
+                    getActivityContext().hideProgress()
+
+                    showCountryList(countryList = result)
+                }
+                is State.Failed -> {
+                    getActivityContext().run {
+                        hideProgress()
+                        handleFailure(failure = noNullState.failure)
+                    }
+                }
+                else -> Timber.d("any state in onTotalReportStateChange")
             }
         }
+    }
 
-        val dataSet = PieDataSet(totalsCovid, String.empty())
+    private fun showCountryList(countryList: List<CountryItem>) {
+        countryAdapter.setCountryList(countryList = countryList)
+    }
 
-        pieChart.data = PieData(dataSet)
-
-        resources.run {
-            dataSet.setColors(
-                ContextCompat.getColor(getActivityContext(), R.color.confirmed),
-                ContextCompat.getColor(getActivityContext(), R.color.recovered),
-                ContextCompat.getColor(getActivityContext(), R.color.deaths)
-            )
-        }
+    private fun showTotalReports(summaryInfo: SummaryInfo) {
+        setValuesAdapter(summaryInfo.toItemList())
     }
 
     private fun setValuesAdapter(itemList: List<TotalItem>) {
@@ -123,8 +130,5 @@ class TotalsFragment : BaseFragment() {
 
     private companion object {
         const val SPAN_COUNT = 2
-        const val ANIMATE_DEFAULT = 0
-        const val IS_ROTATION_ENABLED = false
-        const val IS_HIGH_LIGHT_PER_TAP_ENABLED = true
     }
 }

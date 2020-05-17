@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.david.hackro.covid.R
-import com.david.hackro.stats.domain.model.CountryItem
+import com.david.hackro.covid.presentation.model.CountryItem
 
 class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
