@@ -11,16 +11,4 @@
         android:label="fragment_home_container"
         tools:layout="@layout/fragment_home_container" />
 
-    <keep_state_fragment
-        android:id="@+id/countryDetail"
-        android:name="com.david.hackro.covid.presentation.fragment.CountryDetailsFragment"
-        android:label="fragment_country_details"
-        tools:layout="@layout/fragment_country_details" />
-
-    <keep_state_fragment
-        android:id="@+id/mapFragment"
-        android:name="com.david.hackro.covid.presentation.fragment.MapFragment"
-        android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
-
 </navigation>
