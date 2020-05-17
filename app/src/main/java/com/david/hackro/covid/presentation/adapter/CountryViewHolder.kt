@@ -1,13 +1,16 @@
 package com.david.hackro.covid.presentation.adapter
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.david.hackro.androidext.setUrlCircle
 import com.david.hackro.covid.R
-import com.david.hackro.stats.domain.model.CountryItem
-import kotlinx.android.synthetic.main.item_country_covid.view.countryColorBar
-import kotlinx.android.synthetic.main.item_country_covid.view.countryName
-import kotlinx.android.synthetic.main.item_country_covid.view.countryTotalNumber
+import com.david.hackro.covid.presentation.model.CountryItem
+import com.david.hackro.kotlinext.formatValue
+import kotlinx.android.synthetic.main.item_country_covid.view.activeNumber
+import kotlinx.android.synthetic.main.item_country_covid.view.confirmedNumber
+import kotlinx.android.synthetic.main.item_country_covid.view.deathsNumber
+import kotlinx.android.synthetic.main.item_country_covid.view.flag
+import kotlinx.android.synthetic.main.item_country_covid.view.recoveredNumber
 
 class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -18,15 +21,11 @@ class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private fun renderCard(countryItem: CountryItem) {
         itemView.run {
-
-            countryName.text = countryItem.countryName
-            countryTotalNumber.text = countryItem.confirmed.toString()
-
-            countryColorBar.run {
-                max = countryItem.confirmed
-                progress = countryItem.active
-                progressTintList = ContextCompat.getColorStateList(itemView.context, R.color.confirmed)
-            }
+            flag.setUrlCircle(String.format(resources.getString(R.string.url_flag), countryItem.countryIso1.toLowerCase()))
+            confirmedNumber.text = countryItem.confirmed.toDouble().formatValue()
+            deathsNumber.text = countryItem.death.toDouble().formatValue()
+            recoveredNumber.text = countryItem.recovered.toDouble().formatValue()
+            activeNumber.text = countryItem.active.toDouble().formatValue()
         }
     }
 

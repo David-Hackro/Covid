@@ -1,9 +1,7 @@
 package com.david.hackro.covid.di
 
 import com.david.hackro.covid.presentation.viewmodel.CountryDetailViewModel
-import com.david.hackro.covid.presentation.viewmodel.DailyReportAllCountriesViewModel
-import com.david.hackro.covid.presentation.viewmodel.MapViewModel
-import com.david.hackro.covid.presentation.viewmodel.TotalReportViewModel
+import com.david.hackro.covid.presentation.viewmodel.HomeViewModel
 import com.david.hackro.stats.di.dataSourceModule
 import com.david.hackro.stats.di.networkHandlerModule
 import com.david.hackro.stats.di.networkModule
@@ -31,18 +29,10 @@ private val loadFeature by lazy {
 
 val viewModelModule: Module = module {
     viewModel {
-        TotalReportViewModel(getSummaryInfoUseCase = get())
+        HomeViewModel(getSummaryInfoUseCase = get(), getDataByStatusUseCase = get())
     }
 
     viewModel {
-        DailyReportAllCountriesViewModel(getCountryListUseCase = get())
-    }
-
-    viewModel {
-        MapViewModel(getDataByStatusUseCase = get())
-    }
-
-    viewModel {
-        CountryDetailViewModel()
+        CountryDetailViewModel(getDataByStatusUseCase = get())
     }
 }

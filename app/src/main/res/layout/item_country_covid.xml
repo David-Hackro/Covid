@@ -1,74 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/small_size"
-    android:background="@color/cardview_dark_background"
+    android:elevation="@dimen/small_size"
     app:cardCornerRadius="@dimen/small_size">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardview_dark_background">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/countryName"
-            android:layout_width="@dimen/empty_size"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/small_size"
+        <ImageView
+            android:id="@+id/flag"
+            android:layout_width="@dimen/dimen_40"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_marginStart="@dimen/dimen_4"
             android:layout_marginTop="@dimen/dimen_4"
-            android:layout_marginEnd="@dimen/small_size"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_24"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/app_name" />
-
-        <TextView
-            android:id="@+id/countryTotal"
-            android:layout_width="@dimen/empty_size"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/small_size"
-            android:layout_marginTop="@dimen/small_size"
-            android:layout_marginEnd="@dimen/small_size"
-            android:text="@string/confirmed"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_16"
-            app:layout_constraintBottom_toBottomOf="@+id/countryTotalNumber"
-            app:layout_constraintEnd_toStartOf="@+id/countryTotalNumber"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/countryName" />
-
-        <TextView
-            android:id="@+id/countryTotalNumber"
-            android:layout_width="@dimen/empty_size"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_4"
-            android:layout_marginEnd="@dimen/small_size"
-            android:text="TextView"
-            android:textAlignment="textEnd"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_24"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/countryName" />
-
-        <ProgressBar
-            android:id="@+id/countryColorBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="@dimen/empty_size"
-            android:layout_height="@dimen/small_size"
-            android:layout_marginStart="@dimen/small_size"
-            android:layout_marginEnd="@dimen/small_size"
+            android:layout_marginEnd="@dimen/dimen_4"
             android:layout_marginBottom="@dimen/dimen_4"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/countryTotalNumber" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="@dimen/empty_size"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_size"
+            android:layout_marginEnd="@dimen/small_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/flag"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/confirmedContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/deathsContainer"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/confirmedNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:text="150K"
+                    android:textAlignment="center"
+                    android:textColor="#7B46F2"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/confirmed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:layout_marginBottom="@dimen/small_size"
+                    android:text="@string/confirmed"
+                    android:textAlignment="center"
+                    android:textColor="#505D6F"
+                    android:textSize="@dimen/text_size_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/confirmedNumber" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/deathsContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recoveredContainer"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/confirmedContainer"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/deathsNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:text="150K"
+                    android:textAlignment="center"
+                    android:textColor="#F668A6"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/deaths"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:layout_marginBottom="@dimen/small_size"
+                    android:text="@string/deaths"
+                    android:textAlignment="center"
+                    android:textColor="#505D6F"
+                    android:textSize="@dimen/text_size_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deathsNumber" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recoveredContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/activeContainer"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/deathsContainer"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/recoveredNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:text="150K"
+                    android:textAlignment="center"
+                    android:textColor="#3BB74C"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/recovered"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:layout_marginBottom="@dimen/small_size"
+                    android:text="@string/recovered"
+                    android:textAlignment="center"
+                    android:textColor="#505D6F"
+                    android:textSize="@dimen/text_size_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recoveredNumber" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activeContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/recoveredContainer"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/activeNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:text="150K"
+                    android:textAlignment="center"
+                    android:textColor="#FFBF13"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:layout_marginBottom="@dimen/small_size"
+                    android:text="@string/actived"
+                    android:textAlignment="center"
+                    android:textColor="#505D6F"
+                    android:textSize="@dimen/text_size_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activeNumber" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

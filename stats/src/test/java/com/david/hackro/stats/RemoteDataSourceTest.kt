@@ -4,8 +4,6 @@ import com.david.hackro.stats.RemoteDataSourceTest.RELAXED_TRUE
 import com.david.hackro.stats.RemoteDataSourceTest.VERIFY_ONE_INTERACTION
 import com.david.hackro.stats.data.datasource.remote.StatsApi
 import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
-import com.david.hackro.stats.data.datasource.remote.model.rapidapi.ReportResponse
-import com.david.hackro.stats.data.datasource.remote.model.rapidapi.TotalsResponse
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

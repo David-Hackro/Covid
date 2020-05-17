@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.david.hackro.covid.R
 
-class CountryContainerFragment : BaseFragment() {
-    override fun layoutId() = R.layout.fragment_country_container
+class HomeContainerFragment : BaseFragment() {
+    override fun layoutId() = R.layout.fragment_home_container
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return super.onCreateView(inflater, container, savedInstanceState)

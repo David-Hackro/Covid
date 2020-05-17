@@ -13,4 +13,7 @@
     <string name="critical">Critical</string>
     <string name="deaths">Deaths</string>
     <string name="data_latets">Last Update:</string>
+
+    <string name="url_flag" >https://flagpedia.net/data/flags/normal/%1$s.png</string>
+    <string name="url_questions_oms">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub</string>
 </resources>

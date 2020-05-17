@@ -3,24 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/totalsFragment">
+    app:startDestination="@id/homeContainer">
 
     <keep_state_fragment
-        android:id="@+id/totalsFragment"
-        android:name="com.david.hackro.covid.presentation.fragment.TotalsFragment"
-        android:label="fragment_totals"
-        tools:layout="@layout/fragment_totals" />
-
-    <keep_state_fragment
-        android:id="@+id/countriesContainerFragment"
-        android:name="com.david.hackro.covid.presentation.fragment.CountryContainerFragment"
-        android:label="fragment_country_container"
-        tools:layout="@layout/fragment_country_container" />
-
-    <keep_state_fragment
-        android:id="@+id/mapFragment"
-        android:name="com.david.hackro.covid.presentation.fragment.MapFragment"
-        android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        android:id="@+id/homeContainer"
+        android:name="com.david.hackro.covid.presentation.fragment.HomeContainerFragment"
+        android:label="fragment_home_container"
+        tools:layout="@layout/fragment_home_container" />
 
 </navigation>
