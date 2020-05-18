@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion DefaultConfig.compileSdkVersion
@@ -44,8 +43,6 @@ dependencies {
 
     implementation Kotlin.kotlinStandard
 
-    implementation AndroidX.navFragment
-    implementation AndroidX.navUI
     implementation AndroidX.lifecycle
     implementation AndroidX.lifecycleExtensions
     implementation AndroidX.legacy
@@ -54,7 +51,6 @@ dependencies {
     implementation AndroidX.constraintlayout
 
     implementation Glide.glide
-    implementation AndroidX.legacy
     kapt Glide.glideCompile
 
     implementation Google.material

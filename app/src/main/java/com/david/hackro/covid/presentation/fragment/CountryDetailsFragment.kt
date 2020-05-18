@@ -102,14 +102,11 @@ class CountryDetailsFragment : BaseFragment() {
     )
 
     private fun initValues() {
-
-        /*val args: CountryDetailsFragmentArgs by navArgs()
-
-        args.countryIso.run {
+        arguments?.getString(ARG_PARAM)?.run {
             setModelViewValue(this)
             showFlag(countryIso = this)
             showNameCountry(countryIso = this)
-        }*/
+        }
     }
 
     private fun setModelViewValue(countryIso: String) {

@@ -11,6 +11,8 @@ import kotlinx.android.synthetic.main.item_country_covid.view.confirmedNumber
 import kotlinx.android.synthetic.main.item_country_covid.view.deathsNumber
 import kotlinx.android.synthetic.main.item_country_covid.view.flag
 import kotlinx.android.synthetic.main.item_country_covid.view.recoveredNumber
+import java.text.NumberFormat
+import java.util.Locale
 
 class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -21,11 +23,11 @@ class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private fun renderCard(countryItem: CountryItem) {
         itemView.run {
-            flag.setUrlCircle(String.format(resources.getString(R.string.url_flag), countryItem.countryIso1.toLowerCase()))
             confirmedNumber.text = countryItem.confirmed.toDouble().formatValue()
             deathsNumber.text = countryItem.death.toDouble().formatValue()
             recoveredNumber.text = countryItem.recovered.toDouble().formatValue()
             activeNumber.text = countryItem.active.toDouble().formatValue()
+            flag.setUrlCircle(String.format(resources.getString(R.string.url_flag), countryItem.countryIso1.toLowerCase()))
         }
     }
 

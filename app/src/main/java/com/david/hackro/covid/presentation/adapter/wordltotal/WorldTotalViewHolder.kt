@@ -19,14 +19,16 @@ class WorldTotalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun renderView(worldTotal: WorldTotalItem) {
         itemView.run {
-            totalCases.text = NumberFormat.getNumberInstance(Locale.US).format(worldTotal.progress)
+
+            totalCases.text = getTotal(worldTotal.progress)
+
             description.text = resources.getString(worldTotal.status.getDescriptionByStatus())
             totalCases.setTextColor(resources.getColor(worldTotal.status.getColorByStatus()))
             rateNumber.setTextColor(resources.getColor(worldTotal.status.getColorByStatus()))
             rate.setTextColor(resources.getColor(worldTotal.status.getColorByStatus()))
             background = resources.getDrawable(worldTotal.status.getBackgroundByStatus())
 
-            rateNumber.text = "%.2f".format(worldTotal.rate) + "%"
+            rateNumber.text = TWO_FLOAT.format(worldTotal.rate) + PERCENTAGE
 
             colorBar.run {
                 max = worldTotal.max
@@ -35,6 +37,16 @@ class WorldTotalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 progressTintList = ContextCompat.getColorStateList(itemView.context, worldTotal.status.getColorByStatus())
             }
         }
+    }
+
+    private fun getTotal(progress: Int) = if (progress > TOTAL_EMPTY) NumberFormat.getNumberInstance(Locale.US).format(progress)
+    else TOTAL_EMPTY_DEFAULT
+
+    private companion object {
+        const val TWO_FLOAT = "%.2f"
+        const val PERCENTAGE = "%"
+        const val TOTAL_EMPTY_DEFAULT = "- -"
+        const val TOTAL_EMPTY = 0
     }
 }
 

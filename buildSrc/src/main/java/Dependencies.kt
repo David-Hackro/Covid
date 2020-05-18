@@ -4,7 +4,6 @@ object Versions {
     const val appcompat = "1.1.0"
     const val core = "1.2.0"
     const val lifecycle = "2.2.0"
-    const val navigation = "2.3.0-alpha06"
     const val legacy = "1.0.0"
     const val constraint = "1.1.3"
 
@@ -46,8 +45,6 @@ object AndroidX {
     const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
     const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
     const val lifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
-    const val navFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
-    const val navUI = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
 }
 
