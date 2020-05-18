@@ -20,14 +20,14 @@
             android:weightSum="2">
 
             <include
-                layout="@layout/total_item_shimmer"
+                layout="@layout/item_country_total_shimmer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/small_size"
                 android:layout_weight="1" />
 
             <include
-                layout="@layout/total_item_shimmer"
+                layout="@layout/item_country_total_shimmer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/small_size"
@@ -45,14 +45,14 @@
             android:weightSum="2">
 
             <include
-                layout="@layout/total_item_shimmer"
+                layout="@layout/item_country_total_shimmer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/small_size"
                 android:layout_weight="1" />
 
             <include
-                layout="@layout/total_item_shimmer"
+                layout="@layout/item_country_total_shimmer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/small_size"
