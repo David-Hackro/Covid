@@ -48,7 +48,7 @@ data class DataByStatusResponse(
     val iso3: String?
 )
 
-fun DataByStatusResponse.toModel() = DataByStatusItem(
+fun DataByStatusResponse.toDomain() = DataByStatusItem(
     countryRegion = countryRegion,
     lastUpdate = lastUpdate,
     deaths = deaths,

@@ -4,7 +4,7 @@ import com.david.hackro.androidext.NetworkHandler
 import com.david.hackro.domain.Either
 import com.david.hackro.domain.Failure
 import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
-import com.david.hackro.stats.data.datasource.remote.model.toModel
+import com.david.hackro.stats.data.datasource.remote.model.toDomain
 import com.david.hackro.stats.domain.model.DataByStatus
 
 class StatsRepositoryImpl(
@@ -14,7 +14,7 @@ class StatsRepositoryImpl(
 
     override suspend fun getSummaryInfo() = try {
         when (networkHandler.isConnected) {
-            true -> Either.Right(remoteDataSource.getSummaryInfo().toModel())
+            true -> Either.Right(remoteDataSource.getSummaryInfo().toDomain())
             else -> Either.Left(Failure.NetworkConnection)
         }
     } catch (ex: Exception) {
@@ -27,7 +27,7 @@ class StatsRepositoryImpl(
                 Either.Right(
                     DataByStatus(
                         status = status,
-                        dataByStatusList = remoteDataSource.getDataByStatus(status = status).map { it.toModel() })
+                        dataByStatusList = remoteDataSource.getDataByStatus(status = status).map { it.toDomain() })
                 )
             }
             else -> Either.Left(Failure.NetworkConnection)
