@@ -8,7 +8,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
 
-@Navigator.Name("keep_state_fragment")
+private const val KEEP_STATE_FRAGMENT = "keep_state_fragment"
+
+@Navigator.Name(KEEP_STATE_FRAGMENT)
 class KeepStateNavigator(
     private val context: Context,
     private val manager: FragmentManager,

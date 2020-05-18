@@ -4,14 +4,16 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.androidext.setUrlCircle
 import com.david.hackro.covid.R
-import com.david.hackro.covid.presentation.adapter.CountryTotalAdapter
+import com.david.hackro.covid.presentation.adapter.countrytotal.CountryTotalAdapter
 import com.david.hackro.covid.presentation.model.CountryItem
 import com.david.hackro.covid.presentation.model.CountryTotalItem
+import com.david.hackro.covid.presentation.model.toEntryList
 import com.david.hackro.covid.presentation.model.toItemList
 import com.david.hackro.covid.presentation.viewmodel.CountryDetailViewModel
 import com.david.hackro.domain.State
@@ -19,7 +21,6 @@ import com.david.hackro.kotlinext.empty
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
 import kotlinx.android.synthetic.main.fragment_country_details.bannerTips
 import kotlinx.android.synthetic.main.fragment_country_details.country
 import kotlinx.android.synthetic.main.fragment_country_details.flag
@@ -68,21 +69,18 @@ class CountryDetailsFragment : BaseFragment() {
     }
 
     private fun initChart(countryItem: CountryItem) {
-        val barDataSet = BarDataSet(getData(countryItem = countryItem), String.empty())
+        val barDataSet = BarDataSet(countryItem.toEntryList(), String.empty())
 
-        barDataSet.colors = mutableListOf(
-            resources.getColor(R.color.confirmed),
-            resources.getColor(R.color.deaths),
-            resources.getColor(R.color.recovered),
-            resources.getColor(R.color.active)
-        )
+        barDataSet.colors = getCharColors()
 
         val barData = BarData(barDataSet)
+
         val xAxis: XAxis = horizontalBarChart.xAxis
 
         xAxis.run {
             position = XAxis.XAxisPosition.BOTTOM
             granularity = GRANULARITY
+            setDrawLabels(DRAW_LABELS_DISABLE)
         }
 
         horizontalBarChart.run {
@@ -90,32 +88,39 @@ class CountryDetailsFragment : BaseFragment() {
             setFitBars(true)
             description.text = String.empty()
             axisLeft.setDrawLabels(DRAW_LABELS_DISABLE)
-            xAxis.setDrawLabels(DRAW_LABELS_DISABLE)
             legend.isEnabled = LEGEND_DISABLE
-            animateXY(ANIMATE_DEFAULT, ANIMATE_DEFAULT)
+            animateXY(ANIMATE_DEFAULT_X, ANIMATE_DEFAULT_Y)
             invalidate()
         }
     }
 
-
-    private fun getData(countryItem: CountryItem): ArrayList<BarEntry> {
-        val entries = ArrayList<BarEntry>()
-
-        countryItem.run {
-            entries.add(BarEntry(ENTRY_CONFIRMED, confirmed.toFloat()))
-            entries.add(BarEntry(ENTRY_DEATH, death.toFloat()))
-            entries.add(BarEntry(ENTRY_RECOVERED, recovered.toFloat()))
-            entries.add(BarEntry(ENTRY_ACTIVE, active.toFloat()))
-        }
-
-        return entries
-    }
+    private fun getCharColors() = mutableListOf(
+        ContextCompat.getColor(getActivityContext(), R.color.confirmed),
+        ContextCompat.getColor(getActivityContext(), R.color.deaths),
+        ContextCompat.getColor(getActivityContext(), R.color.recovered),
+        ContextCompat.getColor(getActivityContext(), R.color.active)
+    )
 
     private fun initValues() {
         val args: CountryDetailsFragmentArgs by navArgs()
-        countryDetailViewModel.init(countryIso = args.countryIso)
-        flag.setUrlCircle(String.format(resources.getString(R.string.url_flag), args.countryIso.toLowerCase()))
-        country.text = args.countryIso
+
+        args.countryIso.run {
+            setModelViewValue(this)
+            showFlag(countryIso = this)
+            showNameCountry(countryIso = this)
+        }
+    }
+
+    private fun setModelViewValue(countryIso: String) {
+        countryDetailViewModel.init(countryIso = countryIso)
+    }
+
+    private fun showNameCountry(countryIso: String) {
+        country.text = countryIso
+    }
+
+    private fun showFlag(countryIso: String) {
+        flag.setUrlCircle(String.format(resources.getString(R.string.url_flag), countryIso.toLowerCase()))
     }
 
     private fun onLatestCountryDataStateChange(state: State?) {
@@ -123,7 +128,6 @@ class CountryDetailsFragment : BaseFragment() {
             when (noNullState) {
                 is State.Loading -> getActivityContext().showProgress()
                 is State.Success -> {
-
                     val result = noNullState.responseTo<CountryItem>()
 
                     getActivityContext().hideProgress()
@@ -142,7 +146,7 @@ class CountryDetailsFragment : BaseFragment() {
     }
 
     private fun showDataByCountry(countryItem: CountryItem) {
-        country.text = countryItem.countryName
+        showNameCountry(countryIso = countryItem.countryName)
         initChart(countryItem = countryItem)
         showTotalByCountry(countryTotalItemList = countryItem.toItemList())
     }
@@ -153,13 +157,10 @@ class CountryDetailsFragment : BaseFragment() {
 
     private companion object {
         const val SPAN_COUNT = 2
-        const val ANIMATE_DEFAULT = 1500
+        const val ANIMATE_DEFAULT_X = 1500
+        const val ANIMATE_DEFAULT_Y = 2500
         const val LEGEND_DISABLE = false
         const val DRAW_LABELS_DISABLE = false
-        const val ENTRY_CONFIRMED = 3F
-        const val ENTRY_DEATH = 2F
-        const val ENTRY_RECOVERED = 1F
-        const val ENTRY_ACTIVE = 0F
         const val REVERSE_LAYOUT = false
         const val GRANULARITY = 1F
     }

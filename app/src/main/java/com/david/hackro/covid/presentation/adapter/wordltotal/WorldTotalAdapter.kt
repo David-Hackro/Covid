@@ -1,4 +1,4 @@
-package com.david.hackro.covid.presentation.adapter
+package com.david.hackro.covid.presentation.adapter.wordltotal
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +11,9 @@ class WorldTotalAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var totalList = listOf<WorldTotalItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_world_total, parent, ATTACH_ROOT)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_world_total, parent,
+            ATTACH_ROOT
+        )
 
         return WorldTotalViewHolder(view)
     }

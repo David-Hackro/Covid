@@ -1,6 +1,12 @@
 package com.david.hackro.covid.presentation.model
 
 import com.david.hackro.stats.domain.model.DataByStatusItem
+import com.github.mikephil.charting.data.BarEntry
+
+const val ENTRY_CONFIRMED = 3F
+const val ENTRY_DEATH = 2F
+const val ENTRY_RECOVERED = 1F
+const val ENTRY_ACTIVE = 0F
 
 data class CountryItem(
     val countryName: String,
@@ -36,4 +42,17 @@ fun List<DataByStatusItem>.toCountryList(): List<CountryItem> {
 
         return countryList
     }
+}
+
+fun CountryItem.toEntryList(): ArrayList<BarEntry> {
+    val entries = ArrayList<BarEntry>()
+
+    run {
+        entries.add(BarEntry(ENTRY_CONFIRMED, confirmed.toFloat()))
+        entries.add(BarEntry(ENTRY_DEATH, death.toFloat()))
+        entries.add(BarEntry(ENTRY_RECOVERED, recovered.toFloat()))
+        entries.add(BarEntry(ENTRY_ACTIVE, active.toFloat()))
+    }
+
+    return entries
 }

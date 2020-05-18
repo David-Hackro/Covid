@@ -1,4 +1,4 @@
-package com.david.hackro.covid.presentation.adapter
+package com.david.hackro.covid.presentation.adapter.countrytotal
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +11,9 @@ class CountryTotalAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var countryTotalItemList = listOf<CountryTotalItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_total, parent, ATTACH_ROOT)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_total, parent,
+            ATTACH_ROOT
+        )
 
         return CountryTotalViewHolder(view)
     }

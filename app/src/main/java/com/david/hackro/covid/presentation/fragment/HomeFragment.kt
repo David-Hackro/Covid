@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.covid.R
-import com.david.hackro.covid.presentation.adapter.CountryAdapter
-import com.david.hackro.covid.presentation.adapter.WorldTotalAdapter
+import com.david.hackro.covid.presentation.adapter.country.CountryAdapter
+import com.david.hackro.covid.presentation.adapter.wordltotal.WorldTotalAdapter
 import com.david.hackro.covid.presentation.model.CountryItem
 import com.david.hackro.covid.presentation.model.WorldTotalItem
 import com.david.hackro.covid.presentation.model.toItemList

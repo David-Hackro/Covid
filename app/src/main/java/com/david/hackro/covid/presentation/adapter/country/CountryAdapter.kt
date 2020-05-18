@@ -1,4 +1,4 @@
-package com.david.hackro.covid.presentation.adapter
+package com.david.hackro.covid.presentation.adapter.country
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +12,9 @@ class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var onCountryItemListener: ((countryItem: CountryItem) -> Unit)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_covid, parent, ATTACH_ROOT)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_covid, parent,
+            ATTACH_ROOT
+        )
 
         return CountryViewHolder(view)
     }

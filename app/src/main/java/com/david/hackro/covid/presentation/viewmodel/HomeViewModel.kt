@@ -47,7 +47,6 @@ class HomeViewModel(
         _stateSummaryInfo.value = State.Success(summaryInfo)
     }
 
-
     private fun getDataByStatus() {
         val params = GetDataByStatusUseCase.Params(status = DEFAULT_STATUS)
 

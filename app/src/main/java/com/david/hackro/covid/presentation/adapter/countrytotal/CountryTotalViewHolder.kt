@@ -1,4 +1,4 @@
-package com.david.hackro.covid.presentation.adapter
+package com.david.hackro.covid.presentation.adapter.countrytotal
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.david.hackro.covid.presentation.adapter
+package com.david.hackro.covid.presentation.adapter.wordltotal
 
 import android.view.View
 import androidx.core.content.ContextCompat
