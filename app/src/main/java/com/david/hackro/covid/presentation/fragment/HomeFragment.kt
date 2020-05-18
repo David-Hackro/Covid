@@ -2,7 +2,6 @@ package com.david.hackro.covid.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.hackro.androidext.liveDataObserve
@@ -56,9 +55,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun goToCountryDetail(countryItem: CountryItem) {
-        val action = HomeFragmentDirections.actionHomeToCountryDetailsFragment(countryIso = countryItem.countryIso1)
-
-        view?.findNavController()?.navigate(action)
+        getActivityContext().addFragment(CountryDetailsFragment.getInstance(countryIso1 = countryItem.countryIso1))
     }
 
     private fun initRecycler() {
@@ -133,8 +130,10 @@ class HomeFragment : BaseFragment() {
         worldTotalAdapter.setTotalList(worldTotalItemList = worldTotalItemList)
     }
 
-    private companion object {
-        const val SPAN_COUNT = 2
-        const val REVERSE_LAYOUT = false
+    companion object {
+        fun getInstance() = HomeFragment()
+
+        private const val SPAN_COUNT = 2
+        private const val REVERSE_LAYOUT = false
     }
 }

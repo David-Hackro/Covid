@@ -48,7 +48,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:textColor="#505D6F"
+            android:textColor="@color/text_color_label"
             android:textSize="@dimen/text_size_15"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

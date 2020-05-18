@@ -3,13 +3,11 @@ package com.david.hackro.covid.presentation.activity
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.navigation.findNavController
-import androidx.navigation.plusAssign
-import androidx.navigation.ui.setupWithNavController
+import androidx.fragment.app.Fragment
 import com.david.hackro.covid.R
 import com.david.hackro.covid.di.injectFeatures
-import com.david.hackro.covid.presentation.navigation.KeepStateNavigator
-import kotlinx.android.synthetic.main.activity_main.bottomNavView
+import com.david.hackro.covid.presentation.fragment.CountryDetailsFragment
+import com.david.hackro.covid.presentation.fragment.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.progress
 
 class MainActivity : BaseActivity() {
@@ -20,22 +18,25 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         injectFeatures()
-        setupNavigationKeepState()
+        loadFragment()
     }
 
-    private fun setupNavigationKeepState() {
-        val navController = findNavController(R.id.nav_host_fragment)
+    private fun loadFragment() {
+        addFragment(HomeFragment.getInstance())
+    }
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+    fun addFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragmentContainer, fragment)
+            .commit()
+    }
 
-        navHostFragment?.let {
-            val navigator = KeepStateNavigator(this, it.childFragmentManager, R.id.nav_host_fragment)
-            navController.navigatorProvider += navigator
-        }
-
-        navController.setGraph(R.navigation.nav_graph)
-
-        bottomNavView.setupWithNavController(navController)
+    private fun removeFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .remove(fragment)
+            .commit()
     }
 
     override fun showProgress() {
@@ -45,4 +46,16 @@ class MainActivity : BaseActivity() {
     override fun hideProgress() {
         progress.visibility = GONE
     }
+
+    override fun onBackPressed() {
+        when (supportFragmentManager.findFragmentById(R.id.fragmentContainer)) {
+            is HomeFragment -> super.onBackPressed()
+            is CountryDetailsFragment -> {
+                supportFragmentManager.fragments.filterIsInstance<CountryDetailsFragment>().single().run {
+                    removeFragment(this)
+                }
+            }
+        }
+    }
+
 }
