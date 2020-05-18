@@ -25,7 +25,9 @@ import kotlinx.android.synthetic.main.fragment_country_details.bannerTips
 import kotlinx.android.synthetic.main.fragment_country_details.country
 import kotlinx.android.synthetic.main.fragment_country_details.flag
 import kotlinx.android.synthetic.main.fragment_country_details.horizontalBarChart
+import kotlinx.android.synthetic.main.fragment_country_details.horizontalBarChartShimmer
 import kotlinx.android.synthetic.main.fragment_country_details.rvCountry
+import kotlinx.android.synthetic.main.fragment_country_details.totalListShimmer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -128,11 +130,16 @@ class CountryDetailsFragment : BaseFragment() {
                 is State.Success -> {
                     val result = noNullState.responseTo<CountryItem>()
 
+                    hideShimmer()
+                    showChart()
+                    showTotalList()
                     getActivityContext().hideProgress()
 
                     showDataByCountry(countryItem = result)
                 }
                 is State.Failed -> {
+                    hideShimmer()
+
                     getActivityContext().run {
                         hideProgress()
                         handleFailure(failure = noNullState.failure)
@@ -152,6 +159,20 @@ class CountryDetailsFragment : BaseFragment() {
     private fun showTotalByCountry(countryTotalItemList: List<CountryTotalItem>) {
         countryTotalAdapter.setCountryItemList(countryTotalItemList = countryTotalItemList)
     }
+
+    private fun hideShimmer() {
+        horizontalBarChartShimmer.visibility = View.GONE
+        totalListShimmer.visibility = View.GONE
+    }
+
+    private fun showChart() {
+        horizontalBarChart.visibility = View.VISIBLE
+    }
+
+    private fun showTotalList() {
+        rvCountry.visibility = View.VISIBLE
+    }
+
 
     companion object {
 

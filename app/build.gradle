@@ -62,6 +62,7 @@ dependencies {
 
     implementation ThirdPartyLibrary.timber
     implementation ThirdPartyLibrary.androidChart
+    implementation ThirdPartyLibrary.shimmer
 
     kapt AndroidX.lifecycleCompiler
 }

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/small_size"
+    android:elevation="@dimen/small_size"
+    app:cardCornerRadius="@dimen/small_size">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_shimmer">
+
+        <View
+            android:id="@+id/flagShimmer"
+            android:layout_width="@dimen/dimen_40"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_marginStart="@dimen/dimen_4"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:layout_marginEnd="@dimen/dimen_4"
+            android:layout_marginBottom="@dimen/dimen_4"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayoutShimmer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutShimmer"
+            android:layout_width="@dimen/empty_size"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_size"
+            android:layout_marginEnd="@dimen/small_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/flagShimmer"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/confirmedContainerShimmer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/deathsContainerShimmer"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:id="@+id/confirmedNumberShimmer"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/default_size"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:background="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/confirmedShimmer"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/default_size"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:layout_marginBottom="@dimen/small_size"
+                    android:background="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/confirmedNumberShimmer" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/deathsContainerShimmer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recoveredContainerShimmer"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/confirmedContainerShimmer"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:id="@+id/deathsNumberShimmer"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/default_size"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:background="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/deathsShimmer"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/default_size"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:layout_marginBottom="@dimen/small_size"
+                    android:background="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deathsNumberShimmer" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recoveredContainerShimmer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/activeContainerShimmer"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/deathsContainerShimmer"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:id="@+id/recoveredNumberShimmer"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/default_size"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:background="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/recoveredShimmer"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/default_size"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:layout_marginBottom="@dimen/small_size"
+                    android:background="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recoveredNumberShimmer" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activeContainerShimmer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/recoveredContainerShimmer"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:id="@+id/activeNumberShimmer"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/default_size"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:background="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/active"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/default_size"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:layout_marginTop="@dimen/small_size"
+                    android:layout_marginEnd="@dimen/small_size"
+                    android:layout_marginBottom="@dimen/small_size"
+                    android:background="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activeNumberShimmer" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

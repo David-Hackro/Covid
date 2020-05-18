@@ -18,6 +18,7 @@ object Versions {
 
     const val timber = "4.7.1"
     const val androidChart = "v3.1.0"
+    const val shimmer = "0.5.0"
 
     const val koin = "2.1.5"
 
@@ -74,6 +75,7 @@ object Koin {
 object ThirdPartyLibrary {
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val androidChart = "com.github.PhilJay:MPAndroidChart:${Versions.androidChart}"
+    const val shimmer = "com.facebook.shimmer:shimmer:${Versions.shimmer}"
 }
 
 object Glide {

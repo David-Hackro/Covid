@@ -39,8 +39,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTotal"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/totalContainer"
             android:layout_width="@dimen/empty_size"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_size"
@@ -49,7 +49,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTotal"
+                android:layout_width="@dimen/empty_size"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/totalListShimmer"
+                layout="@layout/total_list_shimmer"
+                android:layout_width="@dimen/empty_size"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/textView2"
@@ -63,10 +86,27 @@
             android:textSize="@dimen/text_size_25"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvTotal" />
+            app:layout_constraintTop_toBottomOf="@+id/totalContainer" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCountry"
+            android:layout_width="@dimen/empty_size"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/default_size"
+            android:layout_marginTop="@dimen/default_size"
+            android:layout_marginEnd="@dimen/default_size"
+            android:layout_marginBottom="@dimen/default_size"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <include
+            android:id="@+id/countryListShimmer"
+            layout="@layout/country_list_shimmer"
             android:layout_width="@dimen/empty_size"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/default_size"
@@ -79,6 +119,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintVertical_bias="0.0" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
