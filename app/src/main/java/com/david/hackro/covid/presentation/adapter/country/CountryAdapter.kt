@@ -8,11 +8,13 @@ import com.david.hackro.covid.presentation.model.CountryItem
 
 class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var countryFinalList = listOf<CountryItem>()
     private var countryList = listOf<CountryItem>()
     lateinit var onCountryItemListener: ((countryItem: CountryItem) -> Unit)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_covid, parent,
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.item_country_covid, parent,
             ATTACH_ROOT
         )
 
@@ -28,8 +30,14 @@ class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount() = countryList.size
 
     fun setCountryList(countryList: List<CountryItem>) {
+        this.countryFinalList = countryList
         this.countryList = countryList
 
+        notifyDataSetChanged()
+    }
+
+    fun filterByQuery(query: String) {
+        countryList = countryFinalList.filter { it.countryName.toLowerCase().contains(query) }
         notifyDataSetChanged()
     }
 
