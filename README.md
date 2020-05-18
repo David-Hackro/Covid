@@ -4,6 +4,9 @@
 - Help the people show the current data about the `Covid` [Play Store]
 - Getting `feedback` about the implementation
 
+## Donations WHO
+- https://www.who.int/emergencies/diseases/novel-coronavirus-2019/donate
+
 ## Screens
 
 <img src="https://i.ibb.co/3d9xX4r/image.png" width="260">&emsp;<img src="https://i.ibb.co/LzNMnnj/image.png" width="260">
