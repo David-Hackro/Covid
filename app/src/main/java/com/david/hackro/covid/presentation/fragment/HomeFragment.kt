@@ -2,6 +2,7 @@ package com.david.hackro.covid.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.hackro.androidext.liveDataObserve
@@ -16,6 +17,7 @@ import com.david.hackro.domain.State
 import com.david.hackro.stats.domain.model.SummaryInfo
 import kotlinx.android.synthetic.main.fragment_home.rvCountry
 import kotlinx.android.synthetic.main.fragment_home.rvTotal
+import kotlinx.android.synthetic.main.fragment_home.searchView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -52,6 +54,21 @@ class HomeFragment : BaseFragment() {
         countryAdapter.onCountryItemListener = {
             goToCountryDetail(countryItem = it)
         }
+
+        searchView.setOnQueryTextListener(object : OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                countryAdapter.filterByQuery(query = newText)
+
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                countryAdapter.filterByQuery(query = query)
+
+                return false
+            }
+        })
     }
 
     private fun goToCountryDetail(countryItem: CountryItem) {
