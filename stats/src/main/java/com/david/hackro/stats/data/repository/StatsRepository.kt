@@ -6,6 +6,7 @@ import com.david.hackro.stats.domain.model.DataByStatus
 import com.david.hackro.stats.domain.model.SummaryInfo
 
 interface StatsRepository {
+
     suspend fun getSummaryInfo(): Either<Failure, SummaryInfo>
 
     suspend fun getDataByStatus(status: String): Either<Failure, DataByStatus>
