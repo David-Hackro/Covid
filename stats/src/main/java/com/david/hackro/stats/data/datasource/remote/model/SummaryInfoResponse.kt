@@ -46,15 +46,15 @@ data class DeathsResponse(
     val value: Int
 )
 
-fun SummaryInfoResponse.toModel() = SummaryInfo(
-    recovered = recovered.toModel(),
-    confirmed = confirmed.toModel(),
-    deaths = deaths.toModel(),
+fun SummaryInfoResponse.toDomain() = SummaryInfo(
+    recovered = recovered.toDomain(),
+    confirmed = confirmed.toDomain(),
+    deaths = deaths.toDomain(),
     lastUpdate = lastUpdate
 )
 
-private fun RecoveredResponse.toModel() = DataValue(detail = detail, value = value)
+private fun RecoveredResponse.toDomain() = DataValue(detail = detail, value = value)
 
-private fun ConfirmedResponse.toModel() = DataValue(detail = detail, value = value)
+private fun ConfirmedResponse.toDomain() = DataValue(detail = detail, value = value)
 
-private fun DeathsResponse.toModel() = DataValue(detail = detail, value = value)
+private fun DeathsResponse.toDomain() = DataValue(detail = detail, value = value)

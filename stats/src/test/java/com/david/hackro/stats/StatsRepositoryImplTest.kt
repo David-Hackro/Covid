@@ -9,9 +9,9 @@ import com.david.hackro.stats.StatsRepositoryImplTest.RELAXED_TRUE
 import com.david.hackro.stats.StatsRepositoryImplTest.VERIFY_ONE_INTERACTION
 import com.david.hackro.stats.StatsRepositoryImplTest.VERIFY_ZERO_INTERACTIONS
 import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
-import com.david.hackro.stats.data.datasource.remote.model.rapidapi.ReportResponse
-import com.david.hackro.stats.data.datasource.remote.model.rapidapi.TotalsResponse
-import com.david.hackro.stats.data.datasource.remote.model.rapidapi.toDomain
+import com.david.hackro.stats.data.datasource.remote.model.DataByStatusResponse
+import com.david.hackro.stats.data.datasource.remote.model.SummaryInfoResponse
+import com.david.hackro.stats.data.datasource.remote.model.toDomain
 import com.david.hackro.stats.data.repository.StatsRepositoryImpl
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
@@ -38,60 +38,61 @@ object StatsRepositoryImplTest : Spek({
         val name = "Mexico"
         val date = "2020-05-01"
 
-        test("get latest country data by name success") {
+        test("get summary info") {
             //Given
-            val response: List<ReportResponse> = mockk(relaxed = RELAXED_TRUE)
+            val response: SummaryInfoResponse = mockk(relaxed = RELAXED_TRUE)
 
             every { networkHandler.isConnected } returns NETWORK_CONNECTED
 
             coEvery {
-                remoteDataSource.getLatestCountryDataByName(date = date, name = name)
+                remoteDataSource.getSummaryInfo()
             } returns response
 
             //When
             runBlocking {
-                val result = repositoryImpl.getLatestCountryDataByName(date = date, name = name)
-                Assert.assertEquals((result as Either.Right).b, response.map { it.toDomain() })
+                val result = repositoryImpl.getSummaryInfo()
+                Assert.assertEquals((result as Either.Right).b, response.toDomain())
             }
 
             //Then
             verify { networkHandler.isConnected }
             verify(exactly = VERIFY_ONE_INTERACTION) { networkHandler.isConnected }
 
-            coVerify { remoteDataSource.getLatestCountryDataByName(date = date, name = name) }
+            coVerify { remoteDataSource.getSummaryInfo() }
 
             confirmVerified(networkHandler, remoteDataSource)
         }
 
-        test("get latest country data by name fail when isn't connect") {
+        test("get summary info fail when isn't connect") {
             //Given
             every { networkHandler.isConnected } returns NETWORK_DISCONNECTED
 
             //When
             runBlocking {
-                val result = repositoryImpl.getLatestCountryDataByName(name = name, date = date)
+                val result = repositoryImpl.getSummaryInfo()
                 Assert.assertEquals((result as Either.Left).a, Failure.NetworkConnection)
             }
 
             //Then
             verify(exactly = VERIFY_ONE_INTERACTION) { networkHandler.isConnected }
-            coVerify(exactly = VERIFY_ZERO_INTERACTIONS) { remoteDataSource.getLatestCountryDataByName(date = date, name = name) }
+            coVerify(exactly = VERIFY_ZERO_INTERACTIONS) { remoteDataSource.getSummaryInfo() }
             confirmVerified(networkHandler, remoteDataSource)
         }
 
-        test("getDailyReportAllCountries success") {
+        test("get data by status success") {
             //Given
-            val response: List<ReportResponse> = mockk(relaxed = RELAXED_TRUE)
+            val response: List<DataByStatusResponse> = mockk(relaxed = RELAXED_TRUE)
+            val status = "confirmed"
 
             every { networkHandler.isConnected } returns NETWORK_CONNECTED
 
             coEvery {
-                remoteDataSource.getDailyReportAllCountries(date = date)
+                remoteDataSource.getDataByStatus(status = status)
             } returns response
 
             ///When
             runBlocking {
-                val result = repositoryImpl.getDailyReportAllCountries(date = date)
+                val result = repositoryImpl.getDataByStatus(status = status)
                 Assert.assertEquals((result as Either.Right).b, response.map { it.toDomain() })
             }
 
@@ -99,68 +100,25 @@ object StatsRepositoryImplTest : Spek({
             verify { networkHandler.isConnected }
             verify(exactly = VERIFY_ONE_INTERACTION) { networkHandler.isConnected }
 
-            coVerify { remoteDataSource.getDailyReportAllCountries(date = date) }
+            coVerify { remoteDataSource.getDataByStatus(status = status) }
 
             confirmVerified(networkHandler, remoteDataSource)
         }
 
-        test("get daily report all countries fail when isn't connect") {
+        test("get data by status fail when isn't connect") {
             //Given
             every { networkHandler.isConnected } returns NETWORK_DISCONNECTED
+            val status = "confirmed"
 
             //When
             runBlocking {
-                val result = repositoryImpl.getDailyReportAllCountries(date = date)
+                val result = repositoryImpl.getDataByStatus(status = status)
                 Assert.assertEquals((result as Either.Left).a, Failure.NetworkConnection)
             }
 
             //Then
             verify(exactly = VERIFY_ONE_INTERACTION) { networkHandler.isConnected }
-            coVerify(exactly = VERIFY_ZERO_INTERACTIONS) { remoteDataSource.getDailyReportAllCountries(date = date) }
-            confirmVerified(networkHandler, remoteDataSource)
-        }
-
-    }
-
-    group("total") {
-        test("get latest totals success") {
-            //Given
-            val response: List<TotalsResponse> = mockk(relaxed = RELAXED_TRUE)
-
-            every { networkHandler.isConnected } returns NETWORK_CONNECTED
-
-            coEvery {
-                remoteDataSource.getLatestTotals()
-            } returns response
-
-            //When
-            runBlocking {
-                val result = repositoryImpl.getLatestTotals()
-                Assert.assertEquals((result as Either.Right).b, response.map { it.toDomain() })
-            }
-
-            //Then
-            verify { networkHandler.isConnected }
-            verify(exactly = VERIFY_ONE_INTERACTION) { networkHandler.isConnected }
-
-            coVerify { remoteDataSource.getLatestTotals() }
-
-            confirmVerified(networkHandler, remoteDataSource)
-        }
-
-        test("get latest totals  fail when isn't connect") {
-            //Given
-            every { networkHandler.isConnected } returns NETWORK_DISCONNECTED
-
-            //When
-            runBlocking {
-                val result = repositoryImpl.getLatestTotals()
-                Assert.assertEquals((result as Either.Left).a, Failure.NetworkConnection)
-            }
-
-            //Then
-            verify(exactly = VERIFY_ONE_INTERACTION) { networkHandler.isConnected }
-            coVerify(exactly = VERIFY_ZERO_INTERACTIONS) { remoteDataSource.getLatestTotals() }
+            coVerify(exactly = VERIFY_ZERO_INTERACTIONS) { remoteDataSource.getDataByStatus(status = status) }
             confirmVerified(networkHandler, remoteDataSource)
         }
     }
