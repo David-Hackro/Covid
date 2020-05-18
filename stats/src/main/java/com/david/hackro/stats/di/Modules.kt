@@ -8,7 +8,6 @@ import com.david.hackro.stats.data.datasource.remote.StatsApi
 import com.david.hackro.stats.data.datasource.remote.StatsRemoteDataSource
 import com.david.hackro.stats.data.repository.StatsRepository
 import com.david.hackro.stats.data.repository.StatsRepositoryImpl
-import com.david.hackro.stats.domain.usecase.GetCountryListUseCase
 import com.david.hackro.stats.domain.usecase.GetDataByStatusUseCase
 import com.david.hackro.stats.domain.usecase.GetSummaryInfoUseCase
 import org.koin.core.module.Module
@@ -18,7 +17,6 @@ import retrofit2.Retrofit
 val useCaseModule: Module = module {
     factory { GetSummaryInfoUseCase(repository = get()) }
     factory { GetDataByStatusUseCase(repository = get()) }
-    factory { GetCountryListUseCase(repository = get()) }
 }
 
 val repositoryModule: Module = module {

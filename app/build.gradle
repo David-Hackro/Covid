@@ -8,12 +8,6 @@ android {
     compileSdkVersion DefaultConfig.compileSdkVersion
     buildToolsVersion DefaultConfig.buildToolsVersion
 
-    def GOOGLE_API_KEY_DEBUG = project.hasProperty('google_api_key_debug') ? "${google_api_key_debug}" :
-            "$System.env.google_api_key_debug"
-
-    def GOOGLE_API_KEY_RELEASE = project.hasProperty('google_api_key_relase') ? "${google_api_key_relase}" :
-            "$System.env.google_api_key_relase"
-
     defaultConfig {
         minSdkVersion DefaultConfig.minSdkVersion
         targetSdkVersion DefaultConfig.targetSdkVersion
@@ -24,13 +18,7 @@ android {
     }
 
     buildTypes {
-        debug {
-            resValue "string", "google_api_key", "\"${GOOGLE_API_KEY_DEBUG}\""
-        }
-
         release {
-            resValue "string", "google_api_key", "\"${GOOGLE_API_KEY_RELEASE}\""
-
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -66,6 +54,7 @@ dependencies {
     implementation AndroidX.constraintlayout
 
     implementation Glide.glide
+    implementation AndroidX.legacy
     kapt Glide.glideCompile
 
     implementation Google.material
