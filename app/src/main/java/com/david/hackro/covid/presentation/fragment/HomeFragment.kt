@@ -15,9 +15,11 @@ import com.david.hackro.covid.presentation.model.toItemList
 import com.david.hackro.covid.presentation.viewmodel.HomeViewModel
 import com.david.hackro.domain.State
 import com.david.hackro.stats.domain.model.SummaryInfo
+import kotlinx.android.synthetic.main.fragment_home.countryListShimmer
 import kotlinx.android.synthetic.main.fragment_home.rvCountry
 import kotlinx.android.synthetic.main.fragment_home.rvTotal
 import kotlinx.android.synthetic.main.fragment_home.searchView
+import kotlinx.android.synthetic.main.fragment_home.totalListShimmer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -93,11 +95,17 @@ class HomeFragment : BaseFragment() {
                 is State.Success -> {
                     val result = noNullState.responseTo<SummaryInfo>()
 
+                    hideTotalListShimmer()
+                    showTotalList()
+
                     getActivityContext().hideProgress()
 
                     showTotalReports(summaryInfo = result)
                 }
                 is State.Failed -> {
+                    hideTotalListShimmer()
+                    showTotalList()
+
                     getActivityContext().run {
                         hideProgress()
                         handleFailure(failure = noNullState.failure)
@@ -115,11 +123,16 @@ class HomeFragment : BaseFragment() {
                 is State.Success -> {
                     val result = noNullState.responseTo<List<CountryItem>>()
 
+                    hideCountryListShimmer()
+                    showCountryList()
                     getActivityContext().hideProgress()
 
                     showCountryList(countryList = result)
                 }
                 is State.Failed -> {
+                    hideCountryListShimmer()
+                    showCountryList()
+
                     getActivityContext().run {
                         hideProgress()
                         handleFailure(failure = noNullState.failure)
@@ -140,6 +153,22 @@ class HomeFragment : BaseFragment() {
 
     private fun setValuesAdapter(worldTotalItemList: List<WorldTotalItem>) {
         worldTotalAdapter.setTotalList(worldTotalItemList = worldTotalItemList)
+    }
+
+    private fun hideTotalListShimmer() {
+        totalListShimmer.visibility = View.GONE
+    }
+
+    private fun hideCountryListShimmer() {
+        countryListShimmer.visibility = View.GONE
+    }
+
+    private fun showCountryList() {
+        rvCountry.visibility = View.VISIBLE
+    }
+
+    private fun showTotalList() {
+        rvTotal.visibility = View.VISIBLE
     }
 
     companion object {

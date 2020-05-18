@@ -11,8 +11,6 @@ import kotlinx.android.synthetic.main.item_country_covid.view.confirmedNumber
 import kotlinx.android.synthetic.main.item_country_covid.view.deathsNumber
 import kotlinx.android.synthetic.main.item_country_covid.view.flag
 import kotlinx.android.synthetic.main.item_country_covid.view.recoveredNumber
-import java.text.NumberFormat
-import java.util.Locale
 
 class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
