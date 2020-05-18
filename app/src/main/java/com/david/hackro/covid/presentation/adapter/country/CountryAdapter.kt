@@ -8,6 +8,7 @@ import com.david.hackro.covid.presentation.model.CountryItem
 
 class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var countryFinalList = listOf<CountryItem>()
     private var countryList = listOf<CountryItem>()
     lateinit var onCountryItemListener: ((countryItem: CountryItem) -> Unit)
 
@@ -29,13 +30,15 @@ class CountryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount() = countryList.size
 
     fun setCountryList(countryList: List<CountryItem>) {
+        this.countryFinalList = countryList
         this.countryList = countryList
 
         notifyDataSetChanged()
     }
 
     fun filterByQuery(query: String) {
-
+        countryList = countryFinalList.filter { it.countryName.toLowerCase().contains(query) }
+        notifyDataSetChanged()
     }
 
     private companion object {

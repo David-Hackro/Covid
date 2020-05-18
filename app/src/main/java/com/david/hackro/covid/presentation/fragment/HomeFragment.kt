@@ -56,18 +56,13 @@ class HomeFragment : BaseFragment() {
         }
 
         searchView.setOnQueryTextListener(object : OnQueryTextListener {
-
             override fun onQueryTextChange(newText: String): Boolean {
-                countryAdapter.filterByQuery(query = newText)
+                countryAdapter.filterByQuery(query = newText.toLowerCase())
 
-                return false
+                return true
             }
 
-            override fun onQueryTextSubmit(query: String): Boolean {
-                countryAdapter.filterByQuery(query = query)
-
-                return false
-            }
+            override fun onQueryTextSubmit(query: String) = ON_QUERY_TEXT_SUBMIT
         })
     }
 
@@ -152,5 +147,6 @@ class HomeFragment : BaseFragment() {
 
         private const val SPAN_COUNT = 2
         private const val REVERSE_LAYOUT = false
+        private const val ON_QUERY_TEXT_SUBMIT = false
     }
 }
