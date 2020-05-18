@@ -15,4 +15,6 @@
     <color name="active">#FFC742</color>
     <color name="critical">#FFC742</color>
 
+    <color name="text_color_label">#505D6F</color>
+
 </resources>

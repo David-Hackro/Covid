@@ -5,7 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.navArgs
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.david.hackro.androidext.liveDataObserve
 import com.david.hackro.androidext.setUrlCircle
@@ -102,13 +102,14 @@ class CountryDetailsFragment : BaseFragment() {
     )
 
     private fun initValues() {
-        val args: CountryDetailsFragmentArgs by navArgs()
+
+        /*val args: CountryDetailsFragmentArgs by navArgs()
 
         args.countryIso.run {
             setModelViewValue(this)
             showFlag(countryIso = this)
             showNameCountry(countryIso = this)
-        }
+        }*/
     }
 
     private fun setModelViewValue(countryIso: String) {
@@ -155,13 +156,20 @@ class CountryDetailsFragment : BaseFragment() {
         countryTotalAdapter.setCountryItemList(countryTotalItemList = countryTotalItemList)
     }
 
-    private companion object {
-        const val SPAN_COUNT = 2
-        const val ANIMATE_DEFAULT_X = 1500
-        const val ANIMATE_DEFAULT_Y = 2500
-        const val LEGEND_DISABLE = false
-        const val DRAW_LABELS_DISABLE = false
-        const val REVERSE_LAYOUT = false
-        const val GRANULARITY = 1F
+    companion object {
+
+        fun getInstance(countryIso1: String): Fragment {
+            val args = Bundle().apply { putString(ARG_PARAM, countryIso1) }
+            return CountryDetailsFragment().apply { arguments = args }
+        }
+
+        private const val ARG_PARAM = "countryIso"
+        private const val SPAN_COUNT = 2
+        private const val ANIMATE_DEFAULT_X = 1500
+        private const val ANIMATE_DEFAULT_Y = 2500
+        private const val LEGEND_DISABLE = false
+        private const val DRAW_LABELS_DISABLE = false
+        private const val REVERSE_LAYOUT = false
+        private const val GRANULARITY = 1F
     }
 }

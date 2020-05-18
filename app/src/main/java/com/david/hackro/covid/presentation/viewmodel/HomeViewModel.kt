@@ -66,6 +66,4 @@ class HomeViewModel(
     private companion object {
         const val DEFAULT_STATUS = "confirmed"
     }
-
 }
-
