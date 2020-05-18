@@ -1,5 +1,8 @@
-
 # Covid-19 ![Android Pull Request & Master CI](https://github.com/David-Hackro/Covid/workflows/Android%20Pull%20Request%20&%20Master%20CI/badge.svg)
+
+## Goals
+- Help the people show the current data about the `Covid` [Play Store]
+- Getting `feedback` about the implementation
 
 ## Screens
 
@@ -23,9 +26,13 @@
 - [Spek](https://github.com/spekframework)
 - [Mockk](https://mockk.io/)
 - [Chuck](https://github.com/jgilfelt/chuck)
+- [Shimmer](https://github.com/facebook/shimmer-android)
 
 ## API
-- [https://covid19-api.com/docs](https://covid19-api.com/docs)
+- [https://github.com/mathdroid/covid-19-api](https://github.com/mathdroid/covid-19-api)
+
+## Inspired by https://www.uplabs.com/posts/covid-app
+
 
 License
 ----
