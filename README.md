@@ -3,7 +3,8 @@
 
 ## Screens
 
---pending-- 
+<img src="https://i.ibb.co/3d9xX4r/image.png" width="260">&emsp;<img src="https://i.ibb.co/LzNMnnj/image.png" width="260">
+
 ##  Architecture
 ![alt text](https://i.ibb.co/MCyhNdL/Untitled-Diagram-4.png)
 
