@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Covid-19</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_totals">Totals</string>
     <string name="tab_countries">Countries</string>
     <string name="tab_maps">Maps</string>
@@ -16,4 +14,9 @@
 
     <string name="url_flag">https://flagpedia.net/data/flags/normal/%1$s.png</string>
     <string name="url_questions_oms">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub</string>
+    <string name="rate">rate:</string>
+    <string name="prevention">Prevention</string>
+    <string name="check_who_guidelines">Check WHO Guidelines</string>
+    <string name="world_update">World Update</string>
+    <string name="most_infected">Most Confirmed</string>
 </resources>
