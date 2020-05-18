@@ -12,14 +12,12 @@
         android:layout_width="@dimen/empty_size"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:background="@color/background"
         android:indeterminate="true"
         android:max="100"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
