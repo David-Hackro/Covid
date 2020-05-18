@@ -31,7 +31,9 @@
 ## API
 - [https://github.com/mathdroid/covid-19-api](https://github.com/mathdroid/covid-19-api)
 
-## Inspired by https://www.uplabs.com/posts/covid-app
+## Inspired by 
+
+https://www.uplabs.com/posts/covid-app
 
 
 License
