@@ -35,5 +35,4 @@ class StatsRepositoryImpl(
     } catch (ex: Exception) {
         Either.Left(Failure.GenericError(ex))
     }
-
 }
