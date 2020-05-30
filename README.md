@@ -1,7 +1,7 @@
 # Covid-19 ![Android Pull Request & Master CI](https://github.com/David-Hackro/Covid/workflows/Android%20Pull%20Request%20&%20Master%20CI/badge.svg)
 
 ## Goals
-- Help the people show the current data about the `Covid` [Play Store]
+- Help the people show the current data about the `Covid`
 - Getting `feedback` about the implementation
 
 ## Donations WHO
