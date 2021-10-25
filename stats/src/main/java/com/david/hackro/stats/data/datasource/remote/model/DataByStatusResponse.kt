@@ -9,7 +9,7 @@ data class DataByStatusResponse(
     val countryRegion: String,
 
     @field:Json(name = "active")
-    val active: Int,
+    val active: Int?,
 
     @field:Json(name = "confirmed")
     val confirmed: Int,
@@ -27,7 +27,7 @@ data class DataByStatusResponse(
     val uid: Int,
 
     @field:Json(name = "recovered")
-    val recovered: Int,
+    val recovered: Int?,
 
     @field:Json(name = "lastUpdate")
     val lastUpdate: Long,

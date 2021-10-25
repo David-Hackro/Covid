@@ -30,9 +30,13 @@ fun List<DataByStatusItem>.toCountryList(): List<CountryItem> {
 
             value.map {
                 confirmed += it.confirmed
-                recovered += it.recovered
+                it.recovered?.let {
+                    recovered += it
+                }
+                it.active?.let {
+                    active += it
+                }
                 death += it.deaths
-                active += it.active
             }
 
             value.first().run { countryList.add(CountryItem(key, iso2.toString(), iso3.toString(), confirmed, recovered, death, active)) }

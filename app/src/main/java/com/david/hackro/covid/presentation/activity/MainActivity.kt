@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.david.hackro.covid.R
 import com.david.hackro.covid.di.injectFeatures
 import com.david.hackro.covid.presentation.fragment.CountryDetailsFragment

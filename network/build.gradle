@@ -13,8 +13,6 @@ android {
     defaultConfig {
         minSdkVersion DefaultConfig.minSdkVersion
         targetSdkVersion DefaultConfig.targetSdkVersion
-        versionCode Network.versionCode
-        versionName Network.versionName
 
         buildConfigField "String", "RAPI_API_KEY", "\"${RAPI_API_KEY}\""
 
