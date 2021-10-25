@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.david.hackro.covid.R
 import com.david.hackro.covid.di.injectFeatures
 import com.david.hackro.covid.presentation.fragment.CountryDetailsFragment
 import com.david.hackro.covid.presentation.fragment.HomeFragment
-import kotlinx.android.synthetic.main.activity_main.progress
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
@@ -30,12 +29,15 @@ class MainActivity : BaseActivity() {
         supportFragmentManager
             .beginTransaction()
             .add(R.id.fragmentContainer, fragment)
+            .setCustomAnimations(R.animator.slide_up, 0, 0, R.animator.slide_down)
+            .show(fragment)
             .commit()
     }
 
     private fun removeFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.animator.slide_down, 0, 0, R.animator.slide_up)
             .remove(fragment)
             .commit()
     }
@@ -52,9 +54,10 @@ class MainActivity : BaseActivity() {
         when (supportFragmentManager.findFragmentById(R.id.fragmentContainer)) {
             is HomeFragment -> super.onBackPressed()
             is CountryDetailsFragment -> {
-                supportFragmentManager.fragments.filterIsInstance<CountryDetailsFragment>().single().run {
-                    removeFragment(this)
-                }
+                supportFragmentManager.fragments.filterIsInstance<CountryDetailsFragment>().single()
+                    .run {
+                        removeFragment(this)
+                    }
             }
         }
     }
